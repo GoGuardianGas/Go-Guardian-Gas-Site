@@ -1238,7 +1238,9 @@ footer {
 /* -- PRINT STYLES (checklist) ---------------------------- */
 @media print {
   body { background: white; color: black; }
-  .nav, .nav-spacer, footer, .checklist-actions, .btu-reset, .check-warning, .page-hero { display: none !important; }
+  /* Force any scroll-animated content fully visible — otherwise unscrolled sections print blank */
+  .fade-up { opacity: 1 !important; transform: none !important; }
+  .nav, .nav-spacer, footer, .checklist-actions, .btu-reset, .check-warning, .page-hero, .mobile-call-bar, .no-print { display: none !important; }
   .checklist-progress { background: white; border: 1px solid #999; }
   .check-item label {
     background: white !important;
