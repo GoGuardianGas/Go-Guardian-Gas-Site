@@ -55,7 +55,7 @@ The form is already wired to Web3Forms with the access key in `contact.html`.
 For leads to reach the right inbox:
 
 1. Log in at https://web3forms.com (the account that owns the access key
-   `37a62898-d0de-4f44-8d34-5fbc5a4a3934`).
+   `2c563522-7fe8-485d-abf1-e76b88898f1b`).
 2. Confirm the **email on that key is `Info@GoGuardianGas.com`**.
    If it shows a different address, leads are going there instead — fix it in the
    Web3Forms dashboard.

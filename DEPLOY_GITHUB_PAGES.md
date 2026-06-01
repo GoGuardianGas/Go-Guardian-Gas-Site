@@ -67,7 +67,7 @@ the same on GitHub Pages.
 1. Go to web3forms.com → create an access key with **Info@GoGuardianGas.com**.
 2. Click the verification link emailed to that address.
 3. In your repo, edit `contact.html`, find the old key
-   `37a62898-d0de-4f44-8d34-5fbc5a4a3934` and replace it with your new key.
+   `2c563522-7fe8-485d-abf1-e76b88898f1b` and replace it with your new key.
 4. Commit. GitHub Pages redeploys automatically.
 5. Open the live Contact page, submit the form with your own email, confirm
    it lands at Info@GoGuardianGas.com (check spam the first time).
