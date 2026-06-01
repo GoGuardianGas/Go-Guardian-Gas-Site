@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact | Guardian Gas Solutions | Request an Estimate</title>
+<meta name="description" content="Get a free estimate from Guardian Gas Solutions. Licensed propane and natural gas contractor serving North and Central Florida. Phone (877) 410-2195.">
+<link rel="icon" type="image/png" href="images/shield.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Manrope:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/site.css">
+<style>
+  .page-hero {
+    padding: var(--space-7) 0 var(--space-6);
+    position: relative;
+    background: var(--near-black);
+    border-bottom: 1px solid var(--hairline);
+    overflow: hidden;
+  }
+  .page-hero-bg {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 60% 50% at 80% 20%, rgba(30,91,191,0.10), transparent 60%),
+      linear-gradient(to right, var(--hairline) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--hairline) 1px, transparent 1px);
+    background-size: auto, 100px 100px, 100px 100px;
+    mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+  }
+  .page-hero-content {
+    position: relative; z-index: 2;
+    max-width: 720px;
+  }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: var(--space-6);
+    align-items: start;
+  }
+  @media (max-width: 900px) {
+    .contact-grid { grid-template-columns: 1fr; gap: var(--space-4); }
+  }
+
+  .contact-info {
+    position: sticky;
+    top: 100px;
+  }
+  @media (max-width: 900px) { .contact-info { position: static; } }
+
+  .contact-method {
+    padding: var(--space-3) 0;
+    border-bottom: 1px solid var(--hairline);
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-3);
+  }
+  .contact-method:last-child { border-bottom: none; }
+
+  .contact-method-icon {
+    width: 40px; height: 40px;
+    color: var(--royal-2);
+    flex-shrink: 0;
+  }
+  .contact-method-label {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--silver-deep);
+    margin-bottom: 0.25rem;
+  }
+  .contact-method-value {
+    font-family: var(--font-display);
+    font-size: 1.375rem;
+    font-weight: 500;
+    color: var(--silver-light);
+    letter-spacing: 0.02em;
+    line-height: 1.2;
+  }
+  .contact-method-value a:hover { color: var(--royal-2); }
+  .contact-method-detail {
+    font-size: 0.875rem;
+    color: var(--silver-mid);
+    margin-top: 0.25rem;
+  }
+
+  .form-wrap {
+    background: var(--charcoal-2);
+    border: 1px solid var(--hairline);
+    padding: var(--space-5);
+    border-radius: 4px;
+  }
+  @media (max-width: 600px) { .form-wrap { padding: var(--space-3); } }
+
+  .form-success {
+    display: none;
+    background: rgba(30, 91, 191, 0.1);
+    border: 1px solid rgba(30, 91, 191, 0.4);
+    padding: var(--space-3);
+    border-radius: 4px;
+    margin-bottom: var(--space-3);
+    color: var(--cyan);
+  }
+  .form-success.active { display: block; }
+
+  .form-error {
+    display: none;
+    background: rgba(220, 50, 50, 0.1);
+    border: 1px solid rgba(220, 50, 50, 0.4);
+    padding: var(--space-3);
+    border-radius: 4px;
+    margin-bottom: var(--space-3);
+    color: #ff8585;
+  }
+  .form-error.active { display: block; }
+
+  /* fuel + service choice pills */
+  .choice-row { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+  .choice-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.6rem; }
+  @media (max-width: 480px) { .choice-grid { grid-template-columns: 1fr; } }
+  .choice-pill {
+    display: flex; align-items: center; gap: 0.5rem;
+    padding: 0.7rem 1rem;
+    background: var(--black);
+    border: 1px solid var(--hairline);
+    border-radius: 4px;
+    color: var(--silver-light);
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    user-select: none;
+  }
+  .choice-pill:hover { border-color: var(--silver-deep); }
+  .choice-pill input { accent-color: var(--royal-2); width: 16px; height: 16px; cursor: pointer; }
+  .choice-pill:has(input:checked) {
+    border-color: var(--royal-2);
+    background: rgba(30,91,191,0.12);
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <img src="images/logo_nav.png" alt="Guardian Gas Solutions">
+    </a>
+    <button class="nav-toggle" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-menu">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="storm-readiness.html">Storm Readiness</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html" class="active">Contact</a></li>
+      <li><a href="tel:8774102195" class="nav-call"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>(877) 410-2195</a></li>
+    </ul>
+  </div>
+</nav>
+<div class="nav-spacer"></div>
+
+<!-- ===== PAGE HERO ===== -->
+<section class="page-hero">
+  <div class="page-hero-bg"></div>
+  <div class="container">
+    <div class="page-hero-content fade-up">
+      <div class="eyebrow">Contact</div>
+      <h1 style="font-size: clamp(2.5rem, 5vw, 4.5rem); margin-bottom: var(--space-3);">
+        Let's Talk<br>
+        <span style="color: var(--royal-2);">Gas.</span>
+      </h1>
+      <p style="font-size: 1.125rem; max-width: 580px;">
+        Send a few details about your project. We'll come back with next steps: a site visit, a written estimate, or just a straight answer about whether what you're thinking is feasible.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CONTACT GRID ===== -->
+<section>
+  <div class="container">
+    <div class="contact-grid">
+
+      <!-- LEFT: contact methods -->
+      <aside class="contact-info fade-up">
+        <div class="eyebrow">Direct Lines</div>
+
+        <div style="margin: var(--space-3) 0;">
+          <a href="tel:8774102195" class="btn-call" style="width:100%; justify-content:center;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            <span><span class="call-sub">CALL US NOW</span>(877) 410-2195</span>
+          </a>
+        </div>
+
+        <div class="contact-method">
+          <div class="contact-method-icon">
+            <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="10" y="22" width="80" height="56" rx="2"/>
+              <path d="M10 26 L50 56 L90 26"/>
+            </svg>
+          </div>
+          <div>
+            <div class="contact-method-label">Email</div>
+            <div class="contact-method-value"><a href="mailto:Info@GoGuardianGas.com">Info@GoGuardianGas.com</a></div>
+            <div class="contact-method-detail">We reply within one business day.</div>
+          </div>
+        </div>
+
+        <div class="contact-method">
+          <div class="contact-method-icon">
+            <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="50" cy="50" r="40"/>
+              <path d="M50 20 L50 50 L70 60"/>
+            </svg>
+          </div>
+          <div>
+            <div class="contact-method-label">Hours</div>
+            <div class="contact-method-value" style="font-size: 1.0625rem; font-family: var(--font-body); font-weight: 500;">Monday – Friday<br>8:00 AM – 5:00 PM EST</div>
+            <div class="contact-method-detail">After-hours messages returned next business day. No emergency or after-hours service.</div>
+          </div>
+        </div>
+      </aside>
+
+      <!-- RIGHT: form -->
+      <div class="fade-up">
+        <div class="form-wrap">
+          <div class="eyebrow">Request an Estimate</div>
+          <h2 style="font-size: 1.75rem; margin-bottom: var(--space-3);">Tell Us About Your Project.</h2>
+
+          <div class="form-success" id="formSuccess">
+            <strong>Got it.</strong> Your message has been sent. We'll get back to you within one business day.
+          </div>
+          <div class="form-error" id="formError">
+            Something went wrong sending your message. Please call us at (877) 410-2195 or email Info@GoGuardianGas.com directly.
+          </div>
+
+          <form id="quoteForm" action="https://api.web3forms.com/submit" method="POST">
+            <input type="hidden" name="access_key" value="37a62898-d0de-4f44-8d34-5fbc5a4a3934">
+            <input type="hidden" name="subject" value="New Estimate Request - Guardian Gas Solutions">
+            <input type="hidden" name="from_name" value="GoGuardianGas.com">
+            <!-- honeypot -->
+            <input type="text" name="botcheck" class="honeypot" tabindex="-1" autocomplete="off">
+
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label" for="name">Name</label>
+                <input class="form-input" type="text" id="name" name="name" required autocomplete="name">
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="phone">Phone</label>
+                <input class="form-input" type="tel" id="phone" name="phone" required autocomplete="tel">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="email">Email</label>
+              <input class="form-input" type="email" id="email" name="email" required autocomplete="email">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="customer_type">I am a…</label>
+              <select class="form-select" id="customer_type" name="customer_type" required>
+                <option value="">Select one…</option>
+                <option>Homeowner</option>
+                <option>Contractor</option>
+                <option>Business Owner</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Fuel Type</label>
+              <div class="choice-row">
+                <label class="choice-pill"><input type="radio" name="fuel_type" value="Natural Gas" required> Natural Gas</label>
+                <label class="choice-pill"><input type="radio" name="fuel_type" value="Propane (LP)"> Propane (LP)</label>
+                <label class="choice-pill"><input type="radio" name="fuel_type" value="Not Sure"> Not Sure</label>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">What do you need? <span style="text-transform:none; letter-spacing:0; color:var(--silver-deep); font-weight:400;">(select all that apply)</span></label>
+              <div class="choice-grid">
+                <label class="choice-pill"><input type="checkbox" name="service_needed" value="Installation"> Installation</label>
+                <label class="choice-pill"><input type="checkbox" name="service_needed" value="Repair"> Repair</label>
+                <label class="choice-pill"><input type="checkbox" name="service_needed" value="Inspection"> Inspection</label>
+                <label class="choice-pill"><input type="checkbox" name="service_needed" value="Maintenance"> Maintenance</label>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="message">Project Details</label>
+              <textarea class="form-textarea" id="message" name="message" required placeholder="Tell us what you're trying to do: new install, replace existing, add a line for a generator, etc. Rough timeline if you have one."></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center;" id="submitBtn">
+              Send Request <span class="btn-arrow">→</span>
+            </button>
+
+            <p style="margin-top: var(--space-3); font-size: 0.8125rem; color: var(--silver-deep); text-align: center;">
+              We respect your time and your inbox. No marketing emails. Just a reply about your project.
+            </p>
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img src="images/logo_nav.png" alt="Guardian Gas Solutions">
+        <p class="footer-tagline">Guarding what powers your home.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Services</h4>
+        <ul>
+          <li><a href="services.html#residential">Residential</a></li>
+          <li><a href="services.html#service">Service &amp; Maintenance</a></li>
+          <li><a href="services.html#commercial">Commercial</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Tools &amp; Info</h4>
+        <ul>
+          <li><a href="index.html#btu">BTU Calculator</a></li>
+          <li><a href="storm-readiness.html">Storm Readiness</a></li>
+          <li><a href="about.html#credentials">Credentials</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="tel:8774102195" class="mono">(877) 410-2195</a></li>
+          <li><a href="mailto:Info@GoGuardianGas.com">Info@GoGuardianGas.com</a></li>
+          <li><a href="contact.html">Get an Estimate</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>© 2026 Guardian Gas Solutions LLC · L25000053942</div>
+      <div class="footer-signoff">Powering Homes, Businesses &amp; Industries. Safely &amp; Efficiently.</div>
+    </div>
+  </div>
+</footer>
+
+<script src="js/site.js"></script>
+<script>
+  // form submission via fetch, keeps user on page, shows success message
+  const form = document.getElementById('quoteForm');
+  const successBox = document.getElementById('formSuccess');
+  const errorBox = document.getElementById('formError');
+  const submitBtn = document.getElementById('submitBtn');
+
+  form.addEventListener('submit', async function (e) {
+    e.preventDefault();
+    successBox.classList.remove('active');
+    errorBox.classList.remove('active');
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = 'Sending…';
+
+    const formData = new FormData(form);
+    // collapse multi-checkbox service_needed into a single readable field
+    const services = formData.getAll('service_needed');
+    formData.delete('service_needed');
+    const obj = Object.fromEntries(formData);
+    obj.service_needed = services.length ? services.join(', ') : 'Not specified';
+    const json = JSON.stringify(obj);
+
+    try {
+      const res = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: json
+      });
+      const result = await res.json();
+      if (result.success) {
+        successBox.classList.add('active');
+        form.reset();
+        successBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      } else {
+        throw new Error(result.message || 'Submission failed');
+      }
+    } catch (err) {
+      console.error(err);
+      errorBox.classList.add('active');
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = 'Send Request <span class="btn-arrow">→</span>';
+    }
+  });
+</script>
+<a href="tel:8774102195" class="mobile-call-bar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>Call (877) 410-2195</a>
+</body>
+</html>

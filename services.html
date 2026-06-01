@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Services | Guardian Gas Solutions | Propane & Natural Gas in Florida</title>
+<meta name="description" content="Residential and commercial propane and natural gas services across North and Central Florida. Tankless water heaters, generators, fireplaces, outdoor kitchens, restaurants, mobile food vendors, and more.">
+<link rel="icon" type="image/png" href="images/shield.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Manrope:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/site.css">
+<style>
+  /* page-specific */
+  .page-hero {
+    padding: var(--space-7) 0 var(--space-6);
+    position: relative;
+    background: var(--near-black);
+    border-bottom: 1px solid var(--hairline);
+    overflow: hidden;
+  }
+  .page-hero-bg {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 60% 50% at 80% 20%, rgba(30,91,191,0.10), transparent 60%),
+      linear-gradient(to right, var(--hairline) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--hairline) 1px, transparent 1px);
+    background-size: auto, 100px 100px, 100px 100px;
+    mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+  }
+  .page-hero-content {
+    position: relative; z-index: 2;
+    max-width: 720px;
+  }
+  .service-block {
+    padding: var(--space-7) 0;
+    border-bottom: 1px solid var(--hairline);
+  }
+  .service-block:last-of-type { border-bottom: none; }
+  .service-block.alt { background: var(--charcoal-2); }
+
+  .service-layout {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: var(--space-6);
+    align-items: start;
+  }
+  @media (max-width: 900px) {
+    .service-layout { grid-template-columns: 1fr; gap: var(--space-4); }
+  }
+
+  .service-meta {
+    position: sticky;
+    top: 100px;
+  }
+  @media (max-width: 900px) {
+    .service-meta { position: static; }
+  }
+
+  .service-icon {
+    width: 96px; height: 96px;
+    color: var(--royal-2);
+    margin-bottom: var(--space-3);
+  }
+  .service-id {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.25em;
+    color: var(--silver-deep);
+    text-transform: uppercase;
+    margin-bottom: var(--space-1);
+  }
+
+  .service-list {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0;
+    border-top: 1px solid var(--hairline);
+    margin-top: var(--space-3);
+  }
+  @media (max-width: 600px) { .service-list { grid-template-columns: 1fr; } }
+
+  .service-list li {
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--hairline);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    color: var(--silver-light);
+    font-weight: 500;
+  }
+
+  .service-list li:nth-child(odd) { border-right: 1px solid var(--hairline); padding-right: var(--space-3); }
+  .service-list li:nth-child(even) { padding-left: var(--space-3); }
+  @media (max-width: 600px) {
+    .service-list li:nth-child(odd) { border-right: none; padding-right: 0; }
+    .service-list li:nth-child(even) { padding-left: 0; }
+  }
+
+  .service-list .check {
+    color: var(--royal-2);
+    width: 18px; height: 18px;
+    flex-shrink: 0;
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <img src="images/logo_nav.png" alt="Guardian Gas Solutions">
+    </a>
+    <button class="nav-toggle" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-menu">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="services.html" class="active">Services</a></li>
+      <li><a href="storm-readiness.html">Storm Readiness</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="tel:8774102195" class="nav-call"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>(877) 410-2195</a></li>
+    </ul>
+  </div>
+</nav>
+<div class="nav-spacer"></div>
+
+<!-- ===== PAGE HERO ===== -->
+<section class="page-hero">
+  <div class="page-hero-bg"></div>
+  <div class="container">
+    <div class="page-hero-content fade-up">
+      <div class="eyebrow">Services</div>
+      <h1 style="font-size: clamp(2.5rem, 5vw, 4.5rem); margin-bottom: var(--space-3);">
+        Whatever You Run,<br>
+        <span style="color: var(--royal-2);">We Run the Gas.</span>
+      </h1>
+      <p style="font-size: 1.125rem; max-width: 580px;">
+        From a single appliance hookup to a full community propane distribution system,
+        every job designed, installed, and serviced to code, by a licensed Master Qualifier.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== RESIDENTIAL ===== -->
+<section class="service-block" id="residential">
+  <div class="container">
+    <div class="service-layout">
+      <div class="service-meta fade-up">
+        <div class="service-icon">
+          <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M15 50 L50 20 L85 50"/>
+            <path d="M25 45 L25 82 L75 82 L75 45"/>
+            <rect x="42" y="58" width="16" height="24"/>
+          </svg>
+        </div>
+        <div class="service-id">01 / Residential</div>
+        <h2 style="font-size: clamp(2rem, 3.5vw, 3rem); margin-bottom: var(--space-2);">For the Home.</h2>
+        <p>Whole-home gas service, appliance installations, and conversions for homeowners across North and Central Florida.</p>
+      </div>
+      <div class="fade-up">
+        <h3 style="margin-bottom: var(--space-2);">Code-compliant, permitted, signed off.</h3>
+        <p style="margin-bottom: var(--space-3);">
+          We pull permits, run gas lines, set regulators, install appliances, and pressure-test the system before we sign off. The homeowner gets a working appliance and a paper trail; the inspector gets clean work.
+        </p>
+        <p style="margin-bottom: var(--space-3);">
+          A correctly sized propane or natural gas system supports every gas appliance in your home, present and future. Plan once, route once, done.
+        </p>
+        <ul class="service-list">
+          <li><svg class="check" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="8"><path d="M20 50 L42 70 L80 30" stroke-linecap="round" stroke-linejoin="round"/></svg> Tankless Water Heaters</li>
+          <li><svg class="check" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="8"><path d="M20 50 L42 70 L80 30" stroke-linecap="round" stroke-linejoin="round"/></svg> Hybrid Heating Systems</li>
+          <li><svg class="check" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="8"><path d="M20 50 L42 70 L80 30" stroke-linecap="round" stroke-linejoin="round"/></svg> Ranges &amp; Ovens</li>
+          <li><svg class="check" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="8"><path d="M20 50 L42 70 L80 30" stroke-linecap="round" stroke-linejoin="round"/></svg> Fireplaces &amp; Inserts</li>
+          <li><svg class="check" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="8"><path d="M20 50 L42 70 L80 30" stroke-linecap="round" stroke-linejoin="round"/></svg> Clothes Dryers</li>
+          <li><svg class="check" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="8"><path d="M20 50 L42 70 L80 30" stroke-linecap="round" stroke-linejoin="round"/></svg> High-Efficiency Boilers</li>
+          <li><svg class="check" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="8"><path d="M20 50 L42 70 L80 30" stroke-linecap="round" stroke-linejoin="round"/></svg> Whole-Home Generators</li>
+          <li><svg class="check" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="8"><path d="M20 50 L42 70 L80 30" stroke-linecap="round" stroke-linejoin="round"/></svg> Pool &amp; Spa Heaters</li>
+          <li><svg class="check" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="8"><path d="M20 50 L42 70 L80 30" stroke-linecap="round" stroke-linejoin="round"/></svg> Outdoor Kitchen Lines</li>
+          <li><svg class="check" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="8"><path d="M20 50 L42 70 L80 30" stroke-linecap="round" stroke-linejoin="round"/></svg> Tank Installs &amp; Swaps</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SERVICE & MAINTENANCE ===== -->
+<section class="service-block alt" id="service">
+  <div class="container">
+    <div class="service-layout">
+      <div class="service-meta fade-up">
+        <div class="service-icon">
+          <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M62 22 a18 18 0 1 0 8 14 L84 22 L76 14 L66 24 Z"/>
+            <path d="M44 44 L20 68 a8 8 0 0 0 12 12 L56 56"/>
+          </svg>
+        </div>
+        <div class="service-id">02 / Service &amp; Maintenance</div>
+        <h2 style="font-size: clamp(2rem, 3.5vw, 3rem); margin-bottom: var(--space-2);">For the Long Haul.</h2>
+        <p>Inspections, repairs, and scheduled maintenance that keep your gas system safe, efficient, and code-compliant year after year.</p>
+      </div>
+      <div class="fade-up">
+        <h3 style="margin-bottom: var(--space-2);">A gas system is only as good as its upkeep.</h3>
+        <p style="margin-bottom: var(--space-3);">
+          Regulators wear, fittings loosen, and tanks need eyes on them. We handle the routine work that prevents the expensive surprises, and we document every visit so your paper trail stays clean for insurance and inspections.
+        </p>
+        <p style="margin-bottom: var(--space-3);">
+          Whether you own a home, manage a property, or run a business, we keep your system running right. Note: we do not offer emergency or after-hours service. If you smell gas, leave the area and call your gas supplier or 911.
+        </p>
+        <ul class="service-list">
+          <li><svg class="check" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="8"><path d="M20 50 L42 70 L80 30" stroke-linecap="round" stroke-linejoin="round"/></svg> Safety Inspections</li>
+          <li><svg class="check" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="8"><path d="M20 50 L42 70 L80 30" stroke-linecap="round" stroke-linejoin="round"/></svg> Leak Detection &amp; Repair</li>
+          <li><svg class="check" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="8"><path d="M20 50 L42 70 L80 30" stroke-linecap="round" stroke-linejoin="round"/></svg> Regulator Service</li>
+          <li><svg class="check" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="8"><path d="M20 50 L42 70 L80 30" stroke-linecap="round" stroke-linejoin="round"/></svg> Tank Inspection &amp; Service</li>
+          <li><svg class="check" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="8"><path d="M20 50 L42 70 L80 30" stroke-linecap="round" stroke-linejoin="round"/></svg> Appliance Repair</li>
+          <li><svg class="check" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="8"><path d="M20 50 L42 70 L80 30" stroke-linecap="round" stroke-linejoin="round"/></svg> Pressure Testing</li>
+          <li><svg class="check" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="8"><path d="M20 50 L42 70 L80 30" stroke-linecap="round" stroke-linejoin="round"/></svg> Code Compliance Checks</li>
+          <li><svg class="check" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="8"><path d="M20 50 L42 70 L80 30" stroke-linecap="round" stroke-linejoin="round"/></svg> Scheduled Maintenance Plans</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== COMMERCIAL ===== -->
+<section class="service-block" id="commercial">
+  <div class="container">
+    <div class="service-layout">
+      <div class="service-meta fade-up">
+        <div class="service-icon">
+          <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="18" y="15" width="64" height="72"/>
+            <rect x="28" y="27" width="12" height="10"/>
+            <rect x="44" y="27" width="12" height="10"/>
+            <rect x="60" y="27" width="12" height="10"/>
+            <rect x="28" y="45" width="12" height="10"/>
+            <rect x="44" y="45" width="12" height="10"/>
+            <rect x="60" y="45" width="12" height="10"/>
+            <rect x="42" y="63" width="16" height="24"/>
+          </svg>
+        </div>
+        <div class="service-id">03 / Commercial</div>
+        <h2 style="font-size: clamp(2rem, 3.5vw, 3rem); margin-bottom: var(--space-2);">For Business.</h2>
+        <p>Commercial-grade gas infrastructure for restaurants, multi-family developments, manufacturers, and distribution systems.</p>
+      </div>
+      <div class="fade-up">
+        <h3 style="margin-bottom: var(--space-2);">Every Company's Dream Partner.</h3>
+        <p style="margin-bottom: var(--space-3);">
+          We're built to be the gas partner on any commercial project: clear scopes, accurate estimates, and the documentation paper trail that GCs, builders, property managers, and inspectors actually want. We serve practically every kind of business.
+        </p>
+        <p style="margin-bottom: var(--space-3);">
+          Whether we're running a single commercial line or designing a community propane distribution system, we own the gas portion start to finish.
+        </p>
+        <ul class="service-list">
+          <li><svg class="check" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="8"><path d="M20 50 L42 70 L80 30" stroke-linecap="round" stroke-linejoin="round"/></svg> Community Propane Systems</li>
+          <li><svg class="check" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="8"><path d="M20 50 L42 70 L80 30" stroke-linecap="round" stroke-linejoin="round"/></svg> Distribution Networks</li>
+          <li><svg class="check" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="8"><path d="M20 50 L42 70 L80 30" stroke-linecap="round" stroke-linejoin="round"/></svg> Commercial Furnaces</li>
+          <li><svg class="check" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="8"><path d="M20 50 L42 70 L80 30" stroke-linecap="round" stroke-linejoin="round"/></svg> Commercial Boilers</li>
+          <li><svg class="check" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="8"><path d="M20 50 L42 70 L80 30" stroke-linecap="round" stroke-linejoin="round"/></svg> Tankless Water Heating</li>
+          <li><svg class="check" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="8"><path d="M20 50 L42 70 L80 30" stroke-linecap="round" stroke-linejoin="round"/></svg> Standby Generators</li>
+          <li><svg class="check" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="8"><path d="M20 50 L42 70 L80 30" stroke-linecap="round" stroke-linejoin="round"/></svg> CHP Systems</li>
+          <li><svg class="check" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="8"><path d="M20 50 L42 70 L80 30" stroke-linecap="round" stroke-linejoin="round"/></svg> Micro-CHP Systems</li>
+          <li><svg class="check" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="8"><path d="M20 50 L42 70 L80 30" stroke-linecap="round" stroke-linejoin="round"/></svg> Restaurant Kitchen Lines</li>
+          <li><svg class="check" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="8"><path d="M20 50 L42 70 L80 30" stroke-linecap="round" stroke-linejoin="round"/></svg> Mobile Food Vendors</li>
+          <li><svg class="check" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="8"><path d="M20 50 L42 70 L80 30" stroke-linecap="round" stroke-linejoin="round"/></svg> GC Subcontracting</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PROCESS ===== -->
+<section class="bg-scan" style="background: var(--black); border-top: 1px solid var(--hairline);">
+  <div class="container" style="position: relative; z-index: 2;">
+    <div class="section-header fade-up">
+      <div class="eyebrow centered">How We Work</div>
+      <h2>Estimate, Permit, Install, Sign Off.</h2>
+      <p>Every project follows the same four-step process. No surprises, no hidden fees, no guesswork.</p>
+    </div>
+    <div class="grid grid-4">
+      <div class="fade-up">
+        <div class="mono" style="font-size: 2.5rem; font-weight: 600; color: var(--royal-2); margin-bottom: var(--space-2);">01</div>
+        <h3 style="font-size: 1.125rem;">Site Visit</h3>
+        <p style="font-size: 0.875rem; margin-top: var(--space-1);">We walk the project, measure, ask questions, and confirm what's possible at your location.</p>
+      </div>
+      <div class="fade-up">
+        <div class="mono" style="font-size: 2.5rem; font-weight: 600; color: var(--royal-2); margin-bottom: var(--space-2);">02</div>
+        <h3 style="font-size: 1.125rem;">Estimate &amp; Scope</h3>
+        <p style="font-size: 0.875rem; margin-top: var(--space-1);">A written scope of work with line-item pricing, timeline, and any prep on your side.</p>
+      </div>
+      <div class="fade-up">
+        <div class="mono" style="font-size: 2.5rem; font-weight: 600; color: var(--royal-2); margin-bottom: var(--space-2);">03</div>
+        <h3 style="font-size: 1.125rem;">Permit &amp; Install</h3>
+        <p style="font-size: 0.875rem; margin-top: var(--space-1);">We pull the permit, schedule the work, and complete the installation to code.</p>
+      </div>
+      <div class="fade-up">
+        <div class="mono" style="font-size: 2.5rem; font-weight: 600; color: var(--royal-2); margin-bottom: var(--space-2);">04</div>
+        <h3 style="font-size: 1.125rem;">Test &amp; Sign Off</h3>
+        <p style="font-size: 0.875rem; margin-top: var(--space-1);">Pressure test, inspection, and final sign-off. You get the documentation, we get the photo.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CTA ===== -->
+<section>
+  <div class="container">
+    <div class="fade-up" style="background: linear-gradient(135deg, rgba(30,91,191,0.15), rgba(30,91,191,0.02)), var(--black); border: 1px solid rgba(30, 91, 191, 0.3); padding: var(--space-6); border-radius: 4px; text-align: center;">
+      <div class="eyebrow centered">Have a Project?</div>
+      <h2 style="font-size: clamp(1.75rem, 3vw, 2.5rem); margin-bottom: var(--space-3);">Tell Us About It.</h2>
+      <p style="max-width: 560px; margin: 0 auto var(--space-4); font-size: 1.0625rem;">
+        Residential, commercial, or service work. Send a few details and we'll get back to you with next steps.
+      </p>
+      <a href="contact.html" class="btn btn-primary">Request an Estimate <span class="btn-arrow">→</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img src="images/logo_nav.png" alt="Guardian Gas Solutions">
+        <p class="footer-tagline">Guarding what powers your home.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Services</h4>
+        <ul>
+          <li><a href="services.html#residential">Residential</a></li>
+          <li><a href="services.html#service">Service &amp; Maintenance</a></li>
+          <li><a href="services.html#commercial">Commercial</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Tools &amp; Info</h4>
+        <ul>
+          <li><a href="index.html#btu">BTU Calculator</a></li>
+          <li><a href="storm-readiness.html">Storm Readiness</a></li>
+          <li><a href="about.html#credentials">Credentials</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="tel:8774102195" class="mono">(877) 410-2195</a></li>
+          <li><a href="mailto:Info@GoGuardianGas.com">Info@GoGuardianGas.com</a></li>
+          <li><a href="contact.html">Get an Estimate</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>© 2026 Guardian Gas Solutions LLC · L25000053942</div>
+      <div class="footer-signoff">Powering Homes, Businesses &amp; Industries. Safely &amp; Efficiently.</div>
+    </div>
+  </div>
+</footer>
+
+<script src="js/site.js"></script>
+<a href="tel:8774102195" class="mobile-call-bar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>Call (877) 410-2195</a>
+</body>
+</html>
