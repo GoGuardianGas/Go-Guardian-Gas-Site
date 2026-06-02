@@ -646,7 +646,7 @@ footer {
 }
 
 .footer-brand img {
-  height: 48px;
+  height: 96px;
   width: auto;
   margin-bottom: var(--space-2);
 }
@@ -1236,24 +1236,101 @@ footer {
 }
 
 /* -- PRINT STYLES (checklist) ---------------------------- */
+/* print-only elements hidden on screen */
+.print-only { display: none; }
+
 @media print {
-  body { background: white; color: black; }
-  /* Force any scroll-animated content fully visible — otherwise unscrolled sections print blank */
+  /* render brand colors + logo instead of letting the browser strip them */
+  * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+  @page { margin: 0.6in 0.65in; }
+
+  body { background: white; color: #1a1a1a; font-size: 11pt; }
   .fade-up { opacity: 1 !important; transform: none !important; }
-  .nav, .nav-spacer, footer, .checklist-actions, .btu-reset, .check-warning, .page-hero, .mobile-call-bar, .no-print { display: none !important; }
-  .checklist-progress { background: white; border: 1px solid #999; }
-  .check-item label {
-    background: white !important;
-    border: 1px solid #ccc !important;
-    color: black;
+
+  /* strip screen chrome */
+  .nav, .nav-spacer, footer, .checklist-actions, .btu-reset, .check-warning,
+  .page-hero, .mobile-call-bar, .no-print, .toc-sticky { display: none !important; }
+
+  /* ---- branded print header ---- */
+  .print-only { display: block; }
+  .print-header { margin-bottom: 18pt; text-align: center; }
+  .print-header-bar {
+    background: #1E5BBF; color: #fff;
+    padding: 11pt 16pt; border-radius: 5pt;
+    text-align: center;
   }
-  .check-label-text, .check-group-title, .check-group-intro { color: black !important; }
-  .check-group-num { color: black !important; }
-  .check-callout { background: #f5f5f5; border-left-color: #333; color: black; }
-  .check-callout strong { color: black; }
-  h1, h2, h3, h4, p { color: black !important; }
-  .checklist-progress-bar { background: #333 !important; }
-  section { padding: 1rem 0 !important; }
+  .print-header-company {
+    display: block;
+    font-family: 'Oswald','Arial Narrow',sans-serif;
+    font-size: 21pt; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em;
+    line-height: 1.1;
+  }
+  .print-header-title {
+    display: block;
+    font-family: 'Oswald','Arial Narrow',sans-serif;
+    font-size: 12.5pt; font-weight: 400; text-transform: uppercase; letter-spacing: 0.12em;
+    color: #cfe2ff; margin-top: 3pt;
+  }
+  .print-header-contact {
+    display: flex; justify-content: center; align-items: center; flex-wrap: wrap;
+    gap: 6pt 18pt;
+    margin-top: 11pt;
+    padding-bottom: 11pt;
+    border-bottom: 1.5pt solid #1E5BBF;
+  }
+  .print-contact-item {
+    font-size: 13pt; font-weight: 600; color: #154A9C;
+    letter-spacing: 0.01em;
+  }
+  .print-contact-phone {
+    font-size: 16pt; font-weight: 700; color: #1E5BBF;
+  }
+  .print-header-sub { font-size: 9.5pt; color: #555; margin-top: 10pt; line-height: 1.5; text-align: center; max-width: 540pt; margin-left: auto; margin-right: auto; }
+
+  /* ---- checklist body, brand-tinted (not flat black) ---- */
+  .checklist-progress { background: #f4f8ff; border: 1px solid #1E5BBF; border-radius: 4pt; }
+  .checklist-progress-bar { background: #1E5BBF !important; }
+  .checklist-progress-label, .checklist-progress-count { color: #154A9C !important; }
+
+  .check-group { break-inside: avoid; page-break-inside: avoid; }
+  .check-group-header { border-bottom: 1.5pt solid #1E5BBF !important; }
+  .check-group-num { color: #1E5BBF !important; font-weight: 700; }
+  .check-group-title { color: #0E2A52 !important; }
+  .check-group-intro { color: #555 !important; }
+
+  .check-item { break-inside: avoid; page-break-inside: avoid; }
+  .check-item label {
+    background: #fff !important;
+    border: 1px solid #b9cdec !important;
+    color: #1a1a1a !important;
+  }
+  .check-item.checked label {
+    background: #f4f8ff !important;
+    border-color: #1E5BBF !important;
+  }
+  .check-item input[type="checkbox"] { border: 1.5pt solid #1E5BBF !important; }
+  .check-item input[type="checkbox"]:checked { background: #1E5BBF !important; border-color: #1E5BBF !important; }
+  .check-label-text { color: #1a1a1a !important; }
+  .check-item.checked .check-label-text { color: #555 !important; }
+
+  .check-callout {
+    background: #f4f8ff !important; border-left: 3pt solid #1E5BBF !important;
+    color: #333 !important; break-inside: avoid;
+  }
+  .check-callout strong { color: #154A9C !important; }
+
+  h1, h2, h3, h4 { color: #0E2A52 !important; }
+  p, li { color: #333 !important; }
+  section { padding: 0.5rem 0 !important; }
+
+  /* ---- branded print footer ---- */
+  .print-footer {
+    margin-top: 18pt; padding-top: 8pt;
+    border-top: 1.5pt solid #1E5BBF;
+    display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 4pt;
+    font-size: 8pt; color: #154A9C;
+  }
+  .print-footer-note { color: #888; font-style: italic; }
 }
 
 /* ============================================================
@@ -1261,8 +1338,8 @@ footer {
    ============================================================ */
 
 /* Bigger nav logo */
-.nav-logo img { height: 58px; }
-@media (max-width: 900px) { .nav-logo img { height: 48px; } }
+.nav-logo img { height: 76px; margin: -14px 0; }
+@media (max-width: 900px) { .nav-logo img { height: 60px; margin: -10px 0; } }
 
 /* High-visibility click-to-call button */
 .btn-call {
@@ -1270,24 +1347,37 @@ footer {
   align-items: center;
   gap: 0.6rem;
   padding: 1rem 1.9rem;
-  background: var(--royal);
+  background: linear-gradient(135deg, var(--royal), var(--royal-2));
   color: #fff;
-  border: 2px solid var(--royal-2);
+  border: 2px solid var(--cyan);
   border-radius: 4px;
   font-family: var(--font-display);
   font-size: 1.35rem;
   font-weight: 600;
   letter-spacing: 0.04em;
   line-height: 1;
+  position: relative;
+  overflow: hidden;
   box-shadow: 0 6px 22px rgba(30,91,191,0.45);
-  transition: all 0.2s ease;
+  transition: background 0.3s ease, transform 0.25s cubic-bezier(0.16,1,0.3,1), box-shadow 0.3s ease, border-color 0.3s ease;
   white-space: nowrap;
+  animation: estimatePulse 2.4s ease-in-out infinite;
 }
+.btn-call > * { position: relative; z-index: 2; }
+.btn-call .shimmer {
+  position: absolute; top: 0; left: -60%; width: 45%; height: 100%;
+  background: linear-gradient(105deg, transparent, rgba(255,255,255,0.45), transparent);
+  transform: skewX(-18deg); pointer-events: none; z-index: 1;
+  animation: estimateSweep 3.2s ease-in-out infinite;
+}
+.btn-call:hover .shimmer { animation: estimateSweep 0.8s ease; }
 .btn-call:hover {
-  background: var(--royal-2);
+  background: linear-gradient(135deg, var(--royal-2), var(--royal));
+  border-color: #fff;
   color: #fff;
-  transform: translateY(-2px);
-  box-shadow: 0 10px 30px rgba(30,91,191,0.6);
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 12px 34px rgba(30,91,191,0.6);
+  animation-play-state: paused;
 }
 .btn-call svg { width: 22px; height: 22px; flex-shrink: 0; }
 .btn-call .call-sub {
@@ -1367,4 +1457,443 @@ footer {
   .cred-badges .badge-fpga     { height: 80px; }
   .cred-badges .badge-chamber  { height: 104px; }
   .cred-badges .badge-younggas { height: 86px; }
+}
+
+/* ============================================================
+   v7 — split hero with tool cards + staggered load-in
+   ============================================================ */
+.hero-split .container { position: relative; z-index: 2; }
+.hero-split { min-height: auto; padding: var(--space-5) 0; }
+.hero-split-grid { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: var(--space-6); align-items: center; }
+.hero-left { text-align: left; }
+.hero-left .eyebrow { justify-content: flex-start; font-size: 0.8rem; margin-bottom: 0.85rem; }
+.hero-left h1 { font-size: clamp(2.5rem, 4.4vw, 3.9rem); line-height: 1.05; margin-bottom: 1.1rem; }
+.hero-left .hero-tagline { font-size: clamp(1.1875rem, 1.6vw, 1.375rem); margin-bottom: 1.5rem; }
+.hero-left .hero-cta { justify-content: flex-start; }
+.hero-lockup {
+  width: min(440px, 92%); height: auto; margin-bottom: 1.4rem;
+  filter: drop-shadow(0 0 26px rgba(30,91,191,0.4));
+  animation: float 6s ease-in-out infinite;
+}
+.tool-stack { display: flex; flex-direction: column; gap: 1rem; }
+.tool-card {
+  background:
+    radial-gradient(circle at 1px 1px, rgba(143,208,240,0.06) 1px, transparent 0) 0 0 / 18px 18px,
+    linear-gradient(135deg, rgba(143,208,240,0.06), rgba(30,91,191,0.03)), var(--charcoal-2);
+  border: 1px solid rgba(143,208,240,0.22);
+  border-radius: 14px; padding: 1.75rem 1.85rem;
+  transition: transform 0.4s cubic-bezier(0.16,1,0.3,1), border-color 0.4s ease, box-shadow 0.4s ease;
+  position: relative; overflow: hidden;
+}
+/* rotating conic sheen on the border */
+.tool-card::after {
+  content:''; position:absolute; inset:-1px; border-radius:14px; padding:1px;
+  background: conic-gradient(from 0deg, transparent 0deg, rgba(143,208,240,0.55) 60deg, transparent 140deg, transparent 360deg);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor; mask-composite: exclude;
+  opacity:0; transition: opacity 0.5s ease;
+  animation: spinBorder 6s linear infinite;
+  pointer-events:none;
+}
+/* corner energy glow */
+.tool-card::before {
+  content:''; position:absolute; inset:0;
+  background: radial-gradient(circle at 85% 0%, rgba(30,91,191,0.25), transparent 55%);
+  opacity:0.35; transition: opacity 0.5s ease; pointer-events:none;
+}
+.tool-card:hover { border-color: rgba(143,208,240,0.45); transform: translateY(-6px) scale(1.012); box-shadow: 0 18px 50px rgba(30,91,191,0.3); }
+.tool-card:hover::before { opacity:1; }
+.tool-card:hover::after { opacity:1; }
+@keyframes spinBorder { to { transform: rotate(360deg); } }
+
+/* shimmer sweep on hover */
+.tool-card .shimmer {
+  content:''; position:absolute; top:0; left:-60%; width:50%; height:100%;
+  background: linear-gradient(105deg, transparent, rgba(255,255,255,0.07), transparent);
+  transform: skewX(-18deg); pointer-events:none; z-index:2;
+}
+.tool-card:hover .shimmer { animation: sweep 0.9s ease; }
+@keyframes sweep { from { left:-60%; } to { left:130%; } }
+
+.tool-card-head { display:flex; align-items:center; gap:1rem; margin-bottom:0.95rem; position:relative; z-index:1; }
+
+/* animated icon medallion */
+.tool-icon {
+  width:62px; height:62px; border-radius:14px; flex-shrink:0;
+  display:flex; align-items:center; justify-content:center;
+  background: linear-gradient(145deg, rgba(30,91,191,0.45), rgba(13,20,30,0.6));
+  border:1px solid rgba(143,208,240,0.35);
+  position:relative;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.08), 0 4px 14px rgba(30,91,191,0.25);
+}
+/* pulsing glow ring around medallion */
+.tool-icon::before {
+  content:''; position:absolute; inset:-4px; border-radius:16px;
+  background: radial-gradient(circle, rgba(143,208,240,0.35), transparent 70%);
+  opacity:0.5; animation: pulseGlow 3s ease-in-out infinite; z-index:-1;
+}
+@keyframes pulseGlow { 0%,100% { opacity:0.3; transform:scale(0.95);} 50% { opacity:0.7; transform:scale(1.08);} }
+.tool-icon svg { width:32px; height:32px; transition: transform 0.5s cubic-bezier(0.16,1,0.3,1); }
+.tool-card:hover .tool-icon svg { transform: scale(1.12) rotate(-4deg); }
+.tool-icon svg .spark { transform-origin:center; animation: flicker 2.2s ease-in-out infinite; }
+@keyframes flicker { 0%,100%{opacity:1;} 45%{opacity:0.55;} 70%{opacity:0.85;} }
+
+.tool-card h3 { font-size:1.25rem; margin:0; position:relative; z-index:1; }
+.tool-card p { font-size:1rem; color:var(--silver-mid); line-height:1.6; margin:0 0 1.25rem; position:relative; z-index:1; }
+.tool-card .btn { position:relative; z-index:1; width:100%; justify-content:center; font-size:1rem; padding-top:0.95rem; padding-bottom:0.95rem; }
+@media (prefers-reduced-motion: reduce) {
+  .tool-card::after, .tool-icon::before, .tool-icon svg .spark { animation: none; }
+  .tool-card:hover .shimmer { animation: none; }
+}
+
+/* Staggered entrance — left first, then cards cascade */
+.hero-stagger { opacity: 0; transform: translateY(24px); animation: heroRise 0.7s cubic-bezier(0.16,1,0.3,1) forwards; }
+.hero-stagger.d1 { animation-delay: 0.10s; }
+.hero-stagger.d2 { animation-delay: 0.30s; }
+.hero-stagger.d3 { animation-delay: 0.48s; }
+@keyframes heroRise { to { opacity: 1; transform: translateY(0); } }
+@media (prefers-reduced-motion: reduce) {
+  .hero-stagger { opacity: 1; transform: none; animation: none; }
+}
+@media (max-width: 880px){
+  .hero-split-grid{ grid-template-columns:1fr; gap:var(--space-5);}
+  .hero-left{text-align:center;}
+  .hero-left .eyebrow,.hero-left .hero-cta{justify-content:center;}
+  .hero-lockup{ margin-left:auto; margin-right:auto; }
+}
+
+/* ============================================================
+   v8 — standout animated "Request an Estimate" button
+   ============================================================ */
+.btn-estimate {
+  position: relative;
+  overflow: hidden;
+  color: #fff;
+  background: linear-gradient(135deg, rgba(30,91,191,0.18), rgba(143,208,240,0.10));
+  border: 2px solid var(--cyan);
+  font-weight: 600;
+  box-shadow: 0 0 0 0 rgba(143,208,240,0.55);
+  animation: estimatePulse 2.4s ease-in-out infinite;
+  transition: background 0.3s ease, transform 0.25s cubic-bezier(0.16,1,0.3,1), box-shadow 0.3s ease, border-color 0.3s ease;
+}
+.btn-estimate:hover {
+  background: linear-gradient(135deg, var(--royal), var(--royal-2));
+  border-color: #fff;
+  color: #fff;
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 12px 34px rgba(30,91,191,0.55);
+  animation-play-state: paused;
+}
+.btn-estimate .btn-arrow { position: relative; z-index: 2; }
+.btn-estimate .shimmer {
+  position: absolute; top: 0; left: -60%; width: 45%; height: 100%;
+  background: linear-gradient(105deg, transparent, rgba(255,255,255,0.45), transparent);
+  transform: skewX(-18deg); pointer-events: none; z-index: 1;
+  animation: estimateSweep 3.2s ease-in-out infinite;
+}
+.btn-estimate:hover .shimmer { animation: estimateSweep 0.8s ease; }
+@keyframes estimatePulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(143,208,240,0.5); }
+  50%      { box-shadow: 0 0 22px 3px rgba(143,208,240,0.35); }
+}
+@keyframes estimateSweep {
+  0%   { left: -60%; }
+  55%  { left: 130%; }
+  100% { left: 130%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .btn-estimate { animation: none; }
+  .btn-estimate .shimmer { animation: none; display: none; }
+}
+
+/* ============================================================
+   v8 — SITEWIDE POLISH
+   Extends the hero's visual language (easing, cyan accents,
+   layered surfaces, hover lift, shimmer) to the rest of the
+   site at a lower intensity so the hero still leads the eye.
+   ============================================================ */
+
+/* shared easing token */
+:root { --ease-hero: cubic-bezier(0.16, 1, 0.3, 1); }
+
+/* ---- Standard service / content cards --------------------- */
+.card {
+  background:
+    radial-gradient(circle at 1px 1px, rgba(143,208,240,0.035) 1px, transparent 0) 0 0 / 20px 20px,
+    linear-gradient(135deg, rgba(143,208,240,0.035), rgba(30,91,191,0.02)), var(--charcoal-2);
+  border: 1px solid rgba(143,208,240,0.12);
+  border-radius: 12px;
+  transition: transform 0.45s var(--ease-hero), border-color 0.45s ease, box-shadow 0.45s ease;
+}
+/* corner energy glow — softer than tool cards, only blooms on hover */
+.card::before {
+  content:''; position:absolute; inset:0;
+  background: radial-gradient(circle at 85% 0%, rgba(30,91,191,0.18), transparent 55%);
+  opacity:0; transition: opacity 0.5s ease; pointer-events:none;
+}
+.card:hover {
+  border-color: rgba(143,208,240,0.34);
+  transform: translateY(-6px);
+  box-shadow: 0 16px 44px rgba(30,91,191,0.22);
+}
+.card:hover::before { opacity:1; }
+/* shimmer sweep on hover (reuses hero @keyframes sweep) */
+.card .shimmer,
+.card::after {
+  content:''; position:absolute; top:0; left:-60%; width:50%; height:100%;
+  background: linear-gradient(105deg, transparent, rgba(255,255,255,0.06), transparent);
+  transform: skewX(-18deg); pointer-events:none; z-index:2; opacity:0;
+}
+.card:hover::after { opacity:1; animation: sweep 0.9s ease; }
+
+/* ---- Card icon → animated medallion (matches tool-icon) ---- */
+.card-icon {
+  width: 58px; height: 58px; padding: 13px;
+  border-radius: 13px;
+  color: var(--cyan);
+  display:flex; align-items:center; justify-content:center;
+  background: linear-gradient(145deg, rgba(30,91,191,0.4), rgba(13,20,30,0.55));
+  border: 1px solid rgba(143,208,240,0.3);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.07), 0 4px 14px rgba(30,91,191,0.2);
+  position: relative;
+  transition: transform 0.5s var(--ease-hero);
+}
+.card-icon::before {
+  content:''; position:absolute; inset:-4px; border-radius:15px;
+  background: radial-gradient(circle, rgba(143,208,240,0.3), transparent 70%);
+  opacity:0; transition: opacity 0.5s ease; z-index:-1;
+}
+.card:hover .card-icon { transform: scale(1.08) rotate(-4deg); }
+.card:hover .card-icon::before { opacity:1; }
+.card-icon svg { width: 100%; height: 100%; }
+.card-link { color: var(--cyan); transition: gap 0.3s var(--ease-hero), color 0.3s ease; }
+.card:hover .card-link { color: var(--silver-light); }
+
+/* ---- Buttons: unify easing + add shimmer to primary/ghost - */
+.btn-primary, .btn-ghost { transition: all 0.3s var(--ease-hero); }
+.btn-primary .shimmer, .btn-ghost .shimmer {
+  position:absolute; top:0; left:-60%; width:50%; height:100%;
+  background: linear-gradient(105deg, transparent, rgba(255,255,255,0.18), transparent);
+  transform: skewX(-18deg); pointer-events:none; z-index:1;
+}
+.btn-primary:hover .shimmer, .btn-ghost:hover .shimmer { animation: sweep 0.8s ease; }
+.btn-ghost:hover { transform: translateY(-2px); }
+
+/* ---- Accordion: hero-style accent + smooth open ----------- */
+.accordion-item {
+  border-radius: 10px;
+  transition: border-color 0.4s ease, background 0.4s ease, box-shadow 0.4s ease;
+}
+.accordion-item:hover { border-color: rgba(143,208,240,0.28); }
+.accordion-item[open] {
+  border-color: rgba(143,208,240,0.4);
+  box-shadow: 0 8px 30px rgba(30,91,191,0.14);
+}
+.accordion-icon { transition: transform 0.4s var(--ease-hero); }
+
+/* ---- Section header eyebrow gets a soft glow -------------- */
+.section-header .eyebrow { text-shadow: 0 0 18px rgba(143,208,240,0.25); }
+
+/* ---- Staggered reveal for grids --------------------------- */
+.grid .fade-up { transition-delay: 0s; }
+.grid .fade-up:nth-child(2) { transition-delay: 0.10s; }
+.grid .fade-up:nth-child(3) { transition-delay: 0.20s; }
+.grid .fade-up:nth-child(4) { transition-delay: 0.30s; }
+.fade-up { transition: opacity 0.8s var(--ease-hero), transform 0.8s var(--ease-hero); }
+
+@media (prefers-reduced-motion: reduce) {
+  .card, .card-icon, .accordion-item, .accordion-icon { transition: none; }
+  .card:hover { transform: none; }
+  .card:hover::after, .btn-primary:hover .shimmer, .btn-ghost:hover .shimmer { animation: none; }
+  .card::after, .card .shimmer { display: none; }
+  .grid .fade-up { transition-delay: 0s !important; }
+}
+
+/* ---- Storm-readiness checklist polish (v8) ---------------- */
+.check-item label { transition: border-color 0.35s ease, background 0.35s ease, transform 0.35s var(--ease-hero), box-shadow 0.35s ease; }
+.check-item:hover label {
+  border-color: rgba(143,208,240,0.32);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(30,91,191,0.14);
+}
+.check-item input[type="checkbox"] { transition: all 0.25s var(--ease-hero); }
+.check-item input[type="checkbox"]:checked { box-shadow: 0 0 10px rgba(30,91,191,0.5); }
+.check-group-num { transition: color 0.3s ease, text-shadow 0.3s ease; }
+.check-group:hover .check-group-num { color: var(--cyan); text-shadow: 0 0 14px rgba(143,208,240,0.4); }
+@media (prefers-reduced-motion: reduce) {
+  .check-item label, .check-item input[type="checkbox"], .check-group-num { transition: none; }
+  .check-item:hover label { transform: none; }
+}
+
+/* ============================================================
+   v9 — SITEWIDE INTERACTIVITY & GLOW
+   Animated nav, links, eyebrows, stats, section headers, footer.
+   Reuses hero easing + cyan/royal accents. Reduced-motion safe.
+   ============================================================ */
+
+/* ---- Nav: glow on scroll + animated underline on every link ---- */
+.nav.scrolled {
+  background: rgba(10,10,12,0.92);
+  box-shadow: 0 6px 30px rgba(30,91,191,0.18), 0 1px 0 rgba(143,208,240,0.15);
+  border-bottom-color: rgba(143,208,240,0.18);
+}
+.nav-logo img { transition: transform 0.5s var(--ease-hero), filter 0.5s ease; }
+.nav-logo:hover img { transform: scale(1.05); filter: drop-shadow(0 0 12px rgba(143,208,240,0.4)); }
+.nav-menu a::after {
+  content: ""; position: absolute; bottom: 0; left: 50%; right: 50%;
+  height: 2px; background: linear-gradient(90deg, var(--royal-2), var(--cyan));
+  transition: left 0.3s var(--ease-hero), right 0.3s var(--ease-hero);
+  border-radius: 2px;
+}
+.nav-menu a:hover::after { left: 0; right: 0; }
+.nav-menu a.active::after { left: 0; right: 0; box-shadow: 0 0 8px rgba(143,208,240,0.6); }
+
+/* ---- Eyebrow: animated accent line + soft pulse ---- */
+.eyebrow::before { transition: width 0.5s var(--ease-hero); }
+.fade-up.visible .eyebrow::before,
+.section-header.visible .eyebrow::before { animation: eyebrowGrow 0.7s var(--ease-hero) both; }
+@keyframes eyebrowGrow { from { width: 0; } to { width: 24px; } }
+.eyebrow { position: relative; }
+
+/* ---- Section headers: subtle glow on the H2 when revealed ---- */
+.section-header h2 { transition: text-shadow 0.6s ease; }
+.section-header.visible h2,
+.section-header.fade-up.visible h2 { text-shadow: 0 0 30px rgba(30,91,191,0.18); }
+
+/* ---- Stat numbers: glow + count-up reveal ---- */
+.stat-num {
+  transition: text-shadow 0.6s ease, transform 0.6s var(--ease-hero);
+  display: inline-block;
+}
+.stat .stat-num { color: var(--silver-light); }
+.fade-up.visible .stat-num,
+.stat.visible .stat-num { text-shadow: 0 0 24px rgba(143,208,240,0.35); }
+.stat:hover .stat-num { transform: scale(1.06); color: var(--cyan); text-shadow: 0 0 28px rgba(143,208,240,0.55); }
+.stat-num .unit { color: var(--royal-2); }
+
+/* ---- Generic links in content: animated cyan underline ---- */
+.footer-col a, .card p a, .accordion-content a {
+  position: relative; transition: color 0.3s ease;
+  background-image: linear-gradient(90deg, var(--cyan), var(--cyan));
+  background-size: 0% 1.5px; background-repeat: no-repeat; background-position: left 100%;
+  transition: background-size 0.35s var(--ease-hero), color 0.3s ease;
+}
+.footer-col a:hover, .card p a:hover, .accordion-content a:hover {
+  color: var(--cyan); background-size: 100% 1.5px;
+}
+
+/* ---- Footer: brand line glow + brand image life ---- */
+footer { position: relative; }
+footer::before {
+  content:''; position:absolute; top:0; left:0; right:0; height:1px;
+  background: linear-gradient(90deg, transparent, rgba(143,208,240,0.5), transparent);
+}
+.footer-brand img { transition: transform 0.5s var(--ease-hero), filter 0.5s ease; }
+.footer-brand img:hover { transform: scale(1.04); filter: drop-shadow(0 0 14px rgba(143,208,240,0.4)); }
+.footer-col h4 { position: relative; }
+
+/* ---- Generic buttons: lift + glow already partial; add glow pulse on primary in view ---- */
+.btn-primary { position: relative; }
+.btn-primary::after {
+  content:''; position:absolute; inset:0; border-radius: inherit;
+  box-shadow: 0 0 0 0 rgba(30,91,191,0.5); transition: box-shadow 0.5s ease; pointer-events:none;
+}
+.btn-primary:hover::after { box-shadow: 0 0 22px 2px rgba(30,91,191,0.35); }
+
+/* ---- Scroll reveal: add a gentle scale for richer entrance ---- */
+.fade-up { transition: opacity 0.8s var(--ease-hero), transform 0.8s var(--ease-hero); }
+
+/* ---- Ambient section glow accents (decorative, very subtle) ---- */
+.glow-accent { position: relative; }
+.glow-accent > * { position: relative; z-index: 1; }
+.glow-accent::before {
+  content:''; position:absolute; width:420px; height:420px; border-radius:50%;
+  background: radial-gradient(circle, rgba(30,91,191,0.10), transparent 65%);
+  top:-120px; right:-120px; pointer-events:none; z-index:0;
+  animation: glowDrift 14s ease-in-out infinite;
+}
+@keyframes glowDrift {
+  0%,100% { transform: translate(0,0) scale(1); opacity:0.7; }
+  50% { transform: translate(-30px,20px) scale(1.12); opacity:1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nav-logo img, .footer-brand img, .stat-num, .nav-menu a::after,
+  .eyebrow::before, .section-header h2, .btn-primary::after { transition: none; animation: none; }
+  .glow-accent::before { animation: none; }
+  .fade-up.visible .eyebrow::before { animation: none; width: 24px; }
+}
+
+/* ---- v9b: interactive tools come alive ---- */
+.btu-row { transition: background 0.3s var(--ease-hero), padding-left 0.3s var(--ease-hero); border-radius: 6px; }
+.btu-row:hover { background: rgba(143,208,240,0.05); padding-left: 8px; }
+.btu-row:hover .btu-row-name { color: var(--cyan); }
+.btu-row.active { box-shadow: inset 2px 0 0 var(--cyan); }
+.btu-qty-btn { transition: all 0.25s var(--ease-hero); }
+.btu-qty-btn:hover { background: var(--royal); border-color: var(--cyan); box-shadow: 0 0 12px rgba(30,91,191,0.5); transform: translateY(-1px); }
+.btu-result-total span:first-child { transition: text-shadow 0.4s ease; }
+.btu-calc-result:hover .btu-result-total span:first-child { text-shadow: 0 0 24px rgba(143,208,240,0.5); }
+
+/* checklist action buttons glow */
+.checklist-action-btn { transition: all 0.3s var(--ease-hero); }
+.checklist-action-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 22px rgba(30,91,191,0.25); border-color: rgba(143,208,240,0.4); }
+
+/* TOC links (storm page) animated */
+.toc-sticky a { transition: color 0.25s ease, padding-left 0.25s var(--ease-hero); position: relative; }
+.toc-sticky a:hover { color: var(--cyan); padding-left: 4px; }
+
+/* choice pills already done in contact; add focus-visible ring sitewide for a11y polish */
+a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, summary:focus-visible {
+  outline: 2px solid var(--cyan); outline-offset: 2px; border-radius: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btu-row, .btu-qty-btn, .checklist-action-btn, .toc-sticky a { transition: none; }
+  .btu-row:hover { padding-left: 0; }
+}
+
+/* ---- BTU fuel-type toggle (NG / LP) ---- */
+.btu-fuel-toggle {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem;
+  margin-bottom: var(--space-3);
+}
+.btu-fuel-btn {
+  display: flex; flex-direction: column; align-items: center; gap: 0.15rem;
+  padding: 0.75rem 1rem;
+  background: var(--charcoal-2);
+  border: 1px solid rgba(143,208,240,0.16);
+  border-radius: 10px;
+  color: var(--silver-mid);
+  cursor: pointer;
+  transition: all 0.3s var(--ease-hero);
+  position: relative; overflow: hidden;
+}
+.btu-fuel-btn .btu-fuel-name {
+  font-family: var(--font-body); font-size: 0.95rem; font-weight: 600;
+  color: var(--silver-light); letter-spacing: 0.01em;
+}
+.btu-fuel-btn .btu-fuel-sub {
+  font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.2em;
+  color: var(--silver-deep); transition: color 0.3s ease;
+}
+.btu-fuel-btn::before {
+  content:''; position:absolute; inset:0;
+  background: radial-gradient(circle at 50% 0%, rgba(30,91,191,0.22), transparent 60%);
+  opacity:0; transition: opacity 0.4s ease; pointer-events:none;
+}
+.btu-fuel-btn:hover {
+  border-color: rgba(143,208,240,0.4);
+  transform: translateY(-2px);
+}
+.btu-fuel-btn.active {
+  border-color: var(--cyan);
+  background: linear-gradient(180deg, rgba(30,91,191,0.14), var(--charcoal-2));
+  box-shadow: 0 6px 22px rgba(30,91,191,0.28);
+}
+.btu-fuel-btn.active::before { opacity:1; }
+.btu-fuel-btn.active .btu-fuel-sub { color: var(--cyan); text-shadow: 0 0 10px rgba(143,208,240,0.5); }
+
+@media (prefers-reduced-motion: reduce) {
+  .btu-fuel-btn { transition: none; }
+  .btu-fuel-btn:hover { transform: none; }
 }

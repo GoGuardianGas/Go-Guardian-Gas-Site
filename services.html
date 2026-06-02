@@ -5,7 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Services | Guardian Gas Solutions | Propane & Natural Gas in Florida</title>
 <meta name="description" content="Residential and commercial propane and natural gas services across North and Central Florida. Tankless water heaters, generators, fireplaces, outdoor kitchens, restaurants, mobile food vendors, and more.">
-<link rel="icon" type="image/png" href="images/shield.png">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="theme-color" content="#0a120f">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Manrope:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -104,6 +109,36 @@
     width: 18px; height: 18px;
     flex-shrink: 0;
   }
+
+  /* --- v8 hero-matched polish (services) --- */
+  .service-block { transition: background 0.5s ease; position: relative; }
+  .service-icon {
+    width: 96px; height: 96px; padding: 20px;
+    border-radius: 18px; color: var(--cyan);
+    display:flex; align-items:center; justify-content:center;
+    background: linear-gradient(145deg, rgba(30,91,191,0.4), rgba(13,20,30,0.55));
+    border: 1px solid rgba(143,208,240,0.3);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.07), 0 6px 20px rgba(30,91,191,0.22);
+    position: relative;
+    transition: transform 0.5s cubic-bezier(0.16,1,0.3,1);
+  }
+  .service-icon::before {
+    content:''; position:absolute; inset:-5px; border-radius:20px;
+    background: radial-gradient(circle, rgba(143,208,240,0.3), transparent 70%);
+    opacity:0; transition: opacity 0.5s ease; z-index:-1;
+  }
+  .service-meta:hover .service-icon { transform: scale(1.06) rotate(-4deg); }
+  .service-meta:hover .service-icon::before { opacity:1; }
+  .service-list li {
+    transition: color 0.3s ease, padding-left 0.3s cubic-bezier(0.16,1,0.3,1);
+  }
+  .service-list li:hover { color: var(--cyan); }
+  .service-list .check { transition: transform 0.3s cubic-bezier(0.16,1,0.3,1); }
+  .service-list li:hover .check { transform: scale(1.25); }
+  @media (prefers-reduced-motion: reduce) {
+    .service-icon, .service-list li, .service-list .check { transition: none; }
+    .service-meta:hover .service-icon { transform: none; }
+  }
 </style>
 </head>
 <body>
@@ -111,7 +146,7 @@
 <nav class="nav">
   <div class="nav-inner">
     <a href="index.html" class="nav-logo">
-      <img src="images/logo_nav.png" alt="Guardian Gas Solutions">
+      <img src="images/shield.png" alt="Guardian Gas Solutions">
     </a>
     <button class="nav-toggle" aria-label="Toggle menu">
       <span></span><span></span><span></span>
@@ -324,8 +359,7 @@
   <div class="container">
     <div class="footer-grid">
       <div class="footer-brand">
-        <img src="images/logo_nav.png" alt="Guardian Gas Solutions">
-        <p class="footer-tagline">Guarding what powers your home.</p>
+        <img src="images/shield.png" alt="Guardian Gas Solutions">
       </div>
       <div class="footer-col">
         <h4>Services</h4>

@@ -5,7 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>About | Guardian Gas Solutions | Licensed Florida Gas Contractor</title>
 <meta name="description" content="Licensed, family-owned propane and natural gas contractor serving North and Central Florida. Master-qualified, insured, code-compliant gas installation, service, and maintenance for homes and businesses.">
-<link rel="icon" type="image/png" href="images/shield.png">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="theme-color" content="#0a120f">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Manrope:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -97,7 +102,7 @@
 <nav class="nav">
   <div class="nav-inner">
     <a href="index.html" class="nav-logo">
-      <img src="images/logo_nav.png" alt="Guardian Gas Solutions">
+      <img src="images/shield.png" alt="Guardian Gas Solutions">
     </a>
     <button class="nav-toggle" aria-label="Toggle menu">
       <span></span><span></span><span></span>
@@ -299,6 +304,30 @@
 @media (max-width: 800px) {
   .story-grid, .mv-grid, .area-grid { grid-template-columns: 1fr !important; }
 }
+
+  /* --- v8 hero-matched polish (about) --- */
+  .values-cell {
+    transition: background 0.45s ease, box-shadow 0.45s ease, transform 0.45s cubic-bezier(0.16,1,0.3,1);
+    position: relative; overflow: hidden;
+  }
+  .values-cell::before {
+    content:''; position:absolute; inset:0;
+    background: radial-gradient(circle at 85% 0%, rgba(30,91,191,0.16), transparent 55%);
+    opacity:0; transition: opacity 0.5s ease; pointer-events:none;
+  }
+  .values-cell:hover {
+    background: linear-gradient(135deg, rgba(143,208,240,0.04), rgba(30,91,191,0.02)), var(--charcoal-2);
+    box-shadow: inset 0 0 0 1px rgba(143,208,240,0.18);
+    z-index: 1;
+  }
+  .values-cell:hover::before { opacity:1; }
+  .values-cell .num { transition: color 0.3s ease; }
+  .values-cell:hover .num { color: var(--cyan); text-shadow: 0 0 14px rgba(143,208,240,0.4); }
+  .identity-table tr { transition: background 0.3s ease; }
+  .identity-table tbody tr:hover { background: rgba(143,208,240,0.04); }
+  @media (prefers-reduced-motion: reduce) {
+    .values-cell, .values-cell .num, .identity-table tr { transition: none; }
+  }
 </style>
 
 <!-- ===== FOOTER ===== -->
@@ -306,8 +335,7 @@
   <div class="container">
     <div class="footer-grid">
       <div class="footer-brand">
-        <img src="images/logo_nav.png" alt="Guardian Gas Solutions">
-        <p class="footer-tagline">Guarding what powers your home.</p>
+        <img src="images/shield.png" alt="Guardian Gas Solutions">
       </div>
       <div class="footer-col">
         <h4>Services</h4>
