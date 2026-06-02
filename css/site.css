@@ -1900,3 +1900,81 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
   .btu-fuel-btn { transition: none; }
   .btu-fuel-btn:hover { transform: none; }
 }
+
+/* ============================================================
+   MOBILE LAYOUT — dedicated phone presentation
+   Everything below only applies at <= 640px. Desktop is untouched.
+   Goal: comfortable type sizes, real breathing room at the edges,
+   no oversized headings, no dead gaps.
+   ============================================================ */
+@media (max-width: 640px) {
+
+  /* --- Edges & rhythm --- */
+  .container { padding: 0 1.25rem; }
+  section { padding: 2.75rem 0; }
+
+  /* --- Typography: scale headings down to phone-comfortable sizes --- */
+  h1 { font-size: 2rem; line-height: 1.12; letter-spacing: 0; }
+  h2 { font-size: 1.6rem; line-height: 1.18; letter-spacing: 0.01em; }
+  h3 { font-size: 1.2rem; line-height: 1.25; }
+  p  { font-size: 1rem; line-height: 1.6; }
+
+  /* tighten the giant clamp() heroes specifically */
+  .hero-left h1 { font-size: 2.05rem; line-height: 1.12; margin-bottom: 0.85rem; }
+  .hero-left .hero-tagline { font-size: 1.05rem; line-height: 1.55; margin-bottom: 1.25rem; }
+  .page-hero h1 { font-size: 2rem !important; line-height: 1.12 !important; }
+
+  /* eyebrow: stop awkward mid-word wraps, smaller + tighter */
+  .eyebrow { font-size: 0.68rem; letter-spacing: 0.18em; gap: 0.5rem; }
+  .eyebrow.centered { flex-wrap: wrap; justify-content: center; }
+
+  /* --- Page hero: kill the dead gap, sensible padding --- */
+  .page-hero { padding: 2.5rem 0 2rem; }
+  .page-hero-content { max-width: 100%; }
+
+  /* --- Section headers: less bottom margin, centered comfortably --- */
+  .section-header { margin-bottom: 1.75rem; }
+  .section-header p { font-size: 1rem; }
+
+  /* --- Hero (home) spacing --- */
+  .hero-split { padding: 2rem 0 2.5rem; }
+  .hero-split-grid { gap: 2rem; }
+  .hero-lockup { max-width: 280px; }
+
+  /* --- Cards: a touch more internal padding, comfortable gaps --- */
+  .grid { gap: 1rem; }
+  .card { padding: 1.5rem 1.4rem; }
+  .card h3 { font-size: 1.15rem; }
+
+  /* --- Buttons: full-width, bigger tap targets --- */
+  .hero-cta { flex-direction: column; gap: 0.75rem; width: 100%; }
+  .hero-cta .btn, .hero-cta .btn-call { width: 100%; justify-content: center; }
+  .btn { padding: 0.85rem 1.4rem; }
+
+  /* --- Stats / numbers --- */
+  .stat-num { font-size: 2.25rem; }
+
+  /* --- Footer: stack cleanly, more space --- */
+  .footer-grid { gap: 2rem; }
+  footer { padding-top: 2.5rem; }
+
+  /* --- Tables (about identity, etc.) stay readable --- */
+  .identity-table th, .identity-table td { padding: 0.65rem 0.85rem; }
+
+  /* --- BTU calc already reordered; tighten its padding here --- */
+  .btu-calc-list, .btu-calc-result { padding: 1.25rem; }
+  .btu-result-total { font-size: 2.4rem; }
+
+  /* --- Accordion / FAQ comfortable tap rows --- */
+  .accordion-item summary { padding: 1rem 1.1rem; font-size: 1rem; }
+
+  /* --- Reduce heavy decorative glows that crowd small screens --- */
+  .glow-accent::before { width: 240px; height: 240px; top: -80px; right: -80px; }
+}
+
+/* Extra-small phones (<= 380px): nudge down a hair more */
+@media (max-width: 380px) {
+  .hero-left h1, .page-hero h1 { font-size: 1.8rem !important; }
+  h2 { font-size: 1.45rem; }
+  .container { padding: 0 1rem; }
+}
