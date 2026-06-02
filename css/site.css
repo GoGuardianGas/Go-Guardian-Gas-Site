@@ -796,6 +796,9 @@ footer {
 }
 @media (max-width: 900px) {
   .btu-calc { grid-template-columns: 1fr; }
+  /* result panel first so the total + tank are visible without scrolling the whole list */
+  .btu-calc-result { order: -1; }
+  .btu-calc-list { order: 0; }
 }
 
 .btu-calc-list {
@@ -805,7 +808,7 @@ footer {
   overflow-y: auto;
 }
 @media (max-width: 900px) {
-  .btu-calc-list { border-right: none; border-bottom: 1px solid var(--hairline); max-height: none; }
+  .btu-calc-list { border-right: none; border-top: 1px solid var(--hairline); max-height: 360px; }
 }
 
 .btu-calc-list::-webkit-scrollbar { width: 6px; }
