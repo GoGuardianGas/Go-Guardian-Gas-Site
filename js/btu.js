@@ -1,8 +1,7 @@
-/* Guardian Gas Solutions — BTU Calculator (v2, fuel-aware)
- * BTU/hr sizing loads sourced from the GGS internal capacity charts
- * (Generac NG & LP, Rinnai tankless, ranges, fireplaces, fire features,
- *  summer kitchens). Generators differ by fuel; most other appliances
- *  carry the same max BTU input for NG and LP, so they appear in both lists.
+/* Guardian Gas Solutions — BTU Calculator (fuel-aware)
+ * Generac loads use model-specific published full-load ft³/hr, converted
+ * using Generac's factors: NG × 1,000; LP vapor × 2,500 BTU/ft³.
+ * Other appliance estimates use the GGS internal capacity charts.
  *
  * For gas design / pipe sizing we use the 100% full-load number.
  */
@@ -43,27 +42,38 @@ const SHARED = [
   { id: 'kitchen-full', label: 'Grill + Pizza Oven + Fire Feature',  btu: 300000, cat: 'outdoor' },
 ];
 
-// Generators — fuel-specific 100% full-load BTU for gas sizing
-const GEN_NG = [
-  { id: 'gen-26-ng', label: 'Whole-Home Generator 26kW',    btu: 333000, cat: 'power' },
-  { id: 'gen-24-ng', label: 'Whole-Home Generator 24kW',    btu: 306000, cat: 'power' },
-  { id: 'gen-22-ng', label: 'Whole-Home Generator 22kW',    btu: 327000, cat: 'power' },
-  { id: 'gen-20-ng', label: 'Whole-Home Generator 20kW',    btu: 307000, cat: 'power' },
-  { id: 'gen-18-ng', label: 'Standby Generator 18kW',       btu: 301000, cat: 'power' },
-  { id: 'gen-16-ng', label: 'Standby Generator 16kW',       btu: 309000, cat: 'power' },
-  { id: 'gen-14-ng', label: 'Standby Generator 14kW',       btu: 256000, cat: 'power' },
-  { id: 'gen-10-ng', label: 'Standby Generator 10kW',       btu: 127000, cat: 'power' },
+// Next-generation 22–28 kW: Generac A0005151077, full-load fuel table.
+// https://productmanuals.generac.com/api/manualfiles/G0072820/A0005151077/0
+// Guardian 26 kW 7290/7291: Generac A0002026894.
+// https://productmanuals.generac.com/api/manualfiles/G0072910/A0002026894/0
+// Guardian 20 kW 7038-1/7039-1: 20-24kw-guardian-standby-generator-specsheet.pdf
+// Guardian 16 kW 7035/7036: 16-22kw-guardian-standby-generator-specsheet.pdf
+// Guardian 10/14/18 kW: 10kw-14kw-18kw_guardian-series_aircooled-gasengine_specsheet.pdf
+// (The three PDFs above are in Generac's /globalassets/products/residential/standby-generators/spec-sheets/.)
+const GENERAC_MODELS = [
+  { id: 'gen-28', kw: 28, models: '7282 / 7329', ngCfh: 297, lpCfh: 144 },
+  { id: 'gen-26', kw: 26, models: '7327 / 7328', ngCfh: 316, lpCfh: 144 },
+  { id: 'gen-26-guardian', kw: 26, models: '7290 / 7291', ngCfh: 333, lpCfh: 132 },
+  { id: 'gen-24', kw: 24, models: '7261 / 7326', ngCfh: 291, lpCfh: 135 },
+  { id: 'gen-22', kw: 22, models: '7260 / 7325', ngCfh: 311, lpCfh: 135 },
+  { id: 'gen-20', kw: 20, models: '7038-1 / 7039-1', ngCfh: 301, lpCfh: 130 },
+  { id: 'gen-18', kw: 18, models: '7226 / 7228', ngCfh: 247, lpCfh: 110 },
+  { id: 'gen-16', kw: 16, models: '7035 / 7036', ngCfh: 309, lpCfh: 107 },
+  { id: 'gen-14', kw: 14, models: '7223 / 7224 / 7225', ngCfh: 256, lpCfh: 112 },
+  { id: 'gen-10', kw: 10, models: '7171 / 7172', ngCfh: 127, lpCfh: 54 },
 ];
-const GEN_LP = [
-  { id: 'gen-26-lp', label: 'Whole-Home Generator 26kW',    btu: 329000, cat: 'power' },
-  { id: 'gen-24-lp', label: 'Whole-Home Generator 24kW',    btu: 357000, cat: 'power' },
-  { id: 'gen-22-lp', label: 'Whole-Home Generator 22kW',    btu: 357000, cat: 'power' },
-  { id: 'gen-20-lp', label: 'Whole-Home Generator 20kW',    btu: 354000, cat: 'power' },
-  { id: 'gen-18-lp', label: 'Standby Generator 18kW',       btu: 357000, cat: 'power' },
-  { id: 'gen-16-lp', label: 'Standby Generator 16kW',       btu: 283000, cat: 'power' },
-  { id: 'gen-14-lp', label: 'Standby Generator 14kW',       btu: 233000, cat: 'power' },
-  { id: 'gen-10-lp', label: 'Standby Generator 10kW',       btu: 130000, cat: 'power' },
-];
+
+function generatorsForFuel(fuel) {
+  return GENERAC_MODELS.map(g => ({
+    id: `${g.id}-${fuel}`,
+    label: `Generac Standby Generator ${g.kw} kW`,
+    model: `Models ${g.models}`,
+    btu: fuel === 'lp' ? g.lpCfh * 2500 : g.ngCfh * 1000,
+    cat: 'power',
+  }));
+}
+const GEN_NG = generatorsForFuel('ng');
+const GEN_LP = generatorsForFuel('lp');
 
 // Full appliance set per fuel: generators first, then shared appliances
 const APPLIANCES_BY_FUEL = {
@@ -149,6 +159,7 @@ function initBtuCalculator(root) {
     row.innerHTML = `
       <div class="btu-row-label">
         <span class="btu-row-name">${a.label}</span>
+        ${a.model ? `<span class="btu-row-model">${a.model}</span>` : ''}
         <span class="btu-row-btu">${a.btu.toLocaleString()} BTU/hr</span>
       </div>
       <div class="btu-row-qty">
