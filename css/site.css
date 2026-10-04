@@ -2005,4 +2005,21 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 .nav-spacer { height: 94px; }
 .footer-brand img { height: 128px; }
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+.gas-finder-wrap { margin-top: 1.5rem; }
+.gas-finder { display: flex; align-items: center; gap: 1.4rem; }
+.gas-finder .tool-icon { width: 72px; height: 72px; }
+.gas-finder .tool-icon svg { width: 46px; height: 46px; }
+.gas-finder-copy { flex: 1; min-width: 0; }
+.gas-finder h3 { font-size: 1.5rem; margin-bottom: 0.4rem; }
+.gas-finder p { margin: 0; max-width: 680px; }
+.gas-finder-cta { position: relative; color: var(--cyan); font-weight: 800; white-space: nowrap; }
+.gas-finder-cta span { display: inline-block; margin-left: 0.4rem; font-size: 1.35rem; }
+@media (max-width: 640px) {
+  .gas-finder { flex-wrap: wrap; gap: 1rem; padding: 1.5rem; text-align: left; }
+  .gas-finder .tool-icon { width: 56px; height: 56px; }
+  .gas-finder .tool-icon svg { width: 38px; height: 38px; }
+  .gas-finder-copy { flex-basis: calc(100% - 72px); }
+  .gas-finder h3 { font-size: 1.25rem; }
+  .gas-finder-cta { width: 100%; text-align: center; padding-top: 0.75rem; border-top: 1px solid var(--hairline); }
+}
 @media (max-width: 900px) { .nav-spacer { height: 88px; } }
