@@ -224,3 +224,17 @@
   .article-card-thumb img { height: 170px; }
   .article-banner { border-radius: 12px; }
 }
+
+/* Subject illustrations sit beside the reading column and softly blend into the page. */
+.article-page .article-body-wrap { max-width: 1280px; }
+.article-reading-grid { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.3fr); gap: clamp(2rem, 4vw, 4rem); align-items: start; }
+.article-visual { position: sticky; top: 124px; min-width: 0; }
+.article-visual figure { margin: 0; }
+.article-visual img { width: 100%; height: auto; border: 0; border-radius: 0; box-shadow: none; -webkit-mask-image: linear-gradient(to right, transparent, #000 7%, #000 93%, transparent), linear-gradient(to bottom, transparent, #000 9%, #000 91%, transparent); -webkit-mask-composite: source-in; mask-image: linear-gradient(to right, transparent, #000 7%, #000 93%, transparent), linear-gradient(to bottom, transparent, #000 9%, #000 91%, transparent); mask-composite: intersect; }
+.article-visual figcaption { padding: .75rem 1.5rem 0; text-align: center; font-size: .8rem; line-height: 1.6; color: var(--silver-mid); }
+.article-page .article-faqs, .article-page .article-cta, .article-page .related-articles { max-width: 780px; margin-left: auto; margin-right: auto; }
+@media (max-width: 900px) {
+  .article-reading-grid { grid-template-columns: 1fr; gap: 2rem; }
+  .article-visual { position: static; max-width: 700px; margin: 0 auto; }
+  .article-reading-grid .article-body { max-width: 780px; margin: 0 auto; }
+}
