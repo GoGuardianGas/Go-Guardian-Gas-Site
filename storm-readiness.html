@@ -95,6 +95,35 @@
     .checklist-layout { grid-template-columns: 1fr; }
     .toc-sticky { position: static; max-height: none; }
   }
+
+  /* Local weather lookup */
+  .storm-hero-grid{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(280px,.85fr);gap:40px;align-items:center;position:relative;z-index:2}
+  .storm-weather{min-width:0;max-width:420px;width:100%;justify-self:center;text-align:center}
+  .storm-weather summary{list-style:none;cursor:pointer;border-radius:24px;padding:10px 18px 20px;color:#fff;background:radial-gradient(ellipse at center,#0047ab55,transparent 70%)}
+  .storm-weather summary::-webkit-details-marker{display:none}
+  .storm-weather summary::marker{content:""}
+  .storm-weather summary:focus-visible{outline:3px solid #fff;outline-offset:6px}
+  .storm-weather summary img{display:block;width:min(100%,280px);height:auto;margin:0 auto 12px;filter:drop-shadow(0 12px 22px #0047ab66);transition:transform .2s ease}
+  .storm-weather summary:hover img{transform:scale(1.035)}
+  .storm-weather summary strong{display:block;font-family:var(--font-display);font-size:1.7rem;line-height:1.25}
+  .storm-weather summary span{display:inline-block;margin-top:12px;padding:9px 18px;border:1px solid #91baff;border-radius:999px;background:#0047ab;font-size:.85rem;font-weight:700}
+  .storm-weather[open] .weather-open-label{display:none}
+  .storm-weather:not([open]) .weather-close-label{display:none}
+  .storm-weather-panel{margin-top:12px;padding:24px;text-align:left;background:#0c2143;border:1px solid #91baff66;border-radius:20px;box-shadow:0 16px 40px #0003}
+  .storm-weather-panel label{display:block;color:#fff;font-weight:700;margin-bottom:10px;font-size:1rem}
+  .storm-weather-panel input{box-sizing:border-box;display:block;width:100%;min-width:0;min-height:50px;padding:12px 14px;background:#fff;color:#07152e;border:2px solid #91baff;border-radius:8px;font:inherit;font-size:16px}
+  .storm-weather-panel input:focus-visible{outline:3px solid #8fd0f0;outline-offset:3px}
+  .storm-weather-submit{display:block;width:100%;min-height:50px;margin-top:12px;padding:12px 16px;border:2px solid #fff;border-radius:8px;background:#0047ab;color:#fff;font:inherit;font-weight:800;cursor:pointer}
+  .storm-weather-submit:hover{background:#003582}
+  .storm-weather-submit:focus-visible,.storm-weather-links a:focus-visible{outline:3px solid #fff;outline-offset:4px}
+  .storm-weather-panel p{font-size:.825rem;line-height:1.6;color:#d7e8ff;margin:12px 0 0}
+  .storm-weather-links{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+  .storm-weather-links a{display:flex;align-items:center;justify-content:center;flex:1 1 120px;min-height:46px;padding:10px;border:1px solid #91baff;border-radius:8px;color:#fff;font-size:.85rem;font-weight:700;text-align:center}
+  .storm-weather-links a:hover{background:#0047ab}
+  @media(max-width:900px){.storm-hero-grid{grid-template-columns:1fr;gap:28px}.storm-weather{max-width:480px}.storm-weather summary img{width:220px}}
+  @media(prefers-reduced-motion:reduce){.storm-weather summary img{transition:none}.storm-weather summary:hover img{transform:none}}
+  @media print{.storm-hero-grid{display:block}.storm-weather{display:none!important}}
+
 </style>
 </head>
 <body>
@@ -140,7 +169,7 @@
 <!-- ===== PAGE HERO ===== -->
 <section class="page-hero">
   <div class="page-hero-bg"></div>
-  <div class="container">
+  <div class="container storm-hero-grid">
     <div class="page-hero-content fade-up">
       <div class="eyebrow" style="color: var(--cyan);">Hurricane Season Tool · Free</div>
       <h1 style="font-size: clamp(2.5rem, 5vw, 4.5rem); margin-bottom: var(--space-3);">
@@ -154,6 +183,27 @@
         Your progress is saved automatically in your browser. You can come back any time and pick up where you left off, or print and email a copy.
       </p>
     </div>
+
+    <details class="storm-weather no-print" id="local-weather">
+      <summary>
+        <img src="images/hurricane-weather-button-2026.webp" width="560" height="560" alt="" fetchpriority="high">
+        <strong>Click Here for Weather<br>in Your Area</strong>
+        <span class="weather-open-label">Find My Forecast ↓</span>
+        <span class="weather-close-label">Close Weather Lookup ↑</span>
+      </summary>
+      <div class="storm-weather-panel">
+        <form action="https://forecast.weather.gov/zipcity.php" method="get" target="_blank" rel="noopener">
+          <label for="weather-location">ZIP code or city, state</label>
+          <input id="weather-location" name="inputstring" type="text" placeholder="e.g., 32696 or Williston, FL" maxlength="100" required pattern=".*\S.*" title="Enter a ZIP code or a city and state." aria-describedby="weather-source">
+          <button class="storm-weather-submit" type="submit">Check My Weather ↗</button>
+          <p id="weather-source">Opens your local National Weather Service forecast in a new tab.</p>
+        </form>
+        <div class="storm-weather-links">
+          <a href="https://radar.weather.gov/" target="_blank" rel="noopener">Weather Radar ↗<span class="sr-only"> (opens in a new tab)</span></a>
+          <a href="https://www.nhc.noaa.gov/" target="_blank" rel="noopener">Hurricane Updates ↗<span class="sr-only"> (opens in a new tab)</span></a>
+        </div>
+      </div>
+    </details>
   </div>
 </section>
 
