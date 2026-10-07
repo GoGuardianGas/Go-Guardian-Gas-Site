@@ -2089,3 +2089,5 @@ img{max-width:100%}p,a,li{overflow-wrap:break-word}
 @media(max-width:900px){body{padding-bottom:76px}.nav-menu{max-height:calc(100dvh - 100px);overflow-y:auto}.nav-menu:not(.open){visibility:hidden}.nav-menu.open{visibility:visible}}
 @media(max-width:600px){.form-row{grid-template-columns:1fr}.btu-row{gap:12px}.container{min-width:0}.footer-grid{min-width:0}.contact-method-value{font-size:1rem}}
 @media(forced-colors:active){.choice-pill,.form-input,.form-select,.form-textarea,.btu-qty-btn{border:1px solid ButtonText}:focus-visible{outline:3px solid Highlight!important}.btn{border:1px solid ButtonText}}
+.motion-paused .hero-stagger{opacity:1!important;transform:none!important}
+.nav-cta:hover{background:#003582}
