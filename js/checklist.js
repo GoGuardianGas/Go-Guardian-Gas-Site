@@ -49,7 +49,7 @@ function initChecklist(root) {
     const pct = total ? Math.round((done / total) * 100) : 0;
 
     if (progressBar) progressBar.style.width = pct + '%';
-    if (progressLabel) progressLabel.textContent = pct + '%';
+    if (progressLabel) { progressLabel.setAttribute('role', 'status'); progressLabel.textContent = pct + '%'; }
     if (completeCountEl) completeCountEl.textContent = done;
     if (totalCountEl) totalCountEl.textContent = total;
   }
@@ -67,6 +67,7 @@ function initChecklist(root) {
       if (!confirm('Clear all checked items and start over?')) return;
       checks.forEach(c => { c.checked = false; });
       clearState();
+      Object.keys(state).forEach(key => delete state[key]);
       update();
     });
   }

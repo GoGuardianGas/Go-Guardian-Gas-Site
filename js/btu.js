@@ -163,12 +163,13 @@ function initBtuCalculator(root) {
         <span class="btu-row-btu">${a.btu.toLocaleString()} BTU/hr</span>
       </div>
       <div class="btu-row-qty">
-        <button type="button" class="btu-qty-btn" data-action="dec" aria-label="Decrease ${a.label}">−</button>
-        <span class="btu-qty-val" data-qty="${a.id}">0</span>
-        <button type="button" class="btu-qty-btn" data-action="inc" aria-label="Increase ${a.label}">+</button>
+        <button type="button" class="btu-qty-btn" data-action="dec">−</button>
+        <span class="btu-qty-val" aria-live="polite" aria-atomic="true" data-qty="${a.id}">0</span>
+        <button type="button" class="btu-qty-btn" data-action="inc">+</button>
       </div>
     `;
     row.querySelectorAll('.btu-qty-btn').forEach(b => {
+      b.setAttribute('aria-label', `${b.dataset.action === 'inc' ? 'Increase' : 'Decrease'} ${a.label}`);
       b.addEventListener('click', () => {
         const cur = state[a.id] || 0;
         if (b.dataset.action === 'inc') state[a.id] = cur + 1;

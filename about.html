@@ -14,7 +14,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Manrope:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/site.css?v=20261007-about">
+<link rel="stylesheet" href="css/site.css?v=20261007a">
 
 <style>
 .about-intro { padding: 3.5rem 0 2.5rem; background: radial-gradient(ellipse at 15% 0%, #153e7a, transparent 75%); }
@@ -43,29 +43,30 @@
 </style>
 </head>
 <body>
+<a class="skip-link" href="#main-content">Skip to main content</a>
 
-<nav class="nav">
+<nav class="nav" aria-label="Main navigation">
   <div class="nav-inner">
     <a href="index.html" class="nav-logo">
       <img src="images/guardian-shield-cobalt-2026.png" alt="Guardian Gas Solutions">
     </a>
-    <button class="nav-toggle" aria-label="Toggle menu">
+    <button class="nav-toggle" type="button" aria-label="Toggle menu" aria-expanded="false" aria-controls="primary-menu">
       <span></span><span></span><span></span>
     </button>
-    <ul class="nav-menu">
+    <ul class="nav-menu" id="primary-menu">
       <li><a href="index.html">Home</a></li>
       <li><a href="services.html">Services</a></li>
       <li><a href="articles.html">Articles</a></li>
       <li><a href="storm-readiness.html">Storm Readiness</a></li>
-      <li><a href="about.html" class="active">About</a></li>
+      <li><a href="about.html" class="active" aria-current="page">About</a></li>
       <li><a href="contact.html">Contact</a></li>
-      <li><a href="tel:8774102195" class="nav-call"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>(877) 410-2195</a></li>
+      <li><a href="tel:8774102195" class="nav-call"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>(877) 410-2195</a></li>
     </ul>
   </div>
 </nav>
 <div class="nav-spacer"></div>
 
-<main>
+<main id="main-content" tabindex="-1">
 <section class="about-intro">
   <div class="container">
     <div class="eyebrow">About Us</div>
@@ -145,6 +146,7 @@
         </ul>
       </div>
     </div>
+    <div class="accessibility-tools"><a href="accessibility.html">Accessibility &amp; assistance</a> <button type="button" class="motion-toggle" aria-pressed="false" hidden>Pause animations</button></div>
     <div class="footer-bottom">
       <div>© 2026 Guardian Gas Solutions LLC · L25000053942</div>
       <div class="footer-signoff">Powering Homes &amp; Businesses - Safely &amp; Efficiently</div>
@@ -152,7 +154,7 @@
   </div>
 </footer>
 
-<script src="js/site.js"></script>
-<a href="tel:8774102195" class="mobile-call-bar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>Call (877) 410-2195</a>
+<script src="js/site.js?v=20261007a"></script>
+<a href="tel:8774102195" class="mobile-call-bar"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>Call (877) 410-2195</a>
 </body>
 </html>
