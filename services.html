@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Services | Guardian Gas Solutions | Propane & Natural Gas in Florida</title>
-<meta name="description" content="Residential and commercial propane and natural gas services across North and Central Florida. Tankless water heaters, generators, fireplaces, outdoor kitchens, restaurants, mobile food vendors, and more.">
+<meta name="description" content="Explore propane and natural gas services for homeowners, generator dealers, builders, trade partners, real estate agents, property managers, commercial kitchens, food trucks, appliance dealers, designers, and restoration teams in North and Central Florida.">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -15,131 +15,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Manrope:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/site.css?v=20261007b">
-<style>
-  /* page-specific */
-  .page-hero {
-    padding: var(--space-7) 0 var(--space-6);
-    position: relative;
-    background: var(--near-black);
-    border-bottom: 1px solid var(--hairline);
-    overflow: hidden;
-  }
-  .page-hero-bg {
-    position: absolute; inset: 0;
-    background:
-      radial-gradient(ellipse 60% 50% at 80% 20%, rgba(0,71,171,0.10), transparent 60%),
-      linear-gradient(to right, var(--hairline) 1px, transparent 1px),
-      linear-gradient(to bottom, var(--hairline) 1px, transparent 1px);
-    background-size: auto, 100px 100px, 100px 100px;
-    mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
-    -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
-  }
-  .page-hero-content {
-    position: relative; z-index: 2;
-    max-width: 720px;
-  }
-  .service-block {
-    padding: var(--space-7) 0;
-    border-bottom: 1px solid var(--hairline);
-  }
-  .service-block:last-of-type { border-bottom: none; }
-  .service-block.alt { background: var(--charcoal-2); }
-
-  .service-layout {
-    display: grid;
-    grid-template-columns: 1fr 1.5fr;
-    gap: var(--space-6);
-    align-items: start;
-  }
-  @media (max-width: 900px) {
-    .service-layout { grid-template-columns: 1fr; gap: var(--space-4); }
-  }
-
-  .service-meta {
-    position: sticky;
-    top: 100px;
-  }
-  @media (max-width: 900px) {
-    .service-meta { position: static; }
-  }
-
-  .service-icon {
-    width: 96px; height: 96px;
-    color: var(--royal-2);
-    margin-bottom: var(--space-3);
-  }
-  .service-id {
-    font-family: var(--font-mono);
-    font-size: 0.75rem;
-    letter-spacing: 0.25em;
-    color: var(--silver-deep);
-    text-transform: uppercase;
-    margin-bottom: var(--space-1);
-  }
-
-  .service-list {
-    list-style: none;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 0;
-    border-top: 1px solid var(--hairline);
-    margin-top: var(--space-3);
-  }
-  @media (max-width: 600px) { .service-list { grid-template-columns: 1fr; } }
-
-  .service-list li {
-    padding: 1rem 0;
-    border-bottom: 1px solid var(--hairline);
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    color: var(--silver-light);
-    font-weight: 500;
-  }
-
-  .service-list li:nth-child(odd) { border-right: 1px solid var(--hairline); padding-right: var(--space-3); }
-  .service-list li:nth-child(even) { padding-left: var(--space-3); }
-  @media (max-width: 600px) {
-    .service-list li:nth-child(odd) { border-right: none; padding-right: 0; }
-    .service-list li:nth-child(even) { padding-left: 0; }
-  }
-
-  .service-list .check {
-    color: var(--royal-2);
-    width: 18px; height: 18px;
-    flex-shrink: 0;
-  }
-
-  /* --- v8 hero-matched polish (services) --- */
-  .service-block { transition: background 0.5s ease; position: relative; }
-  .service-icon {
-    width: 96px; height: 96px; padding: 20px;
-    border-radius: 18px; color: var(--cyan);
-    display:flex; align-items:center; justify-content:center;
-    background: linear-gradient(145deg, rgba(0,71,171,0.4), rgba(13,20,30,0.55));
-    border: 1px solid rgba(143,208,240,0.3);
-    box-shadow: inset 0 1px 0 rgba(255,255,255,0.07), 0 6px 20px rgba(0,71,171,0.22);
-    position: relative;
-    transition: transform 0.5s cubic-bezier(0.16,1,0.3,1);
-  }
-  .service-icon::before {
-    content:''; position:absolute; inset:-5px; border-radius:20px;
-    background: radial-gradient(circle, rgba(143,208,240,0.3), transparent 70%);
-    opacity:0; transition: opacity 0.5s ease; z-index:-1;
-  }
-  .service-meta:hover .service-icon { transform: scale(1.06) rotate(-4deg); }
-  .service-meta:hover .service-icon::before { opacity:1; }
-  .service-list li {
-    transition: color 0.3s ease, padding-left 0.3s cubic-bezier(0.16,1,0.3,1);
-  }
-  .service-list li:hover { color: var(--cyan); }
-  .service-list .check { transition: transform 0.3s cubic-bezier(0.16,1,0.3,1); }
-  .service-list li:hover .check { transform: scale(1.25); }
-  @media (prefers-reduced-motion: reduce) {
-    .service-icon, .service-list li, .service-list .check { transition: none; }
-    .service-meta:hover .service-icon { transform: none; }
-  }
-</style>
+<link rel="stylesheet" href="css/services.css?v=20261007-overhaul">
 </head>
 <body>
 <a class="skip-link" href="#main-content">Skip to main content</a>
@@ -165,201 +41,15 @@
   </div>
 </nav>
 <div class="nav-spacer"></div>
-<main id="main-content" tabindex="-1">
-
-<!-- ===== PAGE HERO ===== -->
-<section class="page-hero">
-  <div class="page-hero-bg"></div>
-  <div class="container">
-    <div class="page-hero-content fade-up">
-      <div class="eyebrow">Services</div>
-      <h1 style="font-size: clamp(2.5rem, 5vw, 4.5rem); margin-bottom: var(--space-3);">
-        Whatever You Run,<br>
-        <span style="color: var(--royal-2);">We Run the Gas.</span>
-      </h1>
-      <p style="font-size: 1.125rem; max-width: 580px;">
-        From a single appliance hookup to a full community propane distribution system,
-        every job designed, installed, and serviced to code, by a licensed Master Qualifier.
-      </p>
-    </div>
-  </div>
-</section>
-
-<!-- ===== RESIDENTIAL ===== -->
-<section class="service-block" id="residential">
-  <div class="container">
-    <div class="service-layout">
-      <div class="service-meta fade-up">
-        <div class="service-icon">
-          <svg aria-hidden="true" focusable="false" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M15 50 L50 20 L85 50"/>
-            <path d="M25 45 L25 82 L75 82 L75 45"/>
-            <rect x="42" y="58" width="16" height="24"/>
-          </svg>
-        </div>
-        <div class="service-id">01 / Residential</div>
-        <h2 style="font-size: clamp(2rem, 3.5vw, 3rem); margin-bottom: var(--space-2);">For the Home.</h2>
-        <p>Whole-home gas service, appliance installations, and conversions for homeowners across North and Central Florida.</p>
-      </div>
-      <div class="fade-up">
-        <h3 style="margin-bottom: var(--space-2);">Code-compliant, permitted, signed off.</h3>
-        <p style="margin-bottom: var(--space-3);">
-          We pull permits, run gas lines, set regulators, install appliances, and pressure-test the system before we sign off. The homeowner gets a working appliance and a paper trail; the inspector gets clean work.
-        </p>
-        <p style="margin-bottom: var(--space-3);">
-          A correctly sized propane or natural gas system supports every gas appliance in your home, present and future. Plan once, route once, done.
-        </p>
-        <ul class="service-list">
-          <li><svg aria-hidden="true" focusable="false" class="check" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="8"><path d="M20 50 L42 70 L80 30" stroke-linecap="round" stroke-linejoin="round"/></svg> Tankless Water Heaters</li>
-          <li><svg aria-hidden="true" focusable="false" class="check" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="8"><path d="M20 50 L42 70 L80 30" stroke-linecap="round" stroke-linejoin="round"/></svg> Hybrid Heating Systems</li>
-          <li><svg aria-hidden="true" focusable="false" class="check" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="8"><path d="M20 50 L42 70 L80 30" stroke-linecap="round" stroke-linejoin="round"/></svg> Ranges &amp; Ovens</li>
-          <li><svg aria-hidden="true" focusable="false" class="check" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="8"><path d="M20 50 L42 70 L80 30" stroke-linecap="round" stroke-linejoin="round"/></svg> Fireplaces &amp; Inserts</li>
-          <li><svg aria-hidden="true" focusable="false" class="check" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="8"><path d="M20 50 L42 70 L80 30" stroke-linecap="round" stroke-linejoin="round"/></svg> Clothes Dryers</li>
-          <li><svg aria-hidden="true" focusable="false" class="check" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="8"><path d="M20 50 L42 70 L80 30" stroke-linecap="round" stroke-linejoin="round"/></svg> High-Efficiency Boilers</li>
-          <li><svg aria-hidden="true" focusable="false" class="check" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="8"><path d="M20 50 L42 70 L80 30" stroke-linecap="round" stroke-linejoin="round"/></svg> Whole-Home Generators</li>
-          <li><svg aria-hidden="true" focusable="false" class="check" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="8"><path d="M20 50 L42 70 L80 30" stroke-linecap="round" stroke-linejoin="round"/></svg> Pool &amp; Spa Heaters</li>
-          <li><svg aria-hidden="true" focusable="false" class="check" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="8"><path d="M20 50 L42 70 L80 30" stroke-linecap="round" stroke-linejoin="round"/></svg> Outdoor Kitchen Lines</li>
-          <li><svg aria-hidden="true" focusable="false" class="check" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="8"><path d="M20 50 L42 70 L80 30" stroke-linecap="round" stroke-linejoin="round"/></svg> Tank Installs &amp; Swaps</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ===== SERVICE & MAINTENANCE ===== -->
-<section class="service-block alt" id="service">
-  <div class="container">
-    <div class="service-layout">
-      <div class="service-meta fade-up">
-        <div class="service-icon">
-          <svg aria-hidden="true" focusable="false" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M62 22 a18 18 0 1 0 8 14 L84 22 L76 14 L66 24 Z"/>
-            <path d="M44 44 L20 68 a8 8 0 0 0 12 12 L56 56"/>
-          </svg>
-        </div>
-        <div class="service-id">02 / Service &amp; Maintenance</div>
-        <h2 style="font-size: clamp(2rem, 3.5vw, 3rem); margin-bottom: var(--space-2);">For the Long Haul.</h2>
-        <p>Inspections, repairs, and scheduled maintenance that keep your gas system safe, efficient, and code-compliant year after year.</p>
-      </div>
-      <div class="fade-up">
-        <h3 style="margin-bottom: var(--space-2);">A gas system is only as good as its upkeep.</h3>
-        <p style="margin-bottom: var(--space-3);">
-          Regulators wear, fittings loosen, and tanks need eyes on them. We handle the routine work that prevents the expensive surprises, and we document every visit so your paper trail stays clean for insurance and inspections.
-        </p>
-        <p style="margin-bottom: var(--space-3);">
-          Whether you own a home, manage a property, or run a business, we keep your system running right. Note: we do not offer emergency or after-hours service. If you smell gas, leave the area and call your gas supplier or 911.
-        </p>
-        <ul class="service-list">
-          <li><svg aria-hidden="true" focusable="false" class="check" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="8"><path d="M20 50 L42 70 L80 30" stroke-linecap="round" stroke-linejoin="round"/></svg> Safety Inspections</li>
-          <li><svg aria-hidden="true" focusable="false" class="check" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="8"><path d="M20 50 L42 70 L80 30" stroke-linecap="round" stroke-linejoin="round"/></svg> Leak Detection &amp; Repair</li>
-          <li><svg aria-hidden="true" focusable="false" class="check" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="8"><path d="M20 50 L42 70 L80 30" stroke-linecap="round" stroke-linejoin="round"/></svg> Regulator Service</li>
-          <li><svg aria-hidden="true" focusable="false" class="check" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="8"><path d="M20 50 L42 70 L80 30" stroke-linecap="round" stroke-linejoin="round"/></svg> Tank Inspection &amp; Service</li>
-          <li><svg aria-hidden="true" focusable="false" class="check" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="8"><path d="M20 50 L42 70 L80 30" stroke-linecap="round" stroke-linejoin="round"/></svg> Appliance Repair</li>
-          <li><svg aria-hidden="true" focusable="false" class="check" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="8"><path d="M20 50 L42 70 L80 30" stroke-linecap="round" stroke-linejoin="round"/></svg> Pressure Testing</li>
-          <li><svg aria-hidden="true" focusable="false" class="check" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="8"><path d="M20 50 L42 70 L80 30" stroke-linecap="round" stroke-linejoin="round"/></svg> Code Compliance Checks</li>
-          <li><svg aria-hidden="true" focusable="false" class="check" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="8"><path d="M20 50 L42 70 L80 30" stroke-linecap="round" stroke-linejoin="round"/></svg> Scheduled Maintenance Plans</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ===== COMMERCIAL ===== -->
-<section class="service-block" id="commercial">
-  <div class="container">
-    <div class="service-layout">
-      <div class="service-meta fade-up">
-        <div class="service-icon">
-          <svg aria-hidden="true" focusable="false" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="18" y="15" width="64" height="72"/>
-            <rect x="28" y="27" width="12" height="10"/>
-            <rect x="44" y="27" width="12" height="10"/>
-            <rect x="60" y="27" width="12" height="10"/>
-            <rect x="28" y="45" width="12" height="10"/>
-            <rect x="44" y="45" width="12" height="10"/>
-            <rect x="60" y="45" width="12" height="10"/>
-            <rect x="42" y="63" width="16" height="24"/>
-          </svg>
-        </div>
-        <div class="service-id">03 / Commercial</div>
-        <h2 style="font-size: clamp(2rem, 3.5vw, 3rem); margin-bottom: var(--space-2);">For Business.</h2>
-        <p>Commercial-grade gas infrastructure for restaurants, multi-family developments, manufacturers, and distribution systems.</p>
-      </div>
-      <div class="fade-up">
-        <h3 style="margin-bottom: var(--space-2);">Every Company's Dream Partner.</h3>
-        <p style="margin-bottom: var(--space-3);">
-          We're built to be the gas partner on any commercial project: clear scopes, accurate estimates, and the documentation paper trail that GCs, builders, property managers, and inspectors actually want. We serve practically every kind of business.
-        </p>
-        <p style="margin-bottom: var(--space-3);">
-          Whether we're running a single commercial line or designing a community propane distribution system, we own the gas portion start to finish.
-        </p>
-        <ul class="service-list">
-          <li><svg aria-hidden="true" focusable="false" class="check" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="8"><path d="M20 50 L42 70 L80 30" stroke-linecap="round" stroke-linejoin="round"/></svg> Community Propane Systems</li>
-          <li><svg aria-hidden="true" focusable="false" class="check" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="8"><path d="M20 50 L42 70 L80 30" stroke-linecap="round" stroke-linejoin="round"/></svg> Distribution Networks</li>
-          <li><svg aria-hidden="true" focusable="false" class="check" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="8"><path d="M20 50 L42 70 L80 30" stroke-linecap="round" stroke-linejoin="round"/></svg> Commercial Furnaces</li>
-          <li><svg aria-hidden="true" focusable="false" class="check" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="8"><path d="M20 50 L42 70 L80 30" stroke-linecap="round" stroke-linejoin="round"/></svg> Commercial Boilers</li>
-          <li><svg aria-hidden="true" focusable="false" class="check" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="8"><path d="M20 50 L42 70 L80 30" stroke-linecap="round" stroke-linejoin="round"/></svg> Tankless Water Heating</li>
-          <li><svg aria-hidden="true" focusable="false" class="check" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="8"><path d="M20 50 L42 70 L80 30" stroke-linecap="round" stroke-linejoin="round"/></svg> Standby Generators</li>
-          <li><svg aria-hidden="true" focusable="false" class="check" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="8"><path d="M20 50 L42 70 L80 30" stroke-linecap="round" stroke-linejoin="round"/></svg> CHP Systems</li>
-          <li><svg aria-hidden="true" focusable="false" class="check" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="8"><path d="M20 50 L42 70 L80 30" stroke-linecap="round" stroke-linejoin="round"/></svg> Micro-CHP Systems</li>
-          <li><svg aria-hidden="true" focusable="false" class="check" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="8"><path d="M20 50 L42 70 L80 30" stroke-linecap="round" stroke-linejoin="round"/></svg> Restaurant Kitchen Lines</li>
-          <li><svg aria-hidden="true" focusable="false" class="check" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="8"><path d="M20 50 L42 70 L80 30" stroke-linecap="round" stroke-linejoin="round"/></svg> Mobile Food Vendors</li>
-          <li><svg aria-hidden="true" focusable="false" class="check" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="8"><path d="M20 50 L42 70 L80 30" stroke-linecap="round" stroke-linejoin="round"/></svg> GC Subcontracting</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ===== PROCESS ===== -->
-<section class="bg-scan" style="background: var(--black); border-top: 1px solid var(--hairline);">
-  <div class="container" style="position: relative; z-index: 2;">
-    <div class="section-header fade-up">
-      <div class="eyebrow centered">How We Work</div>
-      <h2>Estimate, Permit, Install, Sign Off.</h2>
-      <p>Every project follows the same four-step process. No surprises, no hidden fees, no guesswork.</p>
-    </div>
-    <div class="grid grid-4">
-      <div class="fade-up">
-        <div class="mono" style="font-size: 2.5rem; font-weight: 600; color: var(--royal-2); margin-bottom: var(--space-2);">01</div>
-        <h3 style="font-size: 1.125rem;">Site Visit</h3>
-        <p style="font-size: 0.875rem; margin-top: var(--space-1);">We walk the project, measure, ask questions, and confirm what's possible at your location.</p>
-      </div>
-      <div class="fade-up">
-        <div class="mono" style="font-size: 2.5rem; font-weight: 600; color: var(--royal-2); margin-bottom: var(--space-2);">02</div>
-        <h3 style="font-size: 1.125rem;">Estimate &amp; Scope</h3>
-        <p style="font-size: 0.875rem; margin-top: var(--space-1);">A written scope of work with line-item pricing, timeline, and any prep on your side.</p>
-      </div>
-      <div class="fade-up">
-        <div class="mono" style="font-size: 2.5rem; font-weight: 600; color: var(--royal-2); margin-bottom: var(--space-2);">03</div>
-        <h3 style="font-size: 1.125rem;">Permit &amp; Install</h3>
-        <p style="font-size: 0.875rem; margin-top: var(--space-1);">We pull the permit, schedule the work, and complete the installation to code.</p>
-      </div>
-      <div class="fade-up">
-        <div class="mono" style="font-size: 2.5rem; font-weight: 600; color: var(--royal-2); margin-bottom: var(--space-2);">04</div>
-        <h3 style="font-size: 1.125rem;">Test &amp; Sign Off</h3>
-        <p style="font-size: 0.875rem; margin-top: var(--space-1);">Pressure test, inspection, and final sign-off. You get the documentation, we get the photo.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ===== CTA ===== -->
-<section>
-  <div class="container">
-    <div class="fade-up" style="background: linear-gradient(135deg, rgba(0,71,171,0.15), rgba(0,71,171,0.02)), var(--black); border: 1px solid rgba(0,71,171, 0.3); padding: var(--space-6); border-radius: 4px; text-align: center;">
-      <div class="eyebrow centered">Have a Project?</div>
-      <h2 style="font-size: clamp(1.75rem, 3vw, 2.5rem); margin-bottom: var(--space-3);">Tell Us About It.</h2>
-      <p style="max-width: 560px; margin: 0 auto var(--space-4); font-size: 1.0625rem;">
-        Residential, commercial, or service work. Send a few details and we'll get back to you with next steps.
-      </p>
-      <a href="contact.html" class="btn btn-primary">Request an Estimate <span class="btn-arrow">→</span></a>
-    </div>
-  </div>
-</section>
-
-<!-- ===== FOOTER ===== -->
-</main>
+<main id="main-content" class="svc-page" tabindex="-1">
+<section class="svc-hero"><div class="container svc-hero-grid"><div><p class="svc-kicker">Propane &amp; natural gas services</p><h1>Your project.<br><span>Our gas expertise.</span></h1><p class="svc-lead">For the home you live in. The business you run. The project you’re responsible for.</p><p>Find the gas services that fit your role, your equipment, and your next step.</p><div class="svc-actions"><a class="svc-button" href="#who-we-help">Find Services for Me <span aria-hidden="true">↗</span></a><a class="svc-button svc-button-secondary" href="contact.html">Discuss My Project <span aria-hidden="true">↗</span></a></div><p class="svc-brandline">Powering Homes &amp; Businesses – Safely &amp; Efficiently</p></div><aside class="svc-start"><span class="svc-kicker">Start with your goal</span><h2>What brings you here?</h2><a href="#who-we-help"><span>01</span><div><strong>Find my client type</strong><small>Services built around your role</small></div><b aria-hidden="true">→</b></a><a href="#service-directory"><span>02</span><div><strong>Find a gas service</strong><small>Installation, evaluation, or repair</small></div><b aria-hidden="true">→</b></a><a href="contact.html"><span>03</span><div><strong>Get my project started</strong><small>Send details for a scoped estimate</small></div><b aria-hidden="true">→</b></a></aside></div></section>
+<div class="svc-trust"><div class="container"><span>Propane &amp; natural gas</span><span>Residential &amp; commercial</span><span>North &amp; Central Florida</span><a href="about.html#credentials">View credentials ↗</a></div></div>
+<nav class="svc-jump" aria-label="Services page sections"><div class="container"><a href="#who-we-help">Who we help</a><a href="#client-guides">Client guides</a><a href="#service-directory">Gas services</a><a href="#how-it-works">How it works</a><a href="#service-questions">Common questions</a></div></nav>
+<section id="who-we-help" class="svc-section"><div class="container"><div class="svc-section-heading"><div><p class="svc-kicker">Choose your starting point</p><h2>Gas services for<br><span>people like you.</span></h2></div><p>Select your card for project-specific services, coordination details, and what to send us for an estimate.</p></div><div class="svc-filters" aria-label="Filter client types" hidden><button type="button" data-filter="all" aria-pressed="true">Everyone</button><button type="button" data-filter="home" aria-pressed="false">Homeowners</button><button type="button" data-filter="trade" aria-pressed="false">Trade &amp; project partners</button><button type="button" data-filter="property" aria-pressed="false">Property &amp; real estate</button><button type="button" data-filter="business" aria-pressed="false">Food &amp; business</button></div><p id="svc-filter-status" class="sr-only" role="status" aria-live="polite"></p><div class="svc-audience-grid"><a class="svc-audience-card" href="#guide-homeowners" data-group="home"><span class="svc-icon"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m3 11 9-8 9 8M5 10v11h14V10M9 21v-7h6v7"/></svg></span><span class="svc-card-title">Homeowners</span><span class="svc-card-copy">Add an appliance, plan a whole-home gas system, or get an existing system checked.</span><span class="svc-card-link">Explore services <span aria-hidden="true">→</span></span></a><a class="svc-audience-card" href="#guide-generator-dealers" data-group="trade"><span class="svc-icon"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m13 2-9 12h7l-1 8 10-12h-7z"/></svg></span><span class="svc-card-title">Generator Dealers &amp; Installers</span><span class="svc-card-copy">A dedicated gas scope that fits your generator installation schedule.</span><span class="svc-card-link">Explore services <span aria-hidden="true">→</span></span></a><a class="svc-audience-card" href="#guide-builders" data-group="trade"><span class="svc-icon"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M6 21V9l6-6 6 6v12M9 12h6M9 16h6"/></svg></span><span class="svc-card-title">General Contractors &amp; Homebuilders</span><span class="svc-card-copy">A defined gas subcontract from estimating and rough-in through the final connection.</span><span class="svc-card-link">Explore services <span aria-hidden="true">→</span></span></a><a class="svc-audience-card" href="#guide-trade-partners" data-group="trade"><span class="svc-icon"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M14 6a5 5 0 0 0-6 6L3 17a3 3 0 0 0 4 4l5-5a5 5 0 0 0 6-6l-3 3-4-4z"/></svg></span><span class="svc-card-title">Lateral Trades &amp; Remodelers</span><span class="svc-card-copy">Gas disconnects, relocations, reconnections, and coordination around your work.</span><span class="svc-card-link">Explore services <span aria-hidden="true">→</span></span></a><a class="svc-audience-card" href="#guide-real-estate" data-group="property"><span class="svc-icon"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="5"/><path d="m12 12 9 9m-4-4 3-3m-6 0 3-3"/></svg></span><span class="svc-card-title">Real Estate Agents</span><span class="svc-card-copy">Gas-system evaluations and repair scopes for buyers, sellers, and transactions.</span><span class="svc-card-link">Explore services <span aria-hidden="true">→</span></span></a><a class="svc-audience-card" href="#guide-property-management" data-group="property"><span class="svc-icon"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 22V3h16v19M9 22v-5h6v5M8 7h1m6 0h1M8 12h1m6 0h1"/></svg></span><span class="svc-card-title">Property Management Companies</span><span class="svc-card-copy">Organized service requests, turnover work, and gas repair documentation.</span><span class="svc-card-link">Explore services <span aria-hidden="true">→</span></span></a><a class="svc-audience-card" href="#guide-commercial-kitchens" data-group="business"><span class="svc-icon"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M7 6h2m6 0h2M7 13h10v5H7z"/></svg></span><span class="svc-card-title">Commercial Kitchen Owners</span><span class="svc-card-copy">Gas piping and equipment connections planned around your kitchen’s actual load.</span><span class="svc-card-link">Explore services <span aria-hidden="true">→</span></span></a><a class="svc-audience-card" href="#guide-mobile-food-vendors" data-group="business"><span class="svc-icon"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M2 5h13v13H2zM15 9h4l3 5v4h-7M4 9h7"/><circle cx="6" cy="19" r="2"/><circle cx="18" cy="19" r="2"/></svg></span><span class="svc-card-title">Mobile Food Vendors</span><span class="svc-card-copy">LP-system inspections, repairs, and appliance-change support for your mobile operation.</span><span class="svc-card-link">Explore services <span aria-hidden="true">→</span></span></a><a class="svc-audience-card" href="#guide-appliance-dealers" data-group="trade"><span class="svc-icon"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2"/><circle cx="12" cy="14" r="5"/><path d="M8 6h1m4 0h3"/></svg></span><span class="svc-card-title">Gas Appliance Dealers</span><span class="svc-card-copy">Connect the sale to a properly planned gas installation for your customer.</span><span class="svc-card-link">Explore services <span aria-hidden="true">→</span></span></a><a class="svc-audience-card" href="#guide-interior-designers" data-group="trade"><span class="svc-icon"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m4 16 12-12 4 4L8 20l-5 1zM13 7l4 4M3 3h6M3 3v6"/></svg></span><span class="svc-card-title">Interior Designers</span><span class="svc-card-copy">Bring gas routing and appliance requirements into the design before finishes are fixed.</span><span class="svc-card-link">Explore services <span aria-hidden="true">→</span></span></a><a class="svc-audience-card" href="#guide-insurance-restoration" data-group="property"><span class="svc-icon"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 3 6v6c0 5 9 10 9 10s9-5 9-10V6zM8 12l3 3 5-6"/></svg></span><span class="svc-card-title">Insurance Companies &amp; Restoration Teams</span><span class="svc-card-copy">Gas-system assessments and defined restoration scopes following covered-event concerns.</span><span class="svc-card-link">Explore services <span aria-hidden="true">→</span></span></a></div></div></section>
+<section id="client-guides" class="svc-section svc-tint"><div class="container"><div class="svc-section-heading"><div><p class="svc-kicker">The details that matter to you</p><h2>Your gas project,<br><span>with a clearer plan.</span></h2></div><p>Open a guide to see the scope, the coordination, and the information that helps us move your request forward.</p></div><div class="svc-guides"><details class="svc-guide" id="guide-homeowners"><summary><span class="svc-guide-num">01</span><span><strong>Homeowners</strong><small>Comfort • convenience • backup power</small></span><span class="svc-plus" aria-hidden="true"></span></summary><div class="svc-guide-body"><div class="svc-guide-intro"><h3>Make gas work for the way you live.</h3><p>Start with what you want to power. We help connect the appliance plan to the piping, propane tank or natural gas supply, and installation work your property needs.</p></div><div class="svc-guide-columns"><div><h4>What we can handle</h4><ul><li>Gas connections for ranges, dryers, tankless water heaters, fireplaces, pool heaters, and outdoor kitchens.</li><li>New or extended gas piping, propane tank installations and replacements, regulators, and generator fuel supply.</li><li>Existing-system evaluations, pressure testing, leak detection and repairs, and scheduled service.</li></ul><h4>How we coordinate</h4><p>We review the proposed appliances and existing supply, discuss routing and access, and define the gas work, permit needs, and site preparation in a written scope.</p></div><aside class="svc-send"><h4>What to send us</h4><ol><li>Property address and whether you use propane, natural gas, or are unsure.</li><li>Appliance brands/model numbers and photos of the tank or meter and installation area.</li><li>Your preferred timing and any upcoming construction or appliance delivery.</li></ol><p class="svc-note">Planning future appliances? Include them early so capacity and routing can be considered together.</p></aside></div><div class="svc-guide-actions"><a class="svc-button" href="contact.html?audience=homeowners#quoteForm">Plan My Home Gas Project <span aria-hidden="true">↗</span></a><a class="svc-text-link" href="#who-we-help">Choose another client type ↑</a></div></div></details><details class="svc-guide" id="guide-generator-dealers"><summary><span class="svc-guide-num">02</span><span><strong>Generator Dealers &amp; Installers</strong><small>Fuel supply • dealer coordination</small></span><span class="svc-plus" aria-hidden="true"></span></summary><div class="svc-guide-body"><div class="svc-guide-intro"><h3>You handle the generator. We handle its gas supply.</h3><p>Bring GGS into the project before the fuel connection becomes the last unresolved item. We coordinate the gas portion with the dealer, electrician, property owner, and supply provider as needed.</p></div><div class="svc-guide-columns"><div><h4>What we can handle</h4><ul><li>Review of generator fuel demand, available gas supply, proposed route, and other connected appliances.</li><li>Dedicated gas piping, regulators, shutoffs, and propane tank installation or supply modifications within the agreed scope.</li><li>Gas permit preparation, pressure testing, inspection coordination, and gas-side completion documentation as applicable.</li></ul><h4>How we coordinate</h4><p>Define the fuel connection location, site readiness, installation sequence, and responsibilities before dispatch. Electrical work, generator commissioning, and utility meter changes remain coordinated with the responsible providers.</p></div><aside class="svc-send"><h4>What to send us</h4><ol><li>Generator make/model, fuel type, installation address, and planned startup date.</li><li>Site plan or photos showing the generator, existing tank or meter, and proposed route.</li><li>Dealer contact, contracting party, and who handles electrical work and commissioning.</li></ol><p class="svc-note">A larger generator may change the whole-property gas demand. Include the existing appliance list when requesting a quote.</p></aside></div><div class="svc-guide-actions"><a class="svc-button" href="contact.html?audience=generator-dealers#quoteForm">Request a Generator Gas Quote <span aria-hidden="true">↗</span></a><a class="svc-text-link" href="#who-we-help">Choose another client type ↑</a></div></div></details><details class="svc-guide" id="guide-builders"><summary><span class="svc-guide-num">03</span><span><strong>General Contractors &amp; Homebuilders</strong><small>New builds • additions • renovation</small></span><span class="svc-plus" aria-hidden="true"></span></summary><div class="svc-guide-body"><div class="svc-guide-intro"><h3>Put the gas scope on the construction schedule.</h3><p>For new homes, additions, tenant improvements, and renovations, we help turn plans and appliance selections into a coordinated gas installation scope.</p></div><div class="svc-guide-columns"><div><h4>What we can handle</h4><ul><li>Plan and appliance-load review, routing, propane tank or natural gas connection planning.</li><li>Underground and aboveground piping, rough-in, appliance stub-outs, regulators, and final gas connections.</li><li>Gas diagrams and permit submittals, testing, inspection coordination, and completion records appropriate to the project.</li></ul><h4>How we coordinate</h4><p>We identify the gas milestones and dependencies: utility readiness, trench access, framing, equipment delivery, finish work, and inspection access. Scope changes are reviewed before additional work proceeds.</p></div><aside class="svc-send"><h4>What to send us</h4><ol><li>Current plans, gas appliance schedule, jobsite address, and bid or construction deadline.</li><li>Fuel source, intended tank/meter location, and requested rough-in and final dates.</li><li>Site superintendent, billing/PO instructions, and subcontractor onboarding requirements.</li></ol><p class="svc-note">Send revised plans and appliance substitutions before rough-in or ordering so the gas scope can be rechecked.</p></aside></div><div class="svc-guide-actions"><a class="svc-button" href="contact.html?audience=builders#quoteForm">Request a Gas Subcontract Quote <span aria-hidden="true">↗</span></a><a class="svc-text-link" href="#who-we-help">Choose another client type ↑</a></div></div></details><details class="svc-guide" id="guide-trade-partners"><summary><span class="svc-guide-num">04</span><span><strong>Lateral Trades &amp; Remodelers</strong><small>Electricians • plumbers • finishing trades</small></span><span class="svc-plus" aria-hidden="true"></span></summary><div class="svc-guide-body"><div class="svc-guide-intro"><h3>Keep your trade moving with the gas work covered.</h3><p>Electricians, plumbers, remodelers, handyman services, tile installers, framers, roofers, and other trades can bring us in for the gas portion of a shared project.</p></div><div class="svc-guide-columns"><div><h4>What we can handle</h4><ul><li>Planned gas disconnection, capping, relocation, and reconnection within a defined work area.</li><li>Gas piping changes for kitchen remodels, appliance swaps, water-heater projects, and generator additions.</li><li>Coordination around walls, cabinets, tile, framing, roof work, and access needed for testing or inspection.</li></ul><h4>How we coordinate</h4><p>We agree on the handoff points and site readiness with your team. Let us know before a pipe, vent, appliance connection, or gas equipment area will be disturbed or concealed.</p></div><aside class="svc-send"><h4>What to send us</h4><ol><li>Your trade, jobsite address, and a description of what is being changed.</li><li>Photos of the gas equipment and work area, with appliance specifications if relevant.</li><li>The date you need disconnection, rough-in, or reconnection and the onsite contact.</li></ol><p class="svc-note">For finish-sensitive work, discuss access and restoration responsibilities before opening walls, floors, or cabinetry.</p></aside></div><div class="svc-guide-actions"><a class="svc-button" href="contact.html?audience=trade-partners#quoteForm">Coordinate Gas Work With My Trade <span aria-hidden="true">↗</span></a><a class="svc-text-link" href="#who-we-help">Choose another client type ↑</a></div></div></details><details class="svc-guide" id="guide-real-estate"><summary><span class="svc-guide-num">05</span><span><strong>Real Estate Agents</strong><small>Pre-sale • due diligence • post-sale</small></span><span class="svc-plus" aria-hidden="true"></span></summary><div class="svc-guide-body"><div class="svc-guide-intro"><h3>Get clear answers about the gas system.</h3><p>Whether preparing a listing, responding to inspection findings, or helping a buyer after closing, a focused gas evaluation helps identify what needs attention.</p></div><div class="svc-guide-columns"><div><h4>What we can handle</h4><ul><li>Pre- and post-sale gas-system evaluations covering accessible gas piping, tank or meter components, and appliance connections.</li><li>Follow-up on gas-related home inspection findings, with testing included where agreed and appropriate.</li><li>Written findings and an estimate for identified gas repairs or improvements within our scope.</li></ul><h4>How we coordinate</h4><p>We coordinate access with the authorized owner or representative and clarify the requested evaluation, available fuel supply, and transaction deadline before the visit.</p></div><aside class="svc-send"><h4>What to send us</h4><ol><li>Property address, inspection report or gas-related concern, and transaction deadline.</li><li>Owner authorization, access instructions, and whether utilities are active.</li><li>Tank ownership information if available and the report recipient’s contact details.</li></ol><p class="svc-note">The evaluation covers the agreed gas scope and conditions observed; it is not a whole-home inspection or a guarantee of future system performance.</p></aside></div><div class="svc-guide-actions"><a class="svc-button" href="contact.html?audience=real-estate#quoteForm">Request a Real Estate Gas Evaluation <span aria-hidden="true">↗</span></a><a class="svc-text-link" href="#who-we-help">Choose another client type ↑</a></div></div></details><details class="svc-guide" id="guide-property-management"><summary><span class="svc-guide-num">06</span><span><strong>Property Management Companies</strong><small>Rentals • communities • managed facilities</small></span><span class="svc-plus" aria-hidden="true"></span></summary><div class="svc-guide-body"><div class="svc-guide-intro"><h3>Manage the gas work across your properties.</h3><p>Give us the property, the concern, and the person who can authorize work. We help coordinate scheduled gas service with residents, onsite teams, and management.</p></div><div class="svc-guide-columns"><div><h4>What we can handle</h4><ul><li>Gas-system evaluations, troubleshooting, leak detection and repair, and regulator or piping service.</li><li>Appliance-change connections, tenant-turnover gas work, and property improvement projects.</li><li>Scheduled checks and gas-related documentation for the work performed.</li></ul><h4>How we coordinate</h4><p>Define the approval limit or quote requirement, resident access, work-order number, and billing contact up front. We keep the gas scope tied to the correct property and request.</p></div><aside class="svc-send"><h4>What to send us</h4><ol><li>Property/unit address, work-order or PO number, and the reported issue.</li><li>Authorized decision-maker, resident or site contact, and access window.</li><li>Known equipment details, photos, and any prior gas inspection findings.</li></ol><p class="svc-note">GGS provides scheduled service; we do not offer emergency or after-hours response.</p></aside></div><div class="svc-guide-actions"><a class="svc-button" href="contact.html?audience=property-management#quoteForm">Request Property Gas Service <span aria-hidden="true">↗</span></a><a class="svc-text-link" href="#who-we-help">Choose another client type ↑</a></div></div></details><details class="svc-guide" id="guide-commercial-kitchens"><summary><span class="svc-guide-num">07</span><span><strong>Commercial Kitchen Owners</strong><small>Restaurants • bakeries • commissaries</small></span><span class="svc-plus" aria-hidden="true"></span></summary><div class="svc-guide-body"><div class="svc-guide-intro"><h3>Build the gas supply around your equipment lineup.</h3><p>Opening, expanding, or rearranging a commercial kitchen? We coordinate the gas side of the project with the owner, general contractor, equipment supplier, and other responsible trades.</p></div><div class="svc-guide-columns"><div><h4>What we can handle</h4><ul><li>Gas-load review for ranges, ovens, fryers, griddles, water heating, and other specified equipment.</li><li>New or modified kitchen gas piping, regulators, shutoffs, and equipment connections.</li><li>Gas testing, permit and inspection coordination, and correction of gas-related deficiencies within the agreed scope.</li></ul><h4>How we coordinate</h4><p>We identify supply and pressure needs, installation access, planned downtime, and dependencies on the utility and hood/fire-suppression providers. Those systems are coordinated with their responsible specialists.</p></div><aside class="svc-send"><h4>What to send us</h4><ol><li>Equipment list with model numbers, input ratings, fuel type, and required pressure.</li><li>Kitchen layout, existing meter or tank details, and photos of connection points.</li><li>Opening or shutdown schedule, site contact, and any review comments.</li></ol><p class="svc-note">Replacing equipment with a larger model can affect supply capacity even when the connection appears to fit.</p></aside></div><div class="svc-guide-actions"><a class="svc-button" href="contact.html?audience=commercial-kitchens#quoteForm">Plan My Commercial Kitchen Gas Work <span aria-hidden="true">↗</span></a><a class="svc-text-link" href="#who-we-help">Choose another client type ↑</a></div></div></details><details class="svc-guide" id="guide-mobile-food-vendors"><summary><span class="svc-guide-num">08</span><span><strong>Mobile Food Vendors</strong><small>Food trucks • trailers • mobile kitchens</small></span><span class="svc-plus" aria-hidden="true"></span></summary><div class="svc-guide-body"><div class="svc-guide-intro"><h3>Prepare the gas side of your mobile kitchen.</h3><p>We help food-truck and trailer operators address gas-system condition, equipment changes, and gas-related inspection findings before a planned opening or event.</p></div><div class="svc-guide-columns"><div><h4>What we can handle</h4><ul><li>Mobile food vendor gas-system inspections and evaluation of accessible piping, regulators, shutoffs, and appliance connections.</li><li>Leak testing and correction of gas deficiencies within the agreed service scope.</li><li>Gas piping and connection changes for equipment replacements or kitchen modifications.</li></ul><h4>How we coordinate</h4><p>Tell us which authority, event, or commissary is requesting documentation. We define the gas inspection and any repair work separately so you know what is included.</p></div><aside class="svc-send"><h4>What to send us</h4><ol><li>Truck or trailer location, fuel-system photos, and appliance make/model information.</li><li>Requested inspection form, prior findings, or event requirements.</li><li>Your deadline, access availability, and whether equipment and fuel will be available for the agreed checks.</li></ol><p class="svc-note">A gas inspection does not replace health, fire, vehicle, or event approvals from the responsible authorities.</p></aside></div><div class="svc-guide-actions"><a class="svc-button" href="contact.html?audience=mobile-food-vendors#quoteForm">Request a Mobile Food Gas Inspection <span aria-hidden="true">↗</span></a><a class="svc-text-link" href="#who-we-help">Choose another client type ↑</a></div></div></details><details class="svc-guide" id="guide-appliance-dealers"><summary><span class="svc-guide-num">09</span><span><strong>Gas Appliance Dealers</strong><small>Retailers • showrooms • delivery teams</small></span><span class="svc-plus" aria-hidden="true"></span></summary><div class="svc-guide-body"><div class="svc-guide-intro"><h3>Give your customer a clear path from delivery to connection.</h3><p>Help customers understand the gas work their purchase may require. GGS can review the installation details and quote the gas portion directly or through an agreed dealer arrangement.</p></div><div class="svc-guide-columns"><div><h4>What we can handle</h4><ul><li>Gas readiness review for ranges, dryers, tankless water heaters, fireplaces, pool heaters, and outdoor cooking equipment.</li><li>New or relocated gas connections, supply and regulator review, and scheduled hookup work.</li><li>Manufacturer-specified fuel conversion work where applicable and within the agreed scope.</li></ul><h4>How we coordinate</h4><p>Confirm who contracts and pays for the work, when the appliance will be onsite, and whether other trades need to complete electrical, water, drain, venting, cabinetry, or finish work.</p></div><aside class="svc-send"><h4>What to send us</h4><ol><li>Manufacturer and exact model, fuel type, and installation specifications.</li><li>Customer/jobsite details, delivery date, and existing connection photos.</li><li>Dealer contact and any promised installation services or exclusions.</li></ol><p class="svc-note">Fuel conversions depend on the appliance listing, manufacturer instructions, and correct parts; not every appliance can be converted.</p></aside></div><div class="svc-guide-actions"><a class="svc-button" href="contact.html?audience=appliance-dealers#quoteForm">Coordinate a Customer Installation <span aria-hidden="true">↗</span></a><a class="svc-text-link" href="#who-we-help">Choose another client type ↑</a></div></div></details><details class="svc-guide" id="guide-interior-designers"><summary><span class="svc-guide-num">10</span><span><strong>Interior Designers</strong><small>Kitchens • fireplaces • outdoor living</small></span><span class="svc-plus" aria-hidden="true"></span></summary><div class="svc-guide-body"><div class="svc-guide-intro"><h3>Plan the gas details before the beautiful finishes.</h3><p>We work with designers and their construction teams to make gas appliance selections and connection locations part of the project planning process.</p></div><div class="svc-guide-columns"><div><h4>What we can handle</h4><ul><li>Gas feasibility and routing review for kitchen ranges, fireplaces, fire features, and outdoor kitchens.</li><li>Coordination of gas rough-in locations with appliance specifications, cabinetry, layouts, and access needs.</li><li>Gas relocations, new appliance connections, and finish-stage gas work within the agreed project scope.</li></ul><h4>How we coordinate</h4><p>Share selections early, especially when moving appliances or adding a fire feature. We flag gas-side access and equipment requirements for coordination with the designer, builder, and other trades.</p></div><aside class="svc-send"><h4>What to send us</h4><ol><li>Current layouts, elevations, and appliance specification sheets.</li><li>Fuel source, existing gas connection photos, and intended equipment locations.</li><li>Rough-in and finish schedule, project manager, and client approval contact.</li></ol><p class="svc-note">Keep service access and manufacturer requirements in the design conversation before cabinetry, stone, or tile is finalized.</p></aside></div><div class="svc-guide-actions"><a class="svc-button" href="contact.html?audience=interior-designers#quoteForm">Discuss a Design Project <span aria-hidden="true">↗</span></a><a class="svc-text-link" href="#who-we-help">Choose another client type ↑</a></div></div></details><details class="svc-guide" id="guide-insurance-restoration"><summary><span class="svc-guide-num">11</span><span><strong>Insurance Companies &amp; Restoration Teams</strong><small>Damage assessment • repair • documentation</small></span><span class="svc-plus" aria-hidden="true"></span></summary><div class="svc-guide-body"><div class="svc-guide-intro"><h3>Document the gas work needed to move restoration forward.</h3><p>After the site is safe to access, we can evaluate reported gas-system damage and develop a gas repair or replacement scope for the authorized owner, insurer, adjuster, or restoration contractor.</p></div><div class="svc-guide-columns"><div><h4>What we can handle</h4><ul><li>Assessment of accessible gas components after reported storm, flood, impact, fire, or construction damage.</li><li>Gas piping, regulator, connection, or tank-related repair and replacement proposals within our scope.</li><li>Testing and documentation of the agreed gas work, with permit and inspection coordination as applicable.</li></ul><h4>How we coordinate</h4><p>Clarify the contracting party, authorization, requested documentation, and coordination with other restoration trades before work begins. Coverage and claim decisions remain with the insurer.</p></div><aside class="svc-send"><h4>What to send us</h4><ol><li>Property address, reported incident, photos, and any existing reports.</li><li>Claim reference if applicable, authorized contact, and requested scope or documentation.</li><li>Site access status, utility status, and restoration schedule.</li></ol><p class="svc-note">This is scheduled assessment and restoration work, not emergency response or an insurance coverage determination.</p></aside></div><div class="svc-guide-actions"><a class="svc-button" href="contact.html?audience=insurance-restoration#quoteForm">Request a Gas Restoration Assessment <span aria-hidden="true">↗</span></a><a class="svc-text-link" href="#who-we-help">Choose another client type ↑</a></div></div></details></div></div></section>
+<section id="service-directory" class="svc-section"><div class="container"><div class="svc-section-heading"><div><p class="svc-kicker">Browse by the work you need</p><h2>One place for<br><span>your gas scope.</span></h2></div><p>Already know the task? Start with a service below, or use the client guides above for a more tailored path.</p></div><div class="svc-service-grid">
+<article class="svc-service-card" id="residential"><span class="svc-icon"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m3 11 9-8 9 8M5 10v11h14V10M9 21v-7h6v7"/></svg></span><h3>Home &amp; appliance connections</h3><p>Ranges, dryers, tankless water heaters, fireplaces, pool heaters, and outdoor kitchens. New connections, replacements, and planned additions.</p><a class="svc-button svc-button-secondary" href="contact.html?service=residential#quoteForm">Plan Home Gas Work <span aria-hidden="true">↗</span></a></article><article class="svc-service-card" id="generator-gas"><span class="svc-icon"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m13 2-9 12h7l-1 8 10-12h-7z"/></svg></span><h3>Generator gas supply</h3><p>Supply review, line sizing, piping, regulators, and tank planning for standby generators, coordinated with the installation team.</p><a class="svc-button svc-button-secondary" href="contact.html?service=generator-gas#quoteForm">Plan Generator Fuel Supply <span aria-hidden="true">↗</span></a></article><article class="svc-service-card" id="tanks-piping"><span class="svc-icon"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M6 21V9l6-6 6 6v12M9 12h6M9 16h6"/></svg></span><h3>Propane tanks &amp; gas piping</h3><p>Aboveground and underground tank projects, gas-line extensions, equipment relocations, and regulator work for the agreed fuel system.</p><a class="svc-button svc-button-secondary" href="contact.html?service=tanks-piping#quoteForm">Discuss Tanks &amp; Piping <span aria-hidden="true">↗</span></a></article><article class="svc-service-card" id="service"><span class="svc-icon"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M14 6a5 5 0 0 0-6 6L3 17a3 3 0 0 0 4 4l5-5a5 5 0 0 0 6-6l-3 3-4-4z"/></svg></span><h3>Evaluations, testing &amp; repair</h3><p>Scheduled gas-system evaluations, pressure testing, leak detection and repair, regulator service, and maintenance.</p><a class="svc-button svc-button-secondary" href="contact.html?service=service#quoteForm">Request Scheduled Service <span aria-hidden="true">↗</span></a></article><article class="svc-service-card" id="commercial"><span class="svc-icon"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M7 6h2m6 0h2M7 13h10v5H7z"/></svg></span><h3>Commercial &amp; food service</h3><p>Restaurant and bakery gas lines, equipment additions, mobile food vendor inspections, and coordinated commercial gas work.</p><a class="svc-button svc-button-secondary" href="contact.html?service=commercial#quoteForm">Plan Commercial Gas Work <span aria-hidden="true">↗</span></a></article><article class="svc-service-card" id="permit-coordination"><span class="svc-icon"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 3 6v6c0 5 9 10 9 10s9-5 9-10V6zM8 12l3 3 5-6"/></svg></span><h3>Permits &amp; project documentation</h3><p>Gas scopes, diagrams, permit preparation, test records, and inspection coordination as applicable to the contracted work.</p><a class="svc-button svc-button-secondary" href="contact.html?service=permit-coordination#quoteForm">Discuss a Project Scope <span aria-hidden="true">↗</span></a></article></div><p class="svc-service-note">Service availability and the final scope depend on your location, equipment, site conditions, and project requirements. We confirm these details before scheduling work.</p></div></section>
+<section id="how-it-works" class="svc-section svc-process"><div class="container"><p class="svc-kicker">From first conversation to completion</p><h2>Know what happens next.</h2><div class="svc-process-grid"><article><span>01</span><h3>Share the project</h3><p>Send the address, equipment details, photos, and timing. We identify what needs a site visit or further review.</p></article><article><span>02</span><h3>Define the scope</h3><p>Review the proposed gas work, estimate, responsibilities, permit needs, and site-readiness requirements.</p></article><article><span>03</span><h3>Coordinate the work</h3><p>Align the installation or service visit with access, equipment delivery, other trades, and required inspections.</p></article><article><span>04</span><h3>Test & document</h3><p>Complete the applicable checks and provide the agreed gas-work records, findings, or completion documentation.</p></article></div></div></section><section id="service-questions" class="svc-section svc-tint"><div class="container svc-faq-layout"><div><p class="svc-kicker">Before you reach out</p><h2>A few useful<br>answers.</h2><p>Have a project that does not fit neatly into a card? Tell us what you are trying to accomplish.</p><a class="svc-button" href="contact.html">Ask About My Project <span aria-hidden="true">↗</span></a></div><div class="svc-faqs"><details><summary>Do you work with propane and natural gas?<span class="svc-plus" aria-hidden="true"></span></summary><p>Yes. Tell us which fuel is available, or select “Not Sure” on the contact form. The equipment, supply, and installation approach will be reviewed for the project.</p></details><details><summary>Can you work directly with my contractor or dealer?<span class="svc-plus" aria-hidden="true"></span></summary><p>Yes. Identify the contracting party, onsite contact, and the trades involved. We can coordinate the agreed gas scope around their work and your equipment delivery.</p></details><details><summary>What do you need to prepare an estimate?<span class="svc-plus" aria-hidden="true"></span></summary><p>Start with the jobsite address, a description of the work, appliance model numbers, photos, and your timing. Plans, inspection comments, and existing tank or meter details are helpful when available. A site visit may be needed.</p></details><details><summary>Do you handle permits and inspections?<span class="svc-plus" aria-hidden="true"></span></summary><p>Gas permit preparation and inspection coordination can be included where required and within the contracted scope. The relevant authority performs its inspections and makes approval decisions.</p></details><details><summary>Can you inspect a system before or after a property sale?<span class="svc-plus" aria-hidden="true"></span></summary><p>Yes. Request a real estate gas evaluation and share the transaction deadline, inspection report, property access, and utility status. We confirm the evaluation and reporting scope before the visit.</p></details><details><summary>Do you provide emergency or after-hours service?<span class="svc-plus" aria-hidden="true"></span></summary><p>No. GGS provides scheduled service. If you smell gas or suspect an active leak, leave the area and call your gas supplier or 911 from a safe location.</p></details><details><summary>Can you coordinate recurring or multiple projects?<span class="svc-plus" aria-hidden="true"></span></summary><p>Tell us the anticipated locations, project types, timing, and onboarding requirements. We can discuss how to organize estimating, authorizations, site coordination, and documentation for the work.</p></details></div></div></section><section class="svc-section svc-bottom"><div class="container"><div><p class="svc-kicker">Let’s define your gas project</p><h2>Tell us your role.<br>Tell us what you need.</h2><p>We’ll help you identify the next step for the gas portion of your project.</p></div><div class="svc-actions"><a class="svc-button" href="contact.html">Start My Request <span aria-hidden="true">↗</span></a><a class="svc-button svc-button-secondary" href="tel:8774102195">Call (877) 410-2195 <span aria-hidden="true">↗</span></a></div></div></section></main>
 <footer>
   <div class="container">
     <div class="footer-grid">
@@ -402,5 +92,6 @@
 
 <script src="js/site.js?v=20261007a"></script>
 <a href="tel:8774102195" class="mobile-call-bar"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>Call (877) 410-2195</a>
+<script src="js/services.js?v=20261007-overhaul"></script>
 </body>
 </html>
