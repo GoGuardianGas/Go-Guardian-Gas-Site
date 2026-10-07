@@ -2132,3 +2132,9 @@ img{max-width:100%}p,a,li{overflow-wrap:break-word}
 @media(min-width:901px){.nav-menu{gap:clamp(.7rem,1.5vw,1.5rem)}.nav-menu a{font-size:.78rem}}
 @media(max-width:1000px){.ggs-service-grid{gap:14px}.ggs-service{padding:24px 20px}.ggs-process-grid,.ggs-planning-grid{gap:32px}}
 @media(max-width:800px){.ggs-section-intro,.ggs-service-grid,.ggs-process-grid,.ggs-planning-grid,.ggs-review-band>.container{grid-template-columns:1fr;gap:28px}.ggs-service h3 br{display:none}.ggs-service-number{margin-bottom:18px}.ggs-section-intro{align-items:start}.ggs-owner{margin-top:24px}.ggs-planning-panel{padding:28px}.ggs-review-slide{padding:28px;min-height:290px}.ggs-carousel-controls{flex-wrap:wrap;justify-content:center}.ggs-carousel-controls #review-position{order:3;width:100%;text-align:center}.ggs-carousel-controls .btn{padding:12px;font-size:.8rem}.ggs-steps{padding:8px 22px}.ggs-reviews-hero{padding:48px 0}.ggs-review-actions{flex-direction:column;align-items:stretch}.ggs-review-actions .btn{justify-content:center}.ggs-review-band .ggs-review-actions{max-width:420px}}
+
+/* Keep review actions visibly actionable on every cobalt surface. */
+.ggs-review-actions .btn-facebook,.ggs-review-actions .btn-facebook:visited{display:inline-flex;align-items:center;justify-content:center;min-height:54px;padding:14px 22px;background:#0047ab;color:#fff;border:2px solid #a8c7ff;border-radius:8px;text-decoration:none;box-shadow:0 4px 14px #0002;white-space:normal;line-height:1.5;text-align:center}
+.ggs-review-actions .btn-facebook:hover{background:#003582;border-color:#fff}
+.ggs-review-actions .btn-primary{min-height:54px;border-radius:8px}
+.ggs-review-slide .ggs-review-topic{font-family:var(--font-display);font-size:1.4rem;letter-spacing:.03em}
