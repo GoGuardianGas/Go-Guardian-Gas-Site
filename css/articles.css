@@ -238,3 +238,5 @@
   .article-visual { position: static; max-width: 700px; margin: 0 auto; }
   .article-reading-grid .article-body { max-width: 780px; margin: 0 auto; }
 }
+/* Long reading columns must stay visible regardless of scroll-reveal thresholds. */
+.article-reading-grid .article-body { opacity: 1; transform: none; }
