@@ -2220,3 +2220,8 @@ body:has(.contact-grid) .page-hero-content { text-shadow:0 2px 8px #07152e; }
 
 /* Compact home-page service introduction. */
 .home-hero .hero-left .hero-tagline { font-size:1rem; line-height:1.6; }
+
+/* Slightly smaller home-page brand headline. */
+.home-hero .hero-left h1 { font-size:clamp(2.25rem,3.95vw,3.5rem); }
+@media(max-width:640px) { .home-hero .hero-left h1 { font-size:1.85rem; } }
+@media(max-width:380px) { .home-hero .hero-left h1 { font-size:1.65rem!important; } }
