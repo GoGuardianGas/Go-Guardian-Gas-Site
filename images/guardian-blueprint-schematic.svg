@@ -6,26 +6,26 @@
 <!-- House footprint and room divisions. -->
 <g stroke="#9ddcff" stroke-width="2" stroke-opacity=".55"><path d="M275 120h1190v350H275zM580 120v350M885 120v350M1180 120v350"/><path d="M275 95v-20h1190v20M250 120h-25v350h25" stroke-dasharray="8 10"/></g>
 <!-- Main supply and appliance branches. -->
-<g stroke="#b8e9ff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><path d="M195 535h70v35h1180M430 570V365M730 570V365M1030 570V365M1320 570V365M430 570v165M730 570v165M1030 570v165M1320 570v165"/><path d="M265 570v430h290" stroke-dasharray="12 14"/></g>
-<g stroke="#b8e9ff" stroke-width="3" stroke-linejoin="round" stroke-linecap="round">
+<g stroke="#b8e9ff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M195 535h70v35h1180M430 570V365M730 570V365M1030 570V365M1320 570V365M430 570v165M730 570v165M1030 570v165M1320 570v165"/><path d="M265 570v430h290" stroke-dasharray="12 14"/></g>
+<g stroke="#b8e9ff" stroke-width="2" stroke-linejoin="round" stroke-linecap="round">
 <!-- Propane tank. -->
 <rect x="35" y="495" width="160" height="80" rx="40"/><path d="M98 495v-20h30v20M112 475v-12m-12 0h24M70 575v22h20v-22m50 0v22h20v-22M68 502c-19 16-19 50 0 66m93-66c19 16 19 50 0 66"/>
 <!-- Range. -->
-<rect x="380" y="215" width="100" height="145" rx="5"/><circle cx="405" cy="241" r="12"/><circle cx="455" cy="241" r="12"/><path d="M392 274h76v69h-76zm0-11h76"/>
+<path d="M371 225l18-16h91l14 16v136H371zM371 225h123M480 209v152M378 267h96v81h-96zM386 278h80v60h-80zM387 273h78M371 258h109"/><g stroke-width="1.4"><ellipse cx="402" cy="221" rx="15" ry="5"/><ellipse cx="450" cy="221" rx="15" ry="5"/><path d="M381 220h42m-21-7v15m27-8h42m-21-7v15"/><circle cx="389" cy="245" r="5"/><circle cx="413" cy="245" r="5"/><circle cx="438" cy="245" r="5"/><circle cx="462" cy="245" r="5"/><path d="M381 361v8m91-8v8M485 237h5m-5 7h5m-5 7h5"/></g>
 <!-- Tankless heater. -->
-<rect x="685" y="195" width="90" height="145" rx="9"/><path d="M702 220h56v28h-56zm6 49h44m-44 14h44m-33 57v25m23-25v25"/>
+<path d="M683 207l12-10h82v142l-12 10h-82zM683 207h82v142m0-142 12-10M701 197v-20h39v20M709 177v-12h23v12"/><rect x="704" y="282" width="41" height="29" rx="2"/><path d="M711 289h26v10h-26zm-8 60v14m22-14v19m22-19v14M697 224h54m-54 6h54m-54 6h54m-54 6h54m-54 6h54"/><g stroke-width="1"><circle cx="711" cy="305" r="2"/><circle cx="737" cy="305" r="2"/><path d="M696 321h54m-54 6h54m-54 6h54"/></g>
 <!-- Indoor clothes dryer. -->
-<rect x="970" y="210" width="120" height="150" rx="8"/><circle cx="1030" cy="295" r="41"/><circle cx="1030" cy="295" r="30"/><path d="M985 231h38m34 0h15"/>
+<path d="M965 218l14-12h126v150l-14 11H965zM965 218h126v149m0-149 14-12M966 252h125"/><circle cx="1028" cy="304" r="43"/><circle cx="1028" cy="304" r="35"/><path d="M998 284a33 33 0 0 1 53 0m-53 40a33 33 0 0 0 53 0M1067 297h7v17h-7M978 365v6m99-6v6"/><g stroke-width="1.4"><circle cx="1018" cy="235" r="10"/><path d="m1018 235 5-6M977 232h24m-24 6h24M1042 229h34v12h-34zM1097 267h4m-4 7h4m-4 7h4"/></g>
 <!-- Indoor fireplace. -->
-<path d="M1250 350V220h140v130m-150 10h160m-156-145h152v-16h-152zm20 135v-90h104v90"/><use href="#flame" transform="translate(1320 312)"/>
+<path d="M1236 354h168v10h-168zM1247 354V222h146v132M1238 210h164v12h-164zM1257 233h126v112h-126zM1271 247h98v86h-98z"/><g stroke-width="1.4"><path d="M1282 320l64-10 6 7-67 10zm7-15 56 17m-52-24 15 26m17-28 13 23M1277 253h86m-86 7h86M1278 338h85M1248 240h9m126 0h9m-144 25h9m126 0h9m-144 25h9m126 0h9"/><path d="M1290 315q-10-13 1-28-2 16 8 17 0-17 10-24-4 19 7 29 8-12 5-24 18 15 10 28m6-1q12-10 8-20"/></g>
 <!-- Generator. -->
-<rect x="355" y="745" width="150" height="108" rx="8"/><path d="M371 765h118m-118 16h118m-118 16h118m-118 16h118m-107 40v15m98-15v15M430 735v10"/>
+<path d="M346 770l22-31h143l14 22v92l-22 14H346zM346 770h157l22-9M503 770v97M346 839h157M355 776h88v52h-88zM453 784h39v35h-39z"/><g stroke-width="1.4"><path d="M362 783h74m-74 7h74m-74 7h74m-74 7h74m-74 7h74m-74 7h74M509 779l10-6m-10 14 10-6m-10 14 10-6m-10 14 10-6M371 748h116m-116 6h116M354 854h139m-130 13v7m121-7v7"/><rect x="462" y="791" width="21" height="9"/><circle cx="471" cy="809" r="3"/></g>
 <!-- Outdoor kitchen / grill. -->
-<path d="M660 790q0-55 70-55t70 55zm-12 12h164v32H648zm18 32v49m128-49v49m-116-31h104M690 787v-17m25 17v-17m25 17v-17m25 17v-17"/>
+<path d="M644 806l14-17h145l15 17v18H644zM660 789v-42q64-45 140 0v42M660 758h140M650 824h163v62H650zM711 824v62m43-62v62M674 751h110m-109 7v8h108v-8"/><g stroke-width="1.4"><path d="M669 780h122m-122-6h122M661 835h39v40h-39zm104 0h37v40h-37zM723 834h21v42h-21zM657 886v8m149-8v8"/><circle cx="671" cy="812" r="4"/><circle cx="700" cy="812" r="4"/><circle cx="730" cy="812" r="4"/><circle cx="760" cy="812" r="4"/><circle cx="790" cy="812" r="4"/></g>
 <!-- Outdoor fireplace. -->
-<path d="M1000 735v-45h60v45l45 65v80H955v-80zm-33 139v-73h126v73m-139 13h152M988 746h84m-96 19h110"/><use href="#flame" transform="translate(1030 842)"/>
+<path d="M946 885h169v-11H946zM958 874v-95l37-41v-46h72v46l36 41v95M987 692h88v-10h-88zM973 868v-66q56-43 115 0v66zM986 862v-54q43-32 88 0v54z"/><g stroke-width="1.3"><path d="M998 847l58-9 5 7-61 10zm12-17 39 24M1003 841q-6-13 3-23-1 13 8 16 0-15 10-21-2 18 9 23 6-10 2-19 17 13 10 25M995 707h72m-72 15h72m-66 16h60M982 753h94m-109 16h124M960 790h18m109 0h14M960 812h13m116 0h12m-141 22h13m116 0h12m-141 21h13m116 0h12"/></g>
 <!-- Dedicated outdoor gas pool heater. -->
-<rect x="1265" y="745" width="110" height="135" rx="6"/><path d="M1320 735v10m-39 21h78v25h-78zm0 44h78m-78 14h78m-78 14h78m-78 14h78M1300 880v42h120m-85-42v62h85"/>
+<path d="M1257 765l16-24h100l15 19v114l-16 13h-115zM1257 765h115l16-5M1372 765v122M1273 741h100M1268 792h92v74h-92z"/><g stroke-width="1.3"><path d="M1275 800h78m-78 8h78m-78 8h78m-78 8h78m-78 8h78m-78 8h78m-78 8h78m-78 8h78M1279 748h78m-81 5h84m-87 5h90M1378 777l5-3m-5 11 5-3m-5 11 5-3"/><rect x="1285" y="773" width="49" height="13"/><circle cx="1347" cy="780" r="3"/></g><path d="M1320 735v6M1300 887v35h120m-85-35v55h85"/>
 <!-- Pool connected to heater by water lines. -->
 <rect x="1420" y="710" width="140" height="270" rx="45"/><path d="M1438 775q49-25 103 0m-103 45q49-25 103 0m-103 45q49-25 103 0"/>
 </g>
