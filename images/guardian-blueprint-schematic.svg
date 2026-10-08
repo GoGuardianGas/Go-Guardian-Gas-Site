@@ -1,15 +1,37 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 880" fill="none">
-<defs><pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M40 0H0v40" stroke="#87caff" stroke-opacity=".15"/></pattern></defs>
-<path fill="#07326b" d="M0 0h1400v880H0z"/><path fill="url(#grid)" d="M0 0h1400v880H0z"/>
-<g stroke="#9ddcff" stroke-width="2" opacity=".6"><path d="M280 150h810v510H280zM610 150v250h480M280 460h330v200M800 400v260M280 400h120M440 400h170"/>
-<path d="M280 130v-25h810v25M260 150h-30v510h30" stroke-dasharray="6 8"/>
-<rect x="58" y="310" width="130" height="70" rx="35"/><path d="M105 310v-16h32v16m-50 70v20h18v-20m37 0v20h18v-20"/>
-<rect x="350" y="220" width="90" height="100" rx="5"/><circle cx="374" cy="243" r="10"/><circle cx="415" cy="243" r="10"/><path d="M360 266h70v40h-70z"/>
-<rect x="690" y="215" width="60" height="100" rx="7"/><path d="M705 237h30m-30 12h30m-17 66v23m17-23v23"/>
-<rect x="885" y="480" width="120" height="85" rx="7"/><path d="M900 496h90m-90 12h90m-90 12h90m-90 12h90"/>
-<rect x="1180" y="245" width="155" height="265" rx="45"/><path d="M1200 300q55-25 115 0m-115 45q55-25 115 0m-115 45q55-25 115 0"/>
-<path d="M450 724h110v48H450zm10 48v33m90-33v33m-85-96h80m-62-20v20m30-20v20"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1100" fill="none">
+<title>Guardian Blueprint whole-property gas system concept</title>
+<desc>Propane supply branches to cooking, tankless hot water, a clothes dryer, an indoor fireplace, a generator, an outdoor kitchen, an outdoor fireplace, and a dedicated outdoor gas pool heater beside a pool. Decorative concept, not an installation drawing.</desc>
+<defs><pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M40 0H0v40" stroke="#87caff" stroke-opacity=".16"/></pattern><g id="flame"><path d="M0-24C3-11 17-5 15 8A16 16 0 0 1-16 8C-17 0-11-8-6-14C-7-3-1 0 1 3C6-7-2-16 0-24Z" fill="#b8e9ff" stroke="none"/></g></defs>
+<path fill="url(#grid)" d="M0 0h1600v1100H0z"/>
+<!-- House footprint and room divisions. -->
+<g stroke="#9ddcff" stroke-width="2" stroke-opacity=".55"><path d="M275 120h1190v350H275zM580 120v350M885 120v350M1180 120v350"/><path d="M275 95v-20h1190v20M250 120h-25v350h25" stroke-dasharray="8 10"/></g>
+<!-- Main supply and appliance branches. -->
+<g stroke="#b8e9ff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><path d="M195 535h70v35h1180M430 570V365M730 570V365M1030 570V365M1320 570V365M430 570v165M730 570v165M1030 570v165M1320 570v165"/><path d="M265 570v430h290" stroke-dasharray="12 14"/></g>
+<g stroke="#b8e9ff" stroke-width="3" stroke-linejoin="round" stroke-linecap="round">
+<!-- Propane tank. -->
+<rect x="35" y="495" width="160" height="80" rx="40"/><path d="M98 495v-20h30v20M112 475v-12m-12 0h24M70 575v22h20v-22m50 0v22h20v-22M68 502c-19 16-19 50 0 66m93-66c19 16 19 50 0 66"/>
+<!-- Range. -->
+<rect x="380" y="215" width="100" height="145" rx="5"/><circle cx="405" cy="241" r="12"/><circle cx="455" cy="241" r="12"/><path d="M392 274h76v69h-76zm0-11h76"/>
+<!-- Tankless heater. -->
+<rect x="685" y="195" width="90" height="145" rx="9"/><path d="M702 220h56v28h-56zm6 49h44m-44 14h44m-33 57v25m23-25v25"/>
+<!-- Indoor clothes dryer. -->
+<rect x="970" y="210" width="120" height="150" rx="8"/><circle cx="1030" cy="295" r="41"/><circle cx="1030" cy="295" r="30"/><path d="M985 231h38m34 0h15"/>
+<!-- Indoor fireplace. -->
+<path d="M1250 350V220h140v130m-150 10h160m-156-145h152v-16h-152zm20 135v-90h104v90"/><use href="#flame" transform="translate(1320 312)"/>
+<!-- Generator. -->
+<rect x="355" y="745" width="150" height="108" rx="8"/><path d="M371 765h118m-118 16h118m-118 16h118m-118 16h118m-107 40v15m98-15v15M430 735v10"/>
+<!-- Outdoor kitchen / grill. -->
+<path d="M660 790q0-55 70-55t70 55zm-12 12h164v32H648zm18 32v49m128-49v49m-116-31h104M690 787v-17m25 17v-17m25 17v-17m25 17v-17"/>
+<!-- Outdoor fireplace. -->
+<path d="M1000 735v-45h60v45l45 65v80H955v-80zm-33 139v-73h126v73m-139 13h152M988 746h84m-96 19h110"/><use href="#flame" transform="translate(1030 842)"/>
+<!-- Dedicated outdoor gas pool heater. -->
+<rect x="1265" y="745" width="110" height="135" rx="6"/><path d="M1320 735v10m-39 21h78v25h-78zm0 44h78m-78 14h78m-78 14h78m-78 14h78M1300 880v42h120m-85-42v62h85"/>
+<!-- Pool connected to heater by water lines. -->
+<rect x="1420" y="710" width="140" height="270" rx="45"/><path d="M1438 775q49-25 103 0m-103 45q49-25 103 0m-103 45q49-25 103 0"/>
 </g>
-<g stroke="#b8e9ff" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" opacity=".85"><path d="M188 345h45v345h890V570h107V530M395 330v360m325-350v350m225-120v120M505 690v34"/><path d="M660 690v70h210" stroke-dasharray="12 12"/></g>
-<g fill="#07326b" stroke="#b8e9ff" stroke-width="3"><circle cx="233" cy="435" r="13"/><path d="m222 446 22-22"/><circle cx="395" cy="690" r="7"/><circle cx="720" cy="690" r="7"/><circle cx="945" cy="690" r="7"/></g>
-<g fill="#b8e9ff" font-family="monospace" font-size="17" letter-spacing="2" opacity=".85"><text x="52" y="285">PROPANE SUPPLY</text><text x="352" y="200">COOKING</text><text x="670" y="195">HOT WATER</text><text x="884" y="460">GENERATOR</text><text x="1185" y="225">POOL / SPA</text><text x="430" y="836">OUTDOOR KITCHEN</text><text x="880" y="767">FUTURE BRANCH</text><text x="1020" y="830">GUARDIAN BLUEPRINT</text></g></svg>
+<g fill="#b8e9ff"><circle cx="430" cy="570" r="8"/><circle cx="730" cy="570" r="8"/><circle cx="1030" cy="570" r="8"/><circle cx="1320" cy="570" r="8"/></g>
+<g fill="#b8e9ff" font-family="monospace" font-size="18" letter-spacing="1.5" text-anchor="middle">
+<text x="115" y="440">PROPANE SUPPLY</text><text x="430" y="180">COOKING</text><text x="730" y="160">TANKLESS HOT WATER</text><text x="1030" y="175">INDOOR CLOTHES DRYER</text><text x="1320" y="165">INDOOR FIREPLACE</text>
+<text x="430" y="925">GENERATOR</text><text x="730" y="925">OUTDOOR KITCHEN</text><text x="1030" y="925">OUTDOOR FIREPLACE</text><text x="1320" y="685">OUTDOOR GAS</text><text x="1320" y="708">POOL HEATER</text><text x="1490" y="680">POOL / SPA</text>
+<text x="445" y="1040">FUTURE BRANCH</text><text x="1300" y="1040">GUARDIAN BLUEPRINT</text></g>
+</svg>
