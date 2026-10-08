@@ -2203,3 +2203,17 @@ img{max-width:100%}p,a,li{overflow-wrap:break-word}
   .home-hero .call-number { font-size:1.55rem; }
   .home-hero .btn-call { padding:.9rem .65rem; }
 }
+
+/* Gas schematic behind the Contact page introduction. */
+body:has(.contact-grid) .page-hero { position:relative; isolation:isolate; overflow:hidden; }
+body:has(.contact-grid) .page-hero::before {
+  content:""; position:absolute; inset:0; z-index:-1; pointer-events:none;
+  background:linear-gradient(90deg,#07152ef5 0%,#07152ed9 30%,#07152e55 65%,#07152e11 100%),url('../images/guardian-blueprint-schematic.svg') right center / auto 100% no-repeat;
+  opacity:.8;
+}
+@media(max-width:700px) {
+  body:has(.contact-grid) .page-hero::before {
+    background:linear-gradient(90deg,#07152edb,#07152ea6),url('../images/guardian-blueprint-schematic.svg') center / cover no-repeat;
+    opacity:.85;
+  }
+}
