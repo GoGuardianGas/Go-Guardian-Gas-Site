@@ -2217,3 +2217,6 @@ body:has(.contact-grid) .page-hero-content { text-shadow:0 2px 8px #07152e; }
 @media(max-width:700px) {
   body:has(.contact-grid) #main-content::before { background-size:1000px auto; }
 }
+
+/* Compact home-page service introduction. */
+.home-hero .hero-left .hero-tagline { font-size:1rem; line-height:1.6; }
