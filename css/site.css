@@ -2138,3 +2138,23 @@ img{max-width:100%}p,a,li{overflow-wrap:break-word}
 .ggs-review-actions .btn-facebook:hover{background:#003582;border-color:#fff}
 .ggs-review-actions .btn-primary{min-height:54px;border-radius:8px}
 .ggs-review-slide .ggs-review-topic{font-family:var(--font-display);font-size:1.4rem;letter-spacing:.03em}
+
+/* Centered, larger site navigation. */
+.nav-logo { display: none; }
+
+.nav-inner { justify-content: center; min-height: 94px; }
+.nav-menu { justify-content: center; margin: 0; padding: 0; }
+.nav-menu a { font-size: 1.0625rem; font-weight: 700; }
+@media (min-width: 901px) {
+  .nav-menu { flex-wrap: wrap; column-gap: clamp(1rem, 2vw, 2rem); row-gap: .75rem; }
+  .nav-menu a { display: inline-flex; align-items: center; min-height: 44px; white-space: nowrap; }
+}
+@media (max-width: 1100px) and (min-width: 901px) {
+  .nav-inner { min-height: 132px; }
+  .nav-spacer { height: 132px; }
+}
+@media (max-width: 900px) {
+  .nav-inner { min-height: 88px; }
+  .nav-menu.open { text-align: center; }
+  .nav-menu a { font-size: 1.125rem; }
+}
