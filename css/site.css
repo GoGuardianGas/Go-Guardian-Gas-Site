@@ -2225,3 +2225,17 @@ body:has(.contact-grid) .page-hero-content { text-shadow:0 2px 8px #07152e; }
 .home-hero .hero-left h1 { font-size:clamp(2.25rem,3.95vw,3.5rem); }
 @media(max-width:640px) { .home-hero .hero-left h1 { font-size:1.85rem; } }
 @media(max-width:380px) { .home-hero .hero-left h1 { font-size:1.65rem!important; } }
+
+/* Five featured client reviews: rotating homepage, readable review cards. */
+.ggs-review-stars{color:#f9d46c;letter-spacing:.15em;margin-bottom:18px;font-size:1.1rem}
+.ggs-review-summary{font-size:1rem;line-height:1.75;color:#e0eaff;margin:24px 0}
+.ggs-review-cards{display:grid;gap:24px}
+.ggs-review-cards .ggs-review-slide+.ggs-review-slide,.ggs-carousel .ggs-review-slide+.ggs-review-slide{margin-top:0}
+.ggs-review-cards .ggs-review-slide blockquote{font-size:clamp(1.25rem,2vw,1.75rem)}
+.ggs-review-band>.ggs-featured-carousel-wrap{display:block;margin-top:36px}
+.ggs-featured-carousel-wrap>.ggs-review-note{margin:0 0 18px;font-size:.85rem}
+.ggs-featured-reviews .ggs-review-slide{background:linear-gradient(125deg,#003582,#082954);border:1px solid #91baff55}
+.ggs-carousel-controls{flex-wrap:wrap}
+.ggs-carousel .ggs-review-slide:not([hidden]){animation:ggs-review-reveal .35s ease-out}
+@keyframes ggs-review-reveal{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+@media(prefers-reduced-motion:reduce){.ggs-carousel .ggs-review-slide:not([hidden]){animation:none}}
