@@ -12,6 +12,7 @@
  rotation.setAttribute('aria-controls', 'review-slides');
  controls.prepend(rotation);
  let current = 0;
+ let pointerWasPlaying = null;
  let timer = null;
  let hovered = false;
  let focused = false;
@@ -42,11 +43,14 @@
   });
   position.textContent = `Review ${current + 1} of ${slides.length}`;
  }
- function manualStep(step) { playing = false; show(current + step); sync(); }
+ function manualStep(step) { playing = false; sync(); show(current + step); sync(); }
  document.getElementById('review-prev').addEventListener('click', () => manualStep(-1));
  document.getElementById('review-next').addEventListener('click', () => manualStep(1));
+ rotation.addEventListener('pointerdown', () => { pointerWasPlaying = playing; });
+ rotation.addEventListener('pointercancel', () => { pointerWasPlaying = null; });
  rotation.addEventListener('click', () => {
-  playing = !playing;
+  playing = pointerWasPlaying === null ? !playing : !pointerWasPlaying;
+  pointerWasPlaying = null;
   if (playing) focused = false;
   sync();
  });
