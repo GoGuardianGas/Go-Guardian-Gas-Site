@@ -2375,3 +2375,28 @@ a:focus-visible, button:focus-visible {
   .footer-brand img[src*="guardian-shield-cobalt"] { height: 156px; }
   .safety-feature img[src*="guardian-shield-cobalt"] { width: 180px; }
 }
+
+/* Feather the horizontal logo into the hero instead of showing a hard box. */
+.home-hero .hero-brand { overflow: visible; }
+.home-hero .hero-brand img {
+  -webkit-mask-image:
+    linear-gradient(to right, transparent, #000 8%, #000 92%, transparent),
+    linear-gradient(to bottom, transparent, #000 12%, #000 88%, transparent);
+  -webkit-mask-composite: source-in;
+  mask-image:
+    linear-gradient(to right, transparent, #000 8%, #000 92%, transparent),
+    linear-gradient(to bottom, transparent, #000 12%, #000 88%, transparent);
+  mask-composite: intersect;
+  mask-repeat: no-repeat;
+  -webkit-mask-repeat: no-repeat;
+}
+.home-hero .hero-brand-light::before {
+  inset: -24% -12%;
+  background: radial-gradient(ellipse,
+    rgba(89, 146, 213, .22) 0%,
+    rgba(37, 93, 167, .16) 38%,
+    rgba(9, 33, 72, .08) 62%,
+    transparent 82%);
+  filter: blur(26px);
+  animation: none;
+}
