@@ -104,7 +104,21 @@
   .storm-weather summary::marker{content:""}
   .storm-weather summary:focus-visible{outline:3px solid #fff;outline-offset:6px}
   .storm-weather summary img{display:block;width:min(100%,280px);height:auto;margin:0 auto 12px;filter:drop-shadow(0 12px 22px #0047ab66);transition:transform .2s ease}
-  .storm-weather summary:hover img{transform:scale(1.035)}
+  /* Turn the hurricane counterclockwise; keep forecast text stationary. */
+  .storm-weather summary img{
+    transform-origin:50% 50%;
+    animation:storm-hurricane-turn 28s linear infinite;
+  }
+  @keyframes storm-hurricane-turn{
+    from{transform:rotate(0deg)}
+    to{transform:rotate(-360deg)}
+  }
+  .storm-weather summary:hover img,
+  .storm-weather summary:focus-visible img,
+  .storm-weather[open] summary img{animation-play-state:paused}
+  @media(prefers-reduced-motion:reduce){
+    .storm-weather summary img{animation:none;transform:none}
+  }
   .storm-weather summary strong{display:block;font-family:var(--font-display);font-size:1.7rem;line-height:1.25}
   .storm-weather summary span{display:inline-block;margin-top:12px;padding:9px 18px;border:1px solid #91baff;border-radius:999px;background:#0047ab;font-size:.85rem;font-weight:700}
   .storm-weather[open] .weather-open-label{display:none}
