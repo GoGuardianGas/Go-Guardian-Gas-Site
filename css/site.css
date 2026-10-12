@@ -2352,3 +2352,26 @@ a:focus-visible, button:focus-visible {
   .safety-feature img[src*="guardian-shield-cobalt"] { width: 160px; }
   .footer-brand img[src*="guardian-shield-cobalt"] { height: 140px; }
 }
+
+/* Refined horizontal brand palette and more prominent shield placements. */
+.footer-brand img[src*="guardian-shield-cobalt"] { height: 166px; }
+.safety-feature img[src*="guardian-shield-cobalt"] { width: 228px; }
+.hero-brand { aspect-ratio: 3 / 1; overflow: hidden; }
+.hero-brand img {
+  position: absolute;
+  display: block;
+  width: 120%;
+  max-width: none;
+  height: auto;
+  left: -10%;
+  top: -10%;
+}
+.hero-brand-light::before {
+  background: radial-gradient(ellipse, #22539770 0%, #164d9e40 48%, transparent 78%);
+  filter: blur(22px);
+  animation: none;
+}
+@media (max-width: 640px) {
+  .footer-brand img[src*="guardian-shield-cobalt"] { height: 156px; }
+  .safety-feature img[src*="guardian-shield-cobalt"] { width: 180px; }
+}
