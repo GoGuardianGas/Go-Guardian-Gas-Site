@@ -2328,3 +2328,27 @@ a:focus-visible, button:focus-visible {
   .home-hero, .page-hero, .ggs-reviews-hero { padding-bottom: 105px; }
   footer { padding-top: 110px; }
 }
+
+/* Slightly larger shield placements, with restrained external lighting. */
+.footer-brand img[src*="guardian-shield-cobalt"] {
+  height: 148px;
+  width: auto;
+  max-width: 100%;
+  object-fit: contain;
+  filter: none;
+}
+.footer-brand img[src*="guardian-shield-cobalt"]:hover {
+  transform: scale(1.02);
+  filter: none;
+}
+.safety-feature img[src*="guardian-shield-cobalt"] {
+  width: 204px;
+  height: auto;
+  max-width: 100%;
+  object-fit: contain;
+  filter: none;
+}
+@media (max-width: 640px) {
+  .safety-feature img[src*="guardian-shield-cobalt"] { width: 160px; }
+  .footer-brand img[src*="guardian-shield-cobalt"] { height: 140px; }
+}
