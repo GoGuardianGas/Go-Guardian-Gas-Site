@@ -2239,3 +2239,92 @@ body:has(.contact-grid) .page-hero-content { text-shadow:0 2px 8px #07152e; }
 .ggs-carousel .ggs-review-slide:not([hidden]){animation:ggs-review-reveal .35s ease-out}
 @keyframes ggs-review-reveal{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
 @media(prefers-reduced-motion:reduce){.ggs-carousel .ggs-review-slide:not([hidden]){animation:none}}
+
+/* Gold accents and flowing cobalt ribbons — October 12, 2026. */
+:root {
+  --guardian-gold: #f1cf7a;
+  --guardian-gold-deep: #c49a43;
+  --guardian-gold-light: #fff0be;
+  --guardian-ribbon: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201600%20240%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22b%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%220%22%20y2%3D%221%22%3E%3Cstop%20stop-color%3D%22%2332b7ff%22%2F%3E%3Cstop%20offset%3D%22.28%22%20stop-color%3D%22%230864d9%22%2F%3E%3Cstop%20offset%3D%22.64%22%20stop-color%3D%22%23003582%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%2307152e%22%2F%3E%3C%2FlinearGradient%3E%3ClinearGradient%20id%3D%22g%22%3E%3Cstop%20stop-color%3D%22%23b8852b%22%2F%3E%3Cstop%20offset%3D%22.25%22%20stop-color%3D%22%23ffe5a0%22%2F%3E%3Cstop%20offset%3D%22.6%22%20stop-color%3D%22%23d7ad56%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23fff0bc%22%2F%3E%3C%2FlinearGradient%3E%3C%2Fdefs%3E%3Cpath%20d%3D%22M0%2050%20C260%2075%20340%20230%20650%20190%20S1100%2070%201600%20145%20L1600%20240%20H0Z%22%20fill%3D%22url(%23b)%22%2F%3E%3Cpath%20d%3D%22M0%2050%20C260%2075%20340%20230%20650%20190%20S1100%2070%201600%20145%22%20fill%3D%22none%22%20stroke%3D%22%2362c8ff%22%20stroke-width%3D%223%22%2F%3E%3Cpath%20d%3D%22M0%2083%20C270%2095%20380%20253%20690%20210%20S1150%2090%201600%20170%22%20fill%3D%22none%22%20stroke%3D%22url(%23g)%22%20stroke-width%3D%224%22%2F%3E%3Cpath%20d%3D%22M0%20173%20C270%20122%20350%20260%20680%20226%20S1170%20124%201600%20211%22%20fill%3D%22none%22%20stroke%3D%22url(%23g)%22%20stroke-width%3D%222%22%20opacity%3D%22.65%22%2F%3E%3C%2Fsvg%3E");
+}
+.nav { border-bottom-color: #d7ad5659; }
+.nav-menu a.active::after {
+  background: linear-gradient(90deg, var(--guardian-gold-deep), var(--guardian-gold-light), var(--guardian-gold-deep));
+}
+.nav-menu a.nav-call, .nav-cta, .btn-call {
+  border-color: var(--guardian-gold);
+  color: var(--guardian-gold-light) !important;
+  background: linear-gradient(135deg, #0755bd, #082954);
+}
+.nav-menu a.nav-call:hover, .nav-cta:hover, .btn-call:hover {
+  border-color: var(--guardian-gold-light);
+  background: linear-gradient(135deg, #0962d6, #003582);
+  color: var(--guardian-gold-light) !important;
+}
+.btn-primary, .ggs-review-band .btn-primary, .ggs-reviews-hero .btn-primary {
+  background: linear-gradient(115deg, #f5dc99, #e5bc62 65%, #f1cf7a);
+  border-color: var(--guardian-gold);
+  color: #07152e;
+  box-shadow: 0 5px 18px #c49a431f;
+}
+.btn-primary:hover, .ggs-review-band .btn-primary:hover, .ggs-reviews-hero .btn-primary:hover {
+  background: linear-gradient(115deg, #fff0be, #f1cf7a);
+  border-color: var(--guardian-gold-light);
+  color: #07152e;
+}
+.eyebrow, .home-hero .hero-left .eyebrow, .ggs-review-band .eyebrow,
+.footer-col h4, .footer-signoff { color: var(--guardian-gold); }
+.eyebrow::before, .eyebrow.centered::after,
+.home-hero .hero-left .eyebrow::before, .home-hero .hero-left .eyebrow::after {
+  background: linear-gradient(90deg, var(--guardian-gold-deep), var(--guardian-gold-light));
+}
+.home-hero .hero-left h1 .accent { color: var(--guardian-gold); }
+.card:hover, .tool-card:hover, .ggs-service:hover {
+  border-color: var(--guardian-gold-deep);
+}
+.ggs-service-number, .ggs-review-stars { color: var(--guardian-gold); }
+.ggs-planning-panel, .ggs-featured-reviews .ggs-review-slide {
+  border: 1px solid #d7ad5659;
+}
+.home-hero, .page-hero, .ggs-reviews-hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding-bottom: clamp(110px, 10vw, 165px);
+  border-bottom: 1px solid #d7ad5680;
+}
+.home-hero::after, .page-hero::after, .ggs-reviews-hero::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0;
+  height: clamp(75px, 9vw, 140px);
+  background: var(--guardian-ribbon) center bottom / 100% 100% no-repeat;
+  z-index: -1;
+  pointer-events: none;
+}
+footer {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding-top: clamp(115px, 10vw, 155px);
+  border-top: 1px solid #d7ad5680;
+}
+footer::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: clamp(70px, 8vw, 120px);
+  background: var(--guardian-ribbon) center / 100% 100% no-repeat;
+  transform: rotate(180deg);
+  z-index: -1;
+  pointer-events: none;
+}
+.footer-bottom { border-top-color: #d7ad5640; }
+a:focus-visible, button:focus-visible {
+  outline: 3px solid var(--guardian-gold-light);
+  outline-offset: 4px;
+}
+@media (max-width: 640px) {
+  .home-hero, .page-hero, .ggs-reviews-hero { padding-bottom: 105px; }
+  footer { padding-top: 110px; }
+}
