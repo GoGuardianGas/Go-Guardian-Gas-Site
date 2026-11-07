@@ -32,3 +32,22 @@
 .btu-fine-controls button { width:32px; height:34px; border:1px solid #78b9fa; background:#0a4eae; color:white; border-radius:9px; font-weight:800; cursor:pointer; }
 .btu-fine-controls input { width:90px; min-width:0; height:34px; border-radius:8px; border:1px solid #78b9fa; background:#fff; color:#092b5b; text-align:center; font-size:13px; font-weight:700; }
 .btu-fine-controls input::-webkit-inner-spin-button { opacity:1; }
+
+/* High-visibility glossy cobalt scrollbar for the appliance knob list. */
+.btu-calc-list { scrollbar-width:auto; scrollbar-color:#56bbff #102d58; }
+.btu-calc-list::-webkit-scrollbar { width:15px; }
+.btu-calc-list::-webkit-scrollbar-track {
+  background:linear-gradient(90deg,#071b3c,#1b4c87,#071b3c);
+  border-radius:12px;
+  box-shadow:inset 0 0 5px #0009;
+}
+.btu-calc-list::-webkit-scrollbar-thumb {
+  background:linear-gradient(90deg,#0047ab 0%,#2189ef 25%,#c8f3ff 48%,#54baff 69%,#0047ab 100%);
+  border:2px solid #10427f;
+  border-radius:12px;
+  min-height:44px;
+  box-shadow:inset 1px 1px 3px #fff9,0 0 7px #52b7ff88;
+}
+.btu-calc-list::-webkit-scrollbar-thumb:hover {
+  background:linear-gradient(90deg,#0756bd,#65c8ff 38%,#e1f8ff 52%,#3c9bff);
+}
