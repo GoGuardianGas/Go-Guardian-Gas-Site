@@ -23,3 +23,12 @@
 .btu-dial-hint { font-size:.7rem; color:#bdd5ee; margin-top:3px; }
 @media (max-width:600px) { [data-btu-list] { grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px; } .btu-dial-item { padding:12px 5px; } .btu-dial-wrap { transform:scale(.86); margin:-8px auto 0; } .btu-dial-name { font-size:.82rem; } .btu-dial-value { font-size:.82rem; } }
 @media (prefers-reduced-motion:no-preference) { .btu-knob-face { transition:transform .14s ease-out; } }
+
+.btu-dial-wrap { touch-action:none; cursor:grab; user-select:none; }
+.btu-dial-wrap:active { cursor:grabbing; }
+.btu-regulator { pointer-events:none; }
+.btu-dial-wrap:focus-within { outline:2px solid #8fd0f0; outline-offset:2px; border-radius:50%; }
+.btu-fine-controls { display:flex; align-items:center; justify-content:center; gap:6px; margin:8px auto 4px; }
+.btu-fine-controls button { width:32px; height:34px; border:1px solid #78b9fa; background:#0a4eae; color:white; border-radius:9px; font-weight:800; cursor:pointer; }
+.btu-fine-controls input { width:90px; min-width:0; height:34px; border-radius:8px; border:1px solid #78b9fa; background:#fff; color:#092b5b; text-align:center; font-size:13px; font-weight:700; }
+.btu-fine-controls input::-webkit-inner-spin-button { opacity:1; }
