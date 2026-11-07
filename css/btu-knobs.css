@@ -1,0 +1,24 @@
+
+/* Red regulator-style BTU dials. Range inputs retain keyboard/touch accessibility. */
+[data-btu-list] { display:grid; grid-template-columns:repeat(auto-fit,minmax(175px,1fr)); gap:16px; padding:16px 0; }
+.btu-dial-item { min-width:0; padding:18px 12px; text-align:center; border:1px solid rgba(130,177,230,.25); border-radius:18px; background:linear-gradient(160deg,#102a4c,#08172d); color:#fff; }
+.btu-dial-item.active { border-color:#d65c63; box-shadow:0 0 0 1px rgba(220,64,72,.2); }
+.btu-dial-name { font-weight:800; line-height:1.3; min-height:2.6em; }
+.btu-dial-model { color:#bdd5ee; font-size:.75rem; min-height:2.4em; margin:6px 0 10px; }
+.btu-dial-wrap { position:relative; width:156px; height:156px; margin:0 auto 12px; }
+.btu-knob-face { position:absolute; inset:24px; border-radius:50%; background:radial-gradient(circle at 30% 24%,#f86a69 0%,#d5212d 45%,#8e0b18 78%,#4c0810 100%); border:8px ridge #7d1a22; box-shadow:0 8px 13px #0008,inset 0 2px 5px #fff5; transform:rotate(var(--dial-angle,-130deg)); pointer-events:none; }
+.btu-knob-pointer { position:absolute; top:5px; left:calc(50% - 4px); width:8px; height:32px; border-radius:5px; background:#fff5dd; box-shadow:0 1px 3px #500; }
+.btu-knob-center { position:absolute; width:22px; height:22px; border-radius:50%; left:calc(50% - 11px); top:calc(50% - 11px); background:#86121c; box-shadow:inset 0 2px 4px #320; }
+.btu-regulator { position:absolute; inset:0; width:100%; height:100%; opacity:.01; cursor:pointer; z-index:2; }
+.btu-regulator:focus-visible { opacity:.35; outline:3px solid #8fd0f0; outline-offset:2px; border-radius:50%; }
+.btu-knob-marks { position:absolute; inset:0; pointer-events:none; color:#fff; font:700 10px/1 'Manrope',sans-serif; }
+.btu-knob-marks span { position:absolute; }
+.btu-knob-marks span:nth-child(1) { left:0; bottom:20px; }
+.btu-knob-marks span:nth-child(2) { left:0; top:28px; }
+.btu-knob-marks span:nth-child(3) { left:50%; top:2px; transform:translateX(-50%); }
+.btu-knob-marks span:nth-child(4) { right:0; top:28px; }
+.btu-knob-marks span:nth-child(5) { right:0; bottom:20px; }
+.btu-dial-value { display:block; font:700 1rem 'Manrope',sans-serif; color:#fff; }
+.btu-dial-hint { font-size:.7rem; color:#bdd5ee; margin-top:3px; }
+@media (max-width:600px) { [data-btu-list] { grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px; } .btu-dial-item { padding:12px 5px; } .btu-dial-wrap { transform:scale(.86); margin:-8px auto 0; } .btu-dial-name { font-size:.82rem; } .btu-dial-value { font-size:.82rem; } }
+@media (prefers-reduced-motion:no-preference) { .btu-knob-face { transition:transform .14s ease-out; } }
