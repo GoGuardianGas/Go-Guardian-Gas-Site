@@ -93,14 +93,13 @@ function initBtuCalculator(root) {
     const dialWrap = document.createElement('div');
     dialWrap.className = 'btu-dial-wrap';
     const dial = document.createElement('input');
-    const positions = Math.ceil(a.max / 10000);
-    dial.type = 'range'; dial.min = '0'; dial.max = String(positions); dial.step = '1'; dial.value = '0';
+    dial.type = 'range'; dial.min = '0'; dial.max = String(a.max); dial.step = '1'; dial.value = '0';
     dial.className = 'btu-regulator';
     dial.setAttribute('aria-label', a.label + ' selected BTU per hour, from off to ' + fmt(a.max));
     const knob = document.createElement('div');
     knob.className = 'btu-knob-face';
     knob.setAttribute('aria-hidden','true');
-    knob.innerHTML = '<span class="btu-knob-pointer"></span><span class="btu-knob-center"></span>';
+    knob.innerHTML = '<span class="btu-knob-pointer"></span><span class="btu-knob-center"><img src="images/guardian-shield-cobalt-2026.png" alt="" loading="lazy"></span>';
     const marks = document.createElement('div');
     marks.className = 'btu-knob-marks';
     marks.innerHTML = '<span>OFF</span><span>' + short(a.max*.25) + '</span><span>' + short(a.max*.5) + '</span><span>' + short(a.max*.75) + '</span><span>' + short(a.max) + '</span>';
@@ -109,9 +108,9 @@ function initBtuCalculator(root) {
     value.className = 'btu-dial-value';
     const note = document.createElement('div');
     note.className = 'btu-dial-hint';
-    note.textContent = '10,000 BTU/hr per step (final stop at maximum)';
+    note.textContent = 'Adjust by 1 BTU/hr per step';
     function update() {
-      const btu = Math.min(Number(dial.value) * 10000, a.max);
+      const btu = Number(dial.value);
       state[a.id] = btu;
       knob.style.setProperty('--dial-angle', (-130 + (btu / a.max) * 260) + 'deg');
       row.classList.toggle('active',btu>0);
