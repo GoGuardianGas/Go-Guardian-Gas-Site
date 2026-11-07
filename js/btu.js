@@ -4,21 +4,21 @@
 
 // Appliances shared across both fuels (same max BTU input per series/spec)
 const APPLIANCE_DIALS = [
- {id:'generator',label:'Standby Generator',max:600000,step:10000,cat:'power'},
- {id:'tankless',label:'Tankless Water Heater',max:250000,step:5000,cat:'water'},
- {id:'tank-water',label:'Tank Water Heater',max:75000,step:5000,cat:'water'},
- {id:'pool',label:'Pool / Spa Heater',max:500000,step:10000,cat:'water'},
- {id:'range',label:'Gas Range',max:180000,step:5000,cat:'kitchen'},
+ {id:'generator',label:'Standby Generator',max:500000,step:10000,cat:'power'},
+ {id:'tankless',label:'Tankless Water Heater',max:200000,step:5000,cat:'water'},
+ {id:'tank-water',label:'Tank Water Heater',max:200000,step:5000,cat:'water'},
+ {id:'pool',label:'Pool / Spa Heater',max:1000000,step:10000,cat:'water'},
+ {id:'range',label:'Gas Range',max:125000,step:5000,cat:'kitchen'},
  {id:'cooktop',label:'Gas Cooktop',max:100000,step:5000,cat:'kitchen'},
  {id:'oven',label:'Gas Oven',max:75000,step:5000,cat:'kitchen'},
- {id:'dryer',label:'Clothes Dryer',max:50000,step:5000,cat:'laundry'},
- {id:'fireplace',label:'Indoor Fireplace',max:100000,step:5000,cat:'comfort'},
- {id:'furnace',label:'Gas Furnace',max:200000,step:5000,cat:'comfort'},
- {id:'boiler',label:'Boiler',max:400000,step:10000,cat:'comfort'},
- {id:'firepit',label:'Fire Pit / Fire Feature',max:300000,step:10000,cat:'fire'},
- {id:'grill',label:'Outdoor Grill',max:150000,step:5000,cat:'outdoor'},
- {id:'pizza',label:'Pizza Oven',max:150000,step:5000,cat:'outdoor'},
- {id:'sideburner',label:'Outdoor Side Burner',max:100000,step:5000,cat:'outdoor'}
+ {id:'dryer',label:'Clothes Dryer',max:22000,step:1000,cat:'laundry'},
+ {id:'fireplace',label:'Indoor Fireplace',max:40000,step:5000,cat:'comfort'},
+ {id:'furnace',label:'Gas Furnace',max:400000,step:5000,cat:'comfort'},
+ {id:'boiler',label:'Boiler',max:1000000,step:10000,cat:'comfort'},
+ {id:'firepit',label:'Fire Pit / Fire Feature',max:500000,step:10000,cat:'fire'},
+ {id:'grill',label:'Outdoor Grill',max:300000,step:5000,cat:'outdoor'},
+ {id:'pizza',label:'Pizza Oven',max:250000,step:5000,cat:'outdoor'},
+ {id:'sideburner',label:'Outdoor Side Burner',max:150000,step:5000,cat:'outdoor'}
 ];
 // Illustrative dial limits, not certified appliance capacities. Use actual nameplate
 // input for gas-system design; generator full-load input is fuel/model specific.
@@ -55,6 +55,7 @@ function initBtuCalculator(root) {
   let state = {};
   const appliances = () => APPLIANCES_BY_FUEL[fuel];
   const fmt = n => Math.round(n).toLocaleString('en-US');
+  const short = n => (n/1000).toLocaleString('en-US',{maximumFractionDigits:1}) + 'K';
   function render() {
     let total = 0, count = 0;
     appliances().forEach(a => {
@@ -88,7 +89,7 @@ function initBtuCalculator(root) {
     name.textContent = a.label;
     const model = document.createElement('div');
     model.className = 'btu-dial-model';
-    model.textContent = 'Select up to ' + fmt(a.max) + ' BTU/hr';
+    model.textContent = 'Dial maximum ' + fmt(a.max) + ' BTU/hr';
     const dialWrap = document.createElement('div');
     dialWrap.className = 'btu-dial-wrap';
     const dial = document.createElement('input');
@@ -101,7 +102,7 @@ function initBtuCalculator(root) {
     knob.innerHTML = '<span class="btu-knob-pointer"></span><span class="btu-knob-center"></span>';
     const marks = document.createElement('div');
     marks.className = 'btu-knob-marks';
-    marks.innerHTML = '<span>OFF</span><span>' + fmt(a.max*.25/1000) + 'K</span><span>' + fmt(a.max*.5/1000) + 'K</span><span>' + fmt(a.max*.75/1000) + 'K</span><span>' + fmt(a.max/1000) + 'K</span>';
+    marks.innerHTML = '<span>OFF</span><span>' + short(a.max*.25)</span><span>' + short(a.max*.5)</span><span>' + short(a.max*.75)</span><span>' + short(a.max)</span>';
     dialWrap.append(knob,dial,marks);
     const value = document.createElement('output');
     value.className = 'btu-dial-value';
