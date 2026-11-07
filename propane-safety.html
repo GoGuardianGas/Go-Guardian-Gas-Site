@@ -25,6 +25,32 @@ a:focus-visible{outline:4px solid #ffcb3d;outline-offset:4px}
 .safety-section a:not(.safety-action){text-decoration:underline}
 @media(max-width:520px){html{font-size:17px}.safety-actions{flex-direction:column}.safety-action{width:100%}}
 @media print{html{font-size:13pt}body{color:#000;background:#fff}.safety-section,.safety-section h2,.safety-section h3,.safety-note{color:#000}.safety-note{font-size:11pt}.safety-section p,.safety-section li{font-size:12pt;line-height:1.5}}
+
+/* High contrast: explicitly override light paragraph colors inherited from site.css. */
+body .safety-main .safety-section,
+body .safety-main .safety-section p,
+body .safety-main .safety-section li,
+body .safety-main .safety-section .safety-step p,
+body .safety-main .safety-section .safety-note,
+body .safety-main .safety-section strong {
+  color:#111827 !important;
+  opacity:1 !important;
+  -webkit-text-fill-color:#111827;
+}
+body .safety-main .safety-section p,
+body .safety-main .safety-section li,
+body .safety-main .safety-section .safety-step p {
+  font-size:1.15rem !important;
+  font-weight:500;
+  line-height:1.85 !important;
+}
+body .safety-main .safety-section h2 { color:#072e68 !important; opacity:1 !important; -webkit-text-fill-color:#072e68; }
+body .safety-main .safety-section h3,
+body .safety-main .safety-step strong { color:#083d78 !important; opacity:1 !important; -webkit-text-fill-color:#083d78; }
+body .safety-main .safety-step { background:#fff !important; border:2px solid #6686ad; }
+body .safety-main .safety-section a:not(.safety-action) { color:#06417e !important; -webkit-text-fill-color:#06417e; text-decoration:underline; }
+body .safety-main .safety-section .safety-action { color:#063b82 !important; -webkit-text-fill-color:#063b82; }
+@media print { body .safety-main .safety-section p,body .safety-main .safety-section li {color:#000 !important;-webkit-text-fill-color:#000;} }
 </style></head><body>
 <div class="safety-progress" aria-hidden="true"><span id="read-progress"></span></div>
 <header class="safety-header"><div class="safety-wrap">
