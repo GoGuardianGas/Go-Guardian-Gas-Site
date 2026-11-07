@@ -52,15 +52,16 @@ body .safety-main .safety-section a:not(.safety-action) { color:#06417e !importa
 body .safety-main .safety-section .safety-action { color:#063b82 !important; -webkit-text-fill-color:#063b82; }
 @media print { body .safety-main .safety-section p,body .safety-main .safety-section li {color:#000 !important;-webkit-text-fill-color:#000;} }
 
-/* Manufacturer product photography at 15% opacity, entirely behind opaque safety panels. */
-body{position:relative;isolation:isolate;background:#f1f5fb}
-.safety-product-backdrop{position:absolute;z-index:-1;top:290px;left:0;right:0;bottom:0;pointer-events:none;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-rows:minmax(330px,1fr);gap:42px 6%;padding:35px max(16px,calc((100vw - 1240px)/2));overflow:hidden}
-.safety-product-backdrop img{display:block;width:100%;height:100%;max-height:480px;object-fit:contain;opacity:.15;filter:saturate(.8);pointer-events:none}
-.safety-main{z-index:1}
-.safety-main .safety-section{background:#fff !important;position:relative}
+/* Visible product photography: photographs show around cards and softly through panels. */
+body{position:relative;isolation:isolate;background:#eaf2fb}
+.safety-product-backdrop{position:absolute;z-index:0;top:285px;left:0;right:0;bottom:0;pointer-events:none;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-rows:minmax(420px,1fr);gap:30px 4%;padding:25px max(12px,calc((100vw - 1260px)/2));overflow:hidden}
+.safety-product-backdrop img{display:block;width:100%;height:100%;max-height:520px;object-fit:contain;opacity:.48;filter:saturate(.95) contrast(1.12);pointer-events:none}
+.safety-main{position:relative;z-index:1}
+.safety-main .safety-section{position:relative;background:rgba(255,255,255,.88)!important;backdrop-filter:blur(1.5px);-webkit-backdrop-filter:blur(1.5px)}
 .safety-header{position:relative;z-index:2}
-@media(max-width:700px){.safety-product-backdrop{grid-template-columns:1fr;gap:24px;grid-auto-rows:280px;top:370px}}
-@media print{.safety-product-backdrop{display:none!important}}
+.safety-footer{position:relative;z-index:1}
+@media(max-width:700px){.safety-product-backdrop{grid-template-columns:1fr;gap:20px;grid-auto-rows:350px;top:350px}.safety-main .safety-section{background:rgba(255,255,255,.92)!important}}
+@media print{.safety-product-backdrop{display:none!important}.safety-main .safety-section{background:#fff!important}}
 </style></head><body>
 <div class="safety-product-backdrop" aria-hidden="true"><img loading="lazy" alt="" src="https://www.kleen-ritecorp.com/cdn-cgi/image/fit%3Dcontain%2Cformat%3Dauto%2Cwidth%3D500%2Cquality%3D70/https%3A/images.kleen-ritecorp.com/images/product/large/37896.jpg"><img loading="lazy" alt="" src="https://tggcdn.azureedge.net/tggakeneoassets/productimages/2/0/3/1/203162d0112942e8a2f7e70cefaefaf5ac1a35ae_LPT250UGPT.jpg"><img loading="lazy" alt="" src="https://www.supplystop.com/cdn/shop/files/rinnai_rx199in_1.jpg?v=1748798161&amp;width=1946"><img loading="lazy" alt="" src="https://fyredirect.com/cdn/shop/products/real-fyre-evening-fyre-vent-free-gas-log-set-insert-36706654585071_700x700.jpg?v=1752750934"><img loading="lazy" alt="" src="https://flameauthority.com/cdn/shop/files/hpc-fire-60-agni-series-on-off-electronic-ignition-fire-pit-enclosure-24vac-fire-pit-inserts-flame-authority-1150539364.jpg?v=1742564827&amp;width=1080"><img loading="lazy" alt="" src="https://cdn.shopify.com/s/files/1/0545/0041/files/preview_images/zphp3dg9t7ktzzdms4q7.jpg?crop=center&amp;height=1000&amp;v=1770058020&amp;width=1000"></div>
 <div class="safety-progress" aria-hidden="true"><span id="read-progress"></span></div>
