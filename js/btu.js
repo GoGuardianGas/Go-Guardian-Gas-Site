@@ -93,7 +93,8 @@ function initBtuCalculator(root) {
     const dialWrap = document.createElement('div');
     dialWrap.className = 'btu-dial-wrap';
     const dial = document.createElement('input');
-    dial.type = 'range'; dial.min = '0'; dial.max = String(a.max); dial.step = String(a.step); dial.value = '0';
+    const positions = Math.ceil(a.max / 10000);
+    dial.type = 'range'; dial.min = '0'; dial.max = String(positions); dial.step = '1'; dial.value = '0';
     dial.className = 'btu-regulator';
     dial.setAttribute('aria-label', a.label + ' selected BTU per hour, from off to ' + fmt(a.max));
     const knob = document.createElement('div');
@@ -102,15 +103,15 @@ function initBtuCalculator(root) {
     knob.innerHTML = '<span class="btu-knob-pointer"></span><span class="btu-knob-center"></span>';
     const marks = document.createElement('div');
     marks.className = 'btu-knob-marks';
-    marks.innerHTML = '<span>OFF</span><span>' + short(a.max*.25)</span><span>' + short(a.max*.5)</span><span>' + short(a.max*.75)</span><span>' + short(a.max)</span>';
+    marks.innerHTML = '<span>OFF</span><span>' + short(a.max*.25) + '</span><span>' + short(a.max*.5) + '</span><span>' + short(a.max*.75) + '</span><span>' + short(a.max) + '</span>';
     dialWrap.append(knob,dial,marks);
     const value = document.createElement('output');
     value.className = 'btu-dial-value';
     const note = document.createElement('div');
     note.className = 'btu-dial-hint';
-    note.textContent = 'Estimated BTU/hr input';
+    note.textContent = '10,000 BTU/hr per step (final stop at maximum)';
     function update() {
-      const btu = Number(dial.value);
+      const btu = Math.min(Number(dial.value) * 10000, a.max);
       state[a.id] = btu;
       knob.style.setProperty('--dial-angle', (-130 + (btu / a.max) * 260) + 'deg');
       row.classList.toggle('active',btu>0);
