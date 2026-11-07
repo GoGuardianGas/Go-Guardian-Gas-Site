@@ -96,131 +96,111 @@ function calcTank(totalBtu) {
   return TANK_SIZES.find(t => totalBtu <= t.max);
 }
 
+
 function initBtuCalculator(root) {
   if (!root) return;
-
-  const listEl     = root.querySelector('[data-btu-list]');
-  const totalEl    = root.querySelector('[data-btu-total]');
-  const tankEl     = root.querySelector('[data-btu-tank]');
+  const listEl = root.querySelector('[data-btu-list]');
+  const totalEl = root.querySelector('[data-btu-total]');
+  const tankEl = root.querySelector('[data-btu-tank]');
   const tankDescEl = root.querySelector('[data-btu-tank-desc]');
-  const tankLabelEl= root.querySelector('[data-btu-tank-label]');
-  const countEl    = root.querySelector('[data-btu-count]');
-  const emptyEl    = root.querySelector('[data-btu-empty]');
-  const resetBtn   = root.querySelector('[data-btu-reset]');
-  const fuelBtns   = root.querySelectorAll('[data-fuel-option]');
+  const tankLabelEl = root.querySelector('[data-btu-tank-label]');
+  const countEl = root.querySelector('[data-btu-count]');
+  const emptyEl = root.querySelector('[data-btu-empty]');
+  const fuelBtns = root.querySelectorAll('[data-fuel-option]');
   if (!listEl) return;
-
-  let fuel = 'ng';      // default
-  let state = {};       // id -> qty (reset when fuel changes)
-
-  function appliances() { return APPLIANCES_BY_FUEL[fuel]; }
-
+  let fuel = 'ng';
+  let state = {};
+  const appliances = () => APPLIANCES_BY_FUEL[fuel];
+  const fmt = n => Math.round(n).toLocaleString('en-US');
   function render() {
-    let totalBtu = 0, totalCount = 0;
+    let total = 0, count = 0;
     appliances().forEach(a => {
-      const q = state[a.id] || 0;
-      totalBtu += a.btu * q;
-      totalCount += q;
+      const percent = state[a.id] || 0;
+      if (percent > 0) count++;
+      total += Math.round(a.btu * percent / 100);
     });
-
-    totalEl.textContent = totalBtu.toLocaleString();
-    countEl.textContent = totalCount;
-
-    if (fuel === 'lp') {
-      if (tankLabelEl) tankLabelEl.textContent = 'Recommended Tank';
-      const rec = calcTank(totalBtu);
-      if (totalBtu === 0) {
-        tankEl.textContent = '···';
-        tankDescEl.textContent = 'Add appliances to see a recommendation.';
-        emptyEl?.classList.add('is-empty');
-      } else {
-        tankEl.textContent = rec.size;
-        tankDescEl.textContent = rec.desc;
-        emptyEl?.classList.remove('is-empty');
-      }
+    totalEl.textContent = fmt(total);
+    countEl.textContent = count;
+    if (tankLabelEl) tankLabelEl.textContent = fuel === 'lp' ? 'Preliminary Tank Guidance' : 'Gas Line Sizing';
+    if (!total) {
+      tankEl.textContent = '···';
+      tankDescEl.textContent = 'Turn an appliance dial to see guidance.';
+      emptyEl?.classList.add('is-empty');
+    } else if (fuel === 'lp') {
+      const rec = calcTank(total);
+      tankEl.textContent = rec.size;
+      tankDescEl.textContent = rec.desc + ' Confirm vaporization capacity, climate and runtime with GGS.';
+      emptyEl?.classList.remove('is-empty');
     } else {
-      // Natural gas: no tank — show meter/line sizing guidance instead
-      if (tankLabelEl) tankLabelEl.textContent = 'Gas Line Sizing';
-      if (totalBtu === 0) {
-        tankEl.textContent = '···';
-        tankDescEl.textContent = 'Add appliances to see sizing guidance.';
-        emptyEl?.classList.add('is-empty');
-      } else {
-        tankEl.textContent = 'NG Service';
-        tankDescEl.textContent = 'Natural gas needs no tank. Pipe and meter are sized for this full load per NFPA 54 / FBC tables.';
-        emptyEl?.classList.remove('is-empty');
-      }
+      tankEl.textContent = 'NG Service';
+      tankDescEl.textContent = 'Meter and pipe capacity must be checked against appliance nameplates, supply pressure, run lengths and applicable code.';
+      emptyEl?.classList.remove('is-empty');
     }
   }
-
   function makeRow(a) {
     const row = document.createElement('div');
-    row.className = 'btu-row';
-    row.innerHTML = `
-      <div class="btu-row-label">
-        <span class="btu-row-name">${a.label}</span>
-        ${a.model ? `<span class="btu-row-model">${a.model}</span>` : ''}
-        <span class="btu-row-btu">${a.btu.toLocaleString()} BTU/hr</span>
-      </div>
-      <div class="btu-row-qty">
-        <button type="button" class="btu-qty-btn" data-action="dec">−</button>
-        <span class="btu-qty-val" aria-live="polite" aria-atomic="true" data-qty="${a.id}">0</span>
-        <button type="button" class="btu-qty-btn" data-action="inc">+</button>
-      </div>
-    `;
-    row.querySelectorAll('.btu-qty-btn').forEach(b => {
-      b.setAttribute('aria-label', `${b.dataset.action === 'inc' ? 'Increase' : 'Decrease'} ${a.label}`);
-      b.addEventListener('click', () => {
-        const cur = state[a.id] || 0;
-        if (b.dataset.action === 'inc') state[a.id] = cur + 1;
-        else if (cur > 0) state[a.id] = cur - 1;
-        row.querySelector(`[data-qty="${a.id}"]`).textContent = state[a.id] || 0;
-        row.classList.toggle('active', (state[a.id] || 0) > 0);
-        render();
-      });
-    });
+    row.className = 'btu-dial-item';
+    const name = document.createElement('div');
+    name.className = 'btu-dial-name';
+    name.textContent = a.label;
+    const model = document.createElement('div');
+    model.className = 'btu-dial-model';
+    model.textContent = a.model || 'Rated maximum ' + fmt(a.btu) + ' BTU/hr';
+    const dialWrap = document.createElement('div');
+    dialWrap.className = 'btu-dial-wrap';
+    const dial = document.createElement('input');
+    dial.type = 'range'; dial.min = '0'; dial.max = '100'; dial.step = '10'; dial.value = '0';
+    dial.className = 'btu-regulator';
+    dial.setAttribute('aria-label', a.label + ' gas demand, 0 to 100 percent of rated input');
+    const knob = document.createElement('div');
+    knob.className = 'btu-knob-face';
+    knob.setAttribute('aria-hidden','true');
+    knob.innerHTML = '<span class="btu-knob-pointer"></span><span class="btu-knob-center"></span>';
+    const marks = document.createElement('div');
+    marks.className = 'btu-knob-marks';
+    marks.innerHTML = '<span>OFF</span><span>25</span><span>50</span><span>75</span><span>100%</span>';
+    dialWrap.append(knob,dial,marks);
+    const value = document.createElement('output');
+    value.className = 'btu-dial-value';
+    const note = document.createElement('div');
+    note.className = 'btu-dial-hint';
+    note.textContent = 'Estimated BTU/hr input';
+    function update() {
+      const pct = Number(dial.value);
+      state[a.id] = pct;
+      knob.style.setProperty('--dial-angle', (-130 + pct * 2.6) + 'deg');
+      row.classList.toggle('active',pct>0);
+      value.textContent = pct === 0 ? 'OFF · 0 BTU/hr' : fmt(a.btu * pct / 100) + ' BTU/hr';
+      render();
+    }
+    dial.addEventListener('input',update);
+    row.append(name,model,dialWrap,value,note);
+    update();
     return row;
   }
-
   function buildList() {
     listEl.innerHTML = '';
     appliances().forEach(a => listEl.appendChild(makeRow(a)));
   }
-
   function setFuel(next) {
     if (next === fuel) return;
-    fuel = next;
-    state = {};                       // clear selections on fuel switch
+    fuel = next; state = {};
     fuelBtns.forEach(b => {
-      const on = b.dataset.fuelOption === fuel;
-      b.classList.toggle('active', on);
-      b.setAttribute('aria-pressed', on ? 'true' : 'false');
+      const active = b.dataset.fuelOption === fuel;
+      b.classList.toggle('active',active);
+      b.setAttribute('aria-pressed',String(active));
     });
-    buildList();
-    render();
+    buildList(); render();
   }
-
   fuelBtns.forEach(b => {
-    b.addEventListener('click', () => setFuel(b.dataset.fuelOption));
-    b.setAttribute('aria-pressed', b.dataset.fuelOption === fuel ? 'true' : 'false');
-    if (b.dataset.fuelOption === fuel) b.classList.add('active');
+    b.addEventListener('click',()=>setFuel(b.dataset.fuelOption));
+    b.setAttribute('aria-pressed',String(b.dataset.fuelOption === fuel));
   });
-
-  if (resetBtn) {
-    resetBtn.addEventListener('click', () => {
-      state = {};
-      root.querySelectorAll('[data-qty]').forEach(el => {
-        el.textContent = '0';
-        el.closest('.btu-row')?.classList.remove('active');
-      });
-      render();
-    });
-  }
-
-  buildList();
-  render();
+  root.querySelector('[data-btu-reset]')?.addEventListener('click',()=>{
+    state={}; buildList(); render();
+  });
+  buildList(); render();
 }
-
 document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('[data-btu-calculator]').forEach(initBtuCalculator);
 });
