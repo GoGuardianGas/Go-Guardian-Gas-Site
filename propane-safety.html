@@ -5,6 +5,26 @@
 <link rel="icon" href="/favicon.ico"><link rel="stylesheet" href="css/site.css?v=20261011reviews">
 <style>
 body{background:#f3f7fc;color:#153150}.safety-header{background:linear-gradient(120deg,#061b3c,#0047ab 65%,#2087ed);color:#fff;padding:32px 20px 52px}.safety-wrap{max-width:960px;margin:auto}.safety-brand{display:flex;align-items:center;gap:15px;color:white;text-decoration:none;font-weight:800}.safety-brand img{width:62px;height:62px;object-fit:contain}.safety-header h1{color:white;font-size:clamp(2rem,5vw,3.4rem);line-height:1.15;margin:26px 0 12px}.safety-header p{color:#e5f4ff;max-width:780px}.safety-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:22px}.safety-action{display:inline-block;background:white;color:#063b82!important;padding:12px 20px;border-radius:10px;font-weight:800;text-decoration:none}.safety-action.secondary{background:#163d74;color:#fff!important;border:1px solid #87caff}.safety-main{max-width:960px;margin:-22px auto 40px;padding:0 18px;position:relative}.safety-section{background:white;border:1px solid #d8e4f2;border-radius:16px;padding:clamp(22px,4vw,38px);margin-bottom:18px;box-shadow:0 6px 22px #0b315315}.safety-section h2{color:#073e87;margin:0 0 15px;font-size:clamp(1.35rem,3vw,1.85rem)}.safety-section h3{color:#12569c;margin:20px 0 8px}.safety-section p,.safety-section li{line-height:1.7}.safety-section li{margin-bottom:7px}.safety-alert{border-left:6px solid #d12c31;background:#fff5f4}.safety-alert h2{color:#a51e26}.safety-steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;margin:20px 0}.safety-step{border:1px solid #cbdff5;border-radius:12px;padding:17px;background:#f4f9ff}.safety-step strong{color:#074b9e}.safety-footer{text-align:center;padding:26px 20px 55px;color:#52677d}.safety-footer a{color:#064da1}.safety-note{font-size:.9rem;color:#536a81}.safety-progress{position:sticky;top:0;height:5px;background:#d7e6f6;z-index:10}.safety-progress span{display:block;width:0;height:100%;background:#1585e7;transition:width .2s}@media print{.safety-header,.safety-actions,.safety-progress{display:none}.safety-main{margin:0}.safety-section{box-shadow:none;break-inside:avoid}}
+
+/* High-contrast, large-print accessibility enhancements */
+html{font-size:18px;-webkit-text-size-adjust:100%;text-size-adjust:100%}
+body{color:#12263d;background:#f1f5fb}
+.safety-section{color:#12263d}
+.safety-section p,.safety-section li,.safety-step p{font-size:1.06rem;line-height:1.85}
+.safety-section h2{color:#073775;line-height:1.3}
+.safety-section h3{color:#06447f;line-height:1.35}
+.safety-note{font-size:1rem;color:#273c54;line-height:1.7}
+.safety-note a,.safety-footer a{color:#06417e;text-decoration:underline;text-underline-offset:3px}
+.safety-step{background:#f0f6ff;border-color:#7fa6d5}
+.safety-step strong{color:#073775}
+.safety-footer{color:#263b54;font-size:1rem}
+.safety-header p{color:#fff;font-size:1.1rem;line-height:1.75}
+.safety-action{font-size:1rem;line-height:1.5;min-height:48px;display:inline-flex;align-items:center;justify-content:center;text-align:center}
+.safety-action.secondary{background:#092d5c;color:#fff!important}
+a:focus-visible{outline:4px solid #ffcb3d;outline-offset:4px}
+.safety-section a:not(.safety-action){text-decoration:underline}
+@media(max-width:520px){html{font-size:17px}.safety-actions{flex-direction:column}.safety-action{width:100%}}
+@media print{html{font-size:13pt}body{color:#000;background:#fff}.safety-section,.safety-section h2,.safety-section h3,.safety-note{color:#000}.safety-note{font-size:11pt}.safety-section p,.safety-section li{font-size:12pt;line-height:1.5}}
 </style></head><body>
 <div class="safety-progress" aria-hidden="true"><span id="read-progress"></span></div>
 <header class="safety-header"><div class="safety-wrap">
@@ -29,13 +49,17 @@ body{background:#f3f7fc;color:#153150}.safety-header{background:linear-gradient(
 <ul><li>Install and maintain listed carbon monoxide alarms according to manufacturer instructions.</li><li>Have gas appliances inspected and maintained by qualified professionals.</li><li>Keep chimneys, vents, air intakes, and exhaust openings unobstructed.</li><li>Never use a gas oven, range, or outdoor grill to heat indoor spaces.</li><li>Watch for soot, unusual appliance odors, or excessive condensation that may signal improper operation.</li></ul></section>
 <section class="safety-section"><h2>Keep the original PERC brochure</h2><p>This online guide is a readable safety summary. For the complete, original publication, download and print the <strong>Propane Education &amp; Research Council (PERC) Important Propane Safety Information</strong> brochure, publication <strong>PRC-101062D</strong>.</p>
 <p><a class="safety-action" id="download-safety-pdf-bottom" href="documents/PRC-101062D-Important-Propane-Safety-Information.pdf" download="Important-Propane-Safety-Information-PRC-101062D.pdf">Download the Original Printable PDF</a></p>
-<p class="safety-note">Source: <a href="https://propane.com/safety/important-propane-safety-information/" target="_blank" rel="noopener">PERC consumer safety guidance</a>. © Propane Education &amp; Research Council for the original brochure. This GGS webpage summarizes key safety topics; the PDF remains the authoritative original publication.</p></section>
+<p class="safety-note">Source: <a href="https://propane.com/safety/important-propane-safety-information/" target="_blank" rel="noopener">PERC consumer safety guidance</a>. © Propane Education &amp; Research Council for the original brochure. This GGS webpage summarizes key safety topics; the PDF remains the authoritative original publication.</p><p class="safety-note"><strong>Page printed:</strong> <time id="safety-print-date"></time></p></section>
 </main><footer class="safety-footer"><p>Guardian Gas Solutions LLC · <a href="tel:8774102195">(877) 410-2195</a> · <a href="index.html">GoGuardianGas.com</a></p></footer>
 <script>
 (function(){
   // Private analytics hooks: configure window.GGS_SAFETY_ANALYTICS_ID via a GA4 tag to store event counts.
   // No visitor-facing counter, and no tracking requests until analytics is configured.
   function track(name,params){if(typeof window.gtag==='function')window.gtag('event',name,Object.assign({content_id:'PRC-101062D'},params||{}));}
+  var printDate=document.getElementById('safety-print-date');
+  function updatePrintDate(){if(printDate){var now=new Date();printDate.textContent=now.toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'});printDate.dateTime=now.toISOString().slice(0,10);}}
+  updatePrintDate();
+  window.addEventListener('beforeprint',updatePrintDate);
   track('safety_page_view');
   document.querySelectorAll('a[download]').forEach(function(a){a.addEventListener('click',function(){track('safety_pdf_download_click',{file_name:'PRC-101062D-Important-Propane-Safety-Information.pdf'});});});
   var completed=false,progress=document.getElementById('read-progress'),main=document.getElementById('safety-content');
