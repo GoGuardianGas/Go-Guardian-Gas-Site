@@ -1,85 +1,28 @@
-/* Guardian Gas Solutions — BTU Calculator (fuel-aware)
- * Generac loads use model-specific published full-load ft³/hr, converted
- * using Generac's factors: NG × 1,000; LP vapor × 2,500 BTU/ft³.
- * Other appliance estimates use the GGS internal capacity charts.
- *
- * For gas design / pipe sizing we use the 100% full-load number.
+/* Guardian Gas Solutions — illustrative appliance BTU selection dials.
+ * Verify manufacturer nameplate full-load input before system design.
  */
 
 // Appliances shared across both fuels (same max BTU input per series/spec)
-const SHARED = [
-  // Tankless water heaters (Rinnai 160/180/199 series — same NG/LP max input)
-  { id: 'tankless-199', label: 'Tankless Water Heater (199 series)', btu: 199000, cat: 'water' },
-  { id: 'tankless-180', label: 'Tankless Water Heater (180 series)', btu: 180000, cat: 'water' },
-  { id: 'tankless-160', label: 'Tankless Water Heater (160 series)', btu: 160000, cat: 'water' },
-  { id: 'tank-wh',      label: 'Tank Water Heater (40 gal)',         btu: 40000,  cat: 'water' },
-  { id: 'pool-heater',  label: 'Pool / Spa Heater',                  btu: 250000, cat: 'water' },
-  // Cooking — ranges / cooktops / ovens
-  { id: 'range',        label: 'Standard Gas Range',                 btu: 65000,  cat: 'kitchen' },
-  { id: 'range-4b',     label: 'Basic 4-Burner Range',               btu: 50000,  cat: 'kitchen' },
-  { id: 'range-5b',     label: '5-Burner Residential Range',         btu: 65000,  cat: 'kitchen' },
-  { id: 'pro-range-30', label: 'Pro-Style Range (30")',             btu: 90000,  cat: 'kitchen' },
-  { id: 'pro-range-36', label: 'Pro-Style Range (36")',             btu: 120000, cat: 'kitchen' },
-  { id: 'pro-range-48', label: 'Pro-Style Range (48")',             btu: 150000, cat: 'kitchen' },
-  { id: 'cooktop',      label: 'Gas Cooktop',                        btu: 65000,  cat: 'kitchen' },
-  { id: 'oven',         label: 'Gas Oven',                           btu: 25000,  cat: 'kitchen' },
-  { id: 'dryer',        label: 'Gas Clothes Dryer',                  btu: 35000,  cat: 'laundry' },
-  // Comfort & heating
-  { id: 'fireplace',    label: 'Indoor Gas Fireplace',               btu: 60000,  cat: 'comfort' },
-  { id: 'furnace',      label: 'Gas Furnace',                        btu: 100000, cat: 'comfort' },
-  { id: 'boiler',       label: 'Residential Boiler',                 btu: 250000, cat: 'comfort' },
-  // Fire features
-  { id: 'firepit-small',label: 'Small Gas Fire Pit / Bowl',          btu: 60000,  cat: 'fire' },
-  { id: 'firepit',      label: 'Standard Gas Fire Pit',              btu: 100000, cat: 'fire' },
-  { id: 'firepit-lg',   label: 'Large Residential Fire Pit',         btu: 150000, cat: 'fire' },
-  { id: 'fire-table',   label: 'Linear Fire Feature / Table',        btu: 125000, cat: 'fire' },
-  { id: 'outdoor-fp',   label: 'Outdoor Fireplace Burner',           btu: 150000, cat: 'fire' },
-  // Outdoor / summer kitchens
-  { id: 'grill-island', label: 'Basic Grill Island',                 btu: 90000,  cat: 'outdoor' },
-  { id: 'grill-side',   label: 'Grill + Side Burner',                btu: 120000, cat: 'outdoor' },
-  { id: 'grill-power',  label: 'Grill + Power Burner',               btu: 160000, cat: 'outdoor' },
-  { id: 'grill-pizza',  label: 'Grill + Side Burner + Pizza Oven',   btu: 200000, cat: 'outdoor' },
-  { id: 'kitchen-full', label: 'Grill + Pizza Oven + Fire Feature',  btu: 300000, cat: 'outdoor' },
+const APPLIANCE_DIALS = [
+ {id:'generator',label:'Standby Generator',max:600000,step:10000,cat:'power'},
+ {id:'tankless',label:'Tankless Water Heater',max:250000,step:5000,cat:'water'},
+ {id:'tank-water',label:'Tank Water Heater',max:75000,step:5000,cat:'water'},
+ {id:'pool',label:'Pool / Spa Heater',max:500000,step:10000,cat:'water'},
+ {id:'range',label:'Gas Range',max:180000,step:5000,cat:'kitchen'},
+ {id:'cooktop',label:'Gas Cooktop',max:100000,step:5000,cat:'kitchen'},
+ {id:'oven',label:'Gas Oven',max:75000,step:5000,cat:'kitchen'},
+ {id:'dryer',label:'Clothes Dryer',max:50000,step:5000,cat:'laundry'},
+ {id:'fireplace',label:'Indoor Fireplace',max:100000,step:5000,cat:'comfort'},
+ {id:'furnace',label:'Gas Furnace',max:200000,step:5000,cat:'comfort'},
+ {id:'boiler',label:'Boiler',max:400000,step:10000,cat:'comfort'},
+ {id:'firepit',label:'Fire Pit / Fire Feature',max:300000,step:10000,cat:'fire'},
+ {id:'grill',label:'Outdoor Grill',max:150000,step:5000,cat:'outdoor'},
+ {id:'pizza',label:'Pizza Oven',max:150000,step:5000,cat:'outdoor'},
+ {id:'sideburner',label:'Outdoor Side Burner',max:100000,step:5000,cat:'outdoor'}
 ];
-
-// Next-generation 22–28 kW: Generac A0005151077, full-load fuel table.
-// https://productmanuals.generac.com/api/manualfiles/G0072820/A0005151077/0
-// Guardian 26 kW 7290/7291: Generac A0002026894.
-// https://productmanuals.generac.com/api/manualfiles/G0072910/A0002026894/0
-// Guardian 20 kW 7038-1/7039-1: 20-24kw-guardian-standby-generator-specsheet.pdf
-// Guardian 16 kW 7035/7036: 16-22kw-guardian-standby-generator-specsheet.pdf
-// Guardian 10/14/18 kW: 10kw-14kw-18kw_guardian-series_aircooled-gasengine_specsheet.pdf
-// (The three PDFs above are in Generac's /globalassets/products/residential/standby-generators/spec-sheets/.)
-const GENERAC_MODELS = [
-  { id: 'gen-28', kw: 28, models: '7282 / 7329', ngCfh: 297, lpCfh: 144 },
-  { id: 'gen-26', kw: 26, models: '7327 / 7328', ngCfh: 316, lpCfh: 144 },
-  { id: 'gen-26-guardian', kw: 26, models: '7290 / 7291', ngCfh: 333, lpCfh: 132 },
-  { id: 'gen-24', kw: 24, models: '7261 / 7326', ngCfh: 291, lpCfh: 135 },
-  { id: 'gen-22', kw: 22, models: '7260 / 7325', ngCfh: 311, lpCfh: 135 },
-  { id: 'gen-20', kw: 20, models: '7038-1 / 7039-1', ngCfh: 301, lpCfh: 130 },
-  { id: 'gen-18', kw: 18, models: '7226 / 7228', ngCfh: 247, lpCfh: 110 },
-  { id: 'gen-16', kw: 16, models: '7035 / 7036', ngCfh: 309, lpCfh: 107 },
-  { id: 'gen-14', kw: 14, models: '7223 / 7224 / 7225', ngCfh: 256, lpCfh: 112 },
-  { id: 'gen-10', kw: 10, models: '7171 / 7172', ngCfh: 127, lpCfh: 54 },
-];
-
-function generatorsForFuel(fuel) {
-  return GENERAC_MODELS.map(g => ({
-    id: `${g.id}-${fuel}`,
-    label: `Generac Standby Generator ${g.kw} kW`,
-    model: `Models ${g.models}`,
-    btu: fuel === 'lp' ? g.lpCfh * 2500 : g.ngCfh * 1000,
-    cat: 'power',
-  }));
-}
-const GEN_NG = generatorsForFuel('ng');
-const GEN_LP = generatorsForFuel('lp');
-
-// Full appliance set per fuel: generators first, then shared appliances
-const APPLIANCES_BY_FUEL = {
-  ng: [...GEN_NG, ...SHARED],
-  lp: [...GEN_LP, ...SHARED],
-};
+// Illustrative dial limits, not certified appliance capacities. Use actual nameplate
+// input for gas-system design; generator full-load input is fuel/model specific.
+const APPLIANCES_BY_FUEL={ng:APPLIANCE_DIALS,lp:APPLIANCE_DIALS};
 
 // Tank size recommendation table (LP). For NG there is no tank, so we show
 // a service-size note instead.
@@ -115,9 +58,9 @@ function initBtuCalculator(root) {
   function render() {
     let total = 0, count = 0;
     appliances().forEach(a => {
-      const percent = state[a.id] || 0;
-      if (percent > 0) count++;
-      total += Math.round(a.btu * percent / 100);
+      const btu = state[a.id] || 0;
+      if (btu > 0) count++;
+      total += btu;
     });
     totalEl.textContent = fmt(total);
     countEl.textContent = count;
@@ -145,20 +88,20 @@ function initBtuCalculator(root) {
     name.textContent = a.label;
     const model = document.createElement('div');
     model.className = 'btu-dial-model';
-    model.textContent = a.model || 'Rated maximum ' + fmt(a.btu) + ' BTU/hr';
+    model.textContent = 'Select up to ' + fmt(a.max) + ' BTU/hr';
     const dialWrap = document.createElement('div');
     dialWrap.className = 'btu-dial-wrap';
     const dial = document.createElement('input');
-    dial.type = 'range'; dial.min = '0'; dial.max = '100'; dial.step = '10'; dial.value = '0';
+    dial.type = 'range'; dial.min = '0'; dial.max = String(a.max); dial.step = String(a.step); dial.value = '0';
     dial.className = 'btu-regulator';
-    dial.setAttribute('aria-label', a.label + ' gas demand, 0 to 100 percent of rated input');
+    dial.setAttribute('aria-label', a.label + ' selected BTU per hour, from off to ' + fmt(a.max));
     const knob = document.createElement('div');
     knob.className = 'btu-knob-face';
     knob.setAttribute('aria-hidden','true');
     knob.innerHTML = '<span class="btu-knob-pointer"></span><span class="btu-knob-center"></span>';
     const marks = document.createElement('div');
     marks.className = 'btu-knob-marks';
-    marks.innerHTML = '<span>OFF</span><span>25</span><span>50</span><span>75</span><span>100%</span>';
+    marks.innerHTML = '<span>OFF</span><span>' + fmt(a.max*.25/1000) + 'K</span><span>' + fmt(a.max*.5/1000) + 'K</span><span>' + fmt(a.max*.75/1000) + 'K</span><span>' + fmt(a.max/1000) + 'K</span>';
     dialWrap.append(knob,dial,marks);
     const value = document.createElement('output');
     value.className = 'btu-dial-value';
@@ -166,11 +109,11 @@ function initBtuCalculator(root) {
     note.className = 'btu-dial-hint';
     note.textContent = 'Estimated BTU/hr input';
     function update() {
-      const pct = Number(dial.value);
-      state[a.id] = pct;
-      knob.style.setProperty('--dial-angle', (-130 + pct * 2.6) + 'deg');
-      row.classList.toggle('active',pct>0);
-      value.textContent = pct === 0 ? 'OFF · 0 BTU/hr' : fmt(a.btu * pct / 100) + ' BTU/hr';
+      const btu = Number(dial.value);
+      state[a.id] = btu;
+      knob.style.setProperty('--dial-angle', (-130 + (btu / a.max) * 260) + 'deg');
+      row.classList.toggle('active',btu>0);
+      value.textContent = btu === 0 ? 'OFF · 0 BTU/hr' : fmt(btu) + ' BTU/hr';
       render();
     }
     dial.addEventListener('input',update);
