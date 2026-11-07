@@ -95,7 +95,7 @@ function initBtuCalculator(root) {
     const dial = document.createElement('input');
     dial.type = 'range'; dial.min = '0'; dial.max = String(a.max); dial.step = '1'; dial.value = '0';
     dial.className = 'btu-regulator';
-    dial.setAttribute('aria-label', a.label + ' selected BTU per hour, from off to ' + fmt(a.max));
+    dial.setAttribute('aria-label', a.label + ' BTU per hour');
     const knob = document.createElement('div');
     knob.className = 'btu-knob-face';
     knob.setAttribute('aria-hidden','true');
@@ -106,20 +106,62 @@ function initBtuCalculator(root) {
     dialWrap.append(knob,dial,marks);
     const value = document.createElement('output');
     value.className = 'btu-dial-value';
+    const controls = document.createElement('div');
+    controls.className = 'btu-fine-controls';
+    const minus = document.createElement('button');
+    minus.type = 'button'; minus.textContent = '−';
+    minus.setAttribute('aria-label','Decrease ' + a.label + ' by 1,000 BTU/hr');
+    const exact = document.createElement('input');
+    exact.type = 'number'; exact.min = '0'; exact.max = String(a.max); exact.step = '1';
+    exact.value = '0'; exact.inputMode = 'numeric';
+    exact.setAttribute('aria-label',a.label + ' exact BTU per hour');
+    const plus = document.createElement('button');
+    plus.type = 'button'; plus.textContent = '+';
+    plus.setAttribute('aria-label','Increase ' + a.label + ' by 1,000 BTU/hr');
+    controls.append(minus,exact,plus);
     const note = document.createElement('div');
     note.className = 'btu-dial-hint';
-    note.textContent = 'Adjust by 1 BTU/hr per step';
-    function update() {
-      const btu = Number(dial.value);
+    note.textContent = 'Turn dial or enter exact BTU/hr';
+    function setValue(next) {
+      const btu = Math.max(0,Math.min(a.max,Math.round(Number(next)||0)));
+      dial.value = String(btu);
+      exact.value = String(btu);
       state[a.id] = btu;
-      knob.style.setProperty('--dial-angle', (-130 + (btu / a.max) * 260) + 'deg');
+      knob.style.setProperty('--dial-angle',(-130 + btu/a.max*260) + 'deg');
       row.classList.toggle('active',btu>0);
-      value.textContent = btu === 0 ? 'OFF · 0 BTU/hr' : fmt(btu) + ' BTU/hr';
+      value.textContent = btu ? fmt(btu) + ' BTU/hr' : 'OFF · 0 BTU/hr';
       render();
     }
-    dial.addEventListener('input',update);
-    row.append(name,model,dialWrap,value,note);
-    update();
+    dial.addEventListener('input',()=>setValue(dial.value));
+    exact.addEventListener('change',()=>setValue(exact.value));
+    minus.addEventListener('click',()=>setValue((state[a.id]||0)-1000));
+    plus.addEventListener('click',()=>setValue((state[a.id]||0)+1000));
+    // Direct rotary touch/mouse movement: angle around the knob controls value.
+    // The excluded 100-degree bottom arc snaps to the nearest end stop.
+    function angleValue(event) {
+      const rect = dialWrap.getBoundingClientRect();
+      const dx = event.clientX-(rect.left+rect.width/2);
+      const dy = event.clientY-(rect.top+rect.height/2);
+      const degrees = Math.atan2(dx,-dy)*180/Math.PI;
+      const limited = Math.max(-130,Math.min(130,degrees));
+      return Math.round((limited+130)/260*a.max);
+    }
+    let dragging = false;
+    dialWrap.addEventListener('pointerdown',event=>{
+      if(event.button !== 0 && event.pointerType === 'mouse') return;
+      dragging = true;
+      dialWrap.setPointerCapture(event.pointerId);
+      setValue(angleValue(event));
+      event.preventDefault();
+    });
+    dialWrap.addEventListener('pointermove',event=>{
+      if(dragging) {setValue(angleValue(event)); event.preventDefault();}
+    });
+    function stopDrag(){dragging=false;}
+    dialWrap.addEventListener('pointerup',stopDrag);
+    dialWrap.addEventListener('pointercancel',stopDrag);
+    row.append(name,model,dialWrap,value,controls,note);
+    setValue(0);
     return row;
   }
   function buildList() {
