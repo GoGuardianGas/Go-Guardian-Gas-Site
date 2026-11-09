@@ -1,0 +1,8 @@
+node_modules/
+dist/
+tests/.browser-origin
+.openai/
+.netlify/
+.env
+.env.*
+!.env.example
