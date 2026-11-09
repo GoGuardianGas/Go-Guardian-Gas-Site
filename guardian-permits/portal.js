@@ -4,6 +4,28 @@ const esc = value => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;',
 const date = value => value ? new Date(value).toLocaleDateString('en-US', {month:'short',day:'numeric',year:'numeric',timeZone:'America/New_York'}) : 'Not set';
 const isStaffPage = document.body.dataset.page === 'staff';
 let cases=[], jurisdictions=[], counties=[], statuses=[], activeCase=null, allFiles=[];
+const caseDrafts = new Map();
+function captureCaseDrafts(){
+  if(!activeCase || !$('case-update'))return;
+  const fields={};
+  for(const [name,value] of new FormData($('case-update')))if(value!==String(activeCase[name]??''))fields[name]=value;
+  const reviews={};
+  document.querySelectorAll('[data-review]').forEach(form=>{
+    const baseline=activeCase.requirements.find(r=>r.id===form.dataset.review);if(!baseline)return;
+    const values=Object.fromEntries(new FormData(form));
+    if(values.review!==baseline.review || values.staffNote!==baseline.staffNote)reviews[form.dataset.review]=values;
+  });
+  if(Object.keys(fields).length||Object.keys(reviews).length)caseDrafts.set(activeCase.id,{fields,reviews});else caseDrafts.delete(activeCase.id);
+}
+function restoreCaseDrafts(id){
+  const draft=caseDrafts.get(id);if(!draft)return;
+  for(const [name,value] of Object.entries(draft.fields))if($('case-update').elements[name])$('case-update').elements[name].value=value;
+  for(const [itemId,values] of Object.entries(draft.reviews)){
+    const form=Array.from(document.querySelectorAll('[data-review]')).find(f=>f.dataset.review===itemId);
+    if(form)for(const [name,value] of Object.entries(values))if(form.elements[name])form.elements[name].value=value;
+  }
+  if(Object.keys(draft.fields).length)$('case-draft-status').textContent='Unsaved case changes were kept. Select Save case progress when ready.';
+}
 const notify = (text, error=false) => { $('message').textContent=text; $('message').hidden=!text; $('message').classList.toggle('error',error); };
 async function api(action, {method='GET', data, form, caseId, fileId}={}) {
   const url=new URL(API,location.origin);url.searchParams.set('action',action);
@@ -37,13 +59,13 @@ function wireDocuments(container,c,staff){
       e.preventDefault();const file=input.files[0],status=form.querySelector('.upload-status'),button=form.querySelector('button');
       if(!file)return;if(file.size>4*1024*1024){status.textContent='This file is larger than 4 MB. Please reduce its size or contact GGS.';return;}
       button.disabled=true;status.textContent='Uploading… Please keep this page open.';
-      try{const data=new FormData();data.append('file',file);data.append('itemId',form.dataset.upload);await api('upload',{method:'POST',form:data,caseId:c.id});if(staff)await openCase(c.id);else await loadClient();notify('Document received by GGS. It is awaiting review.');}
+      try{const data=new FormData();data.append('file',file);data.append('itemId',form.dataset.upload);await api('upload',{method:'POST',form:data,caseId:c.id});if(staff){await refreshCases();await openCase(c.id);}else await loadClient();notify('Document received by GGS. It is awaiting review.');}
       catch(error){status.textContent=error.message;notify(error.message,true);}finally{button.disabled=false;}
     });
   });
   container.querySelectorAll('[data-review]').forEach(form=>form.addEventListener('submit',async e=>{
     e.preventDefault();const button=form.querySelector('button');button.disabled=true;
-    try{await api('review',{method:'POST',caseId:c.id,data:{itemId:form.dataset.review,review:form.elements.review.value,staffNote:form.elements.staffNote.value}});await refreshCases();await openCase(c.id);notify('Document review saved.');}
+    try{await api('review',{method:'POST',caseId:c.id,data:{itemId:form.dataset.review,review:form.elements.review.value,staffNote:form.elements.staffNote.value,revision:c.revision}});await refreshCases();await openCase(c.id,{savedReviewId:form.dataset.review});notify('Document review saved.');}
     catch(error){notify(error.message,true);}finally{button.disabled=false;}
   }));
 }
@@ -99,16 +121,20 @@ function newCaseDialog(){
   $('new-case-form').onsubmit=async e=>{e.preventDefault();const f=e.target,button=f.querySelector('button');button.disabled=true;try{const result=await api('cases',{method:'POST',data:Object.fromEntries(new FormData(f))});await refreshCases();codeDialog(result.code,result.case);}catch(error){f.querySelector('.form-status').textContent=error.message;}finally{button.disabled=false;}};
   $('editor-dialog').showModal();
 }
-async function openCase(id){
+async function openCase(id,{savedCase=false,savedReviewId}={}){
+  captureCaseDrafts();
+  const draft=caseDrafts.get(id);if(draft){if(savedCase)draft.fields={};if(savedReviewId)delete draft.reviews[savedReviewId];}
   activeCase=cases.find(c=>c.id===id);if(!activeCase)throw new Error('Refresh the case list and try again.');const c=activeCase;
   allFiles=(await api('files',{caseId:id})).files;
   const container=$('case-detail');container.hidden=false;
-  container.innerHTML=`<div class="actions"><button id="back-to-cases" class="ghost">← Back to cases</button><button id="print-case" class="ghost">Print case summary</button>${c.jurisdiction.portalUrl?`<a class="ghost" href="${esc(c.jurisdiction.portalUrl)}" target="_blank" rel="noopener noreferrer">Open jurisdiction website ↗</a>`:''}</div>${heading(c)}<div class="case-layout"><div class="documents"><h2>Document checklist</h2>${c.requirements.map(r=>documentCard(c,r,allFiles,true)).join('')}</div><aside class="sidebar"><section class="panel"><h3>Permit processing</h3><form id="case-update" class="staff-detail-form"><label>Permit stage<select name="status">${options(statuses,c.status)}</select></label><label>Jurisdiction permit number<input name="permitNumber" maxlength="180" value="${esc(c.permitNumber)}"></label><label>Inspection date<input type="date" name="inspectionDate" value="${esc(c.inspectionDate)}"></label><label>Next step visible to the client<textarea name="clientMessage" maxlength="1500">${esc(c.clientMessage)}</textarea></label><label>Internal GGS notes<textarea name="internalNotes" maxlength="6000">${esc(c.internalNotes)}</textarea></label><p class="fine">Internal notes and permit administration fields are visible only to staff.</p><button class="primary">Save case progress</button></form></section><section class="panel"><h3>Client access</h3><p>${c.accessEnabled?`Code expires ${date(c.accessExpiresAt)}.`:'Client access is revoked.'}</p><label for="renew-months">New code duration</label><select id="renew-months">${[1,2,3,6,12].map(n=>`<option value="${n}" ${n===3?'selected':''}>${n} months</option>`).join('')}</select><button id="renew-code" class="secondary">Renew &amp; replace code</button><p class="fine">Replacing the code ends access from old codes and sessions. Existing documents remain in the case.</p>${c.accessEnabled?'<button id="revoke-code" class="ghost danger">Revoke client access</button>':''}</section></aside></div>`;
+  container.innerHTML=`<div class="actions"><button id="back-to-cases" class="ghost">← Back to cases</button><button id="refresh-case" class="ghost">Refresh case</button><button id="print-case" class="ghost">Print case summary</button>${c.jurisdiction.portalUrl?`<a class="ghost" href="${esc(c.jurisdiction.portalUrl)}" target="_blank" rel="noopener noreferrer">Open jurisdiction website ↗</a>`:''}</div>${heading(c)}<div class="case-layout"><div class="documents"><h2>Document checklist</h2>${c.requirements.map(r=>documentCard(c,r,allFiles,true)).join('')}</div><aside class="sidebar"><section class="panel"><h3>Permit processing</h3><form id="case-update" class="staff-detail-form"><label>Permit stage<select name="status">${options(statuses,c.status)}</select></label><label>Jurisdiction permit number<input name="permitNumber" maxlength="180" value="${esc(c.permitNumber)}"></label><label>Inspection date<input type="date" name="inspectionDate" value="${esc(c.inspectionDate)}"></label><label>Next step visible to the client<textarea name="clientMessage" maxlength="1500">${esc(c.clientMessage)}</textarea></label><label>Internal GGS notes<textarea name="internalNotes" maxlength="6000">${esc(c.internalNotes)}</textarea></label><p class="fine">Internal notes and permit administration fields are visible only to staff.</p><button class="primary">Save case progress</button><p class="fine" id="case-draft-status" role="status"></p></form></section><section class="panel"><h3>Client access</h3><p>${c.accessEnabled?`Code expires ${date(c.accessExpiresAt)}.`:'Client access is revoked.'}</p><label for="renew-months">New code duration</label><select id="renew-months">${[1,2,3,6,12].map(n=>`<option value="${n}" ${n===3?'selected':''}>${n} month${n===1?'':'s'}</option>`).join('')}</select><button id="renew-code" class="secondary">Renew &amp; replace code</button><p class="fine">Replacing the code ends access from old codes and sessions. Existing documents remain in the case.</p>${c.accessEnabled?'<button id="revoke-code" class="ghost danger">Revoke client access</button>':''}</section></aside></div>`;
   $('case-list').hidden=true;document.querySelector('.filter-row').hidden=true;
-  $('back-to-cases').onclick=()=>{container.hidden=true;$('case-list').hidden=false;document.querySelector('.filter-row').hidden=false;};
+  $('back-to-cases').onclick=()=>{captureCaseDrafts();container.hidden=true;$('case-list').hidden=false;document.querySelector('.filter-row').hidden=false;};
+  $('refresh-case').onclick=async()=>{const button=$('refresh-case');button.disabled=true;try{await refreshCases();await openCase(id);notify('Case refreshed. Unsaved changes have been kept.');}catch(error){notify(error.message,true);}finally{button.disabled=false;}};
   $('print-case').onclick=()=>window.print();
-  $('case-update').onsubmit=async e=>{e.preventDefault();const button=e.target.querySelector('button');button.disabled=true;try{await api('case',{method:'PATCH',caseId:id,data:{...Object.fromEntries(new FormData(e.target)),revision:c.revision}});await refreshCases();await openCase(id);notify('Permit progress saved.');}catch(error){notify(error.message,true);}finally{button.disabled=false;}};
+  $('case-update').onsubmit=async e=>{e.preventDefault();const button=e.target.querySelector('button');button.disabled=true;try{await api('case',{method:'PATCH',caseId:id,data:{...Object.fromEntries(new FormData(e.target)),revision:c.revision}});await refreshCases();await openCase(id,{savedCase:true});notify('Permit progress saved.');}catch(error){notify(error.message,true);}finally{button.disabled=false;}};
   $('renew-code').onclick=async()=>{const button=$('renew-code');button.disabled=true;try{const result=await api('access',{method:'POST',caseId:id,data:{enabled:true,months:Number($('renew-months').value)}});await refreshCases();await openCase(id);codeDialog(result.code,result.case);}catch(error){notify(error.message,true);}finally{button.disabled=false;}};
   if($('revoke-code'))$('revoke-code').onclick=async()=>{const button=$('revoke-code');button.disabled=true;try{await api('access',{method:'POST',caseId:id,data:{enabled:false}});await refreshCases();await openCase(id);notify('Client access revoked. The permit record and documents remain available to staff.');}catch(error){notify(error.message,true);}finally{button.disabled=false;}};
+  restoreCaseDrafts(id);
   wireDocuments(container,c,true);
 }

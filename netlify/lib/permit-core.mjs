@@ -49,22 +49,24 @@ export function publicCase(c) {
 export function createPermitHandler({ getStore, getStaff, now = () => new Date() }) {
   const response = (body, status = 200, headers = {}) => new Response(JSON.stringify(body), { status, headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-store, private', 'X-Content-Type-Options': 'nosniff', ...headers } });
   async function list(store, prefix) { const result = await store.list({ prefix }); return Promise.all(result.blobs.map(b => store.get(b.key, { type: 'json' }))); }
-  async function mutate(store, key, update) {
-    const entry = await store.getWithMetadata(key, { type: 'json' });
-    if (!entry) fail(404, 'Record not found.');
-    const next = update(entry.data);
-    const result = await store.setJSON(key, next, { onlyIfMatch: entry.etag });
-    if (!result.modified) fail(409, 'This record changed. Refresh and try again.');
-    return next;
+  async function mutate(store, key, update, retries = 0) {
+    for (let attempt = 0; attempt <= retries; attempt++) {
+      const entry = await store.getWithMetadata(key, { type: 'json' });
+      if (!entry) fail(404, 'Record not found.');
+      const next = update(entry.data);
+      const result = await store.setJSON(key, next, { onlyIfMatch: entry.etag });
+      if (result.modified) return next;
+    }
+    fail(409, 'This record changed. Refresh and try again.');
   }
   async function client(store, req) {
     const cookie = (req.headers.get('cookie') || '').split(';').map(x => x.trim()).find(x => x.startsWith('__Host-ggs-permits='));
     const raw = cookie?.slice('__Host-ggs-permits='.length);
     if (!raw || !/^[a-f0-9]{48}$/.test(raw)) fail(401, 'Enter your access code to continue.');
     const session = await store.get(`sessions/${hash(raw)}`, { type: 'json' });
-    if (!session || Date.parse(session.expiresAt) <= now().getTime()) fail(401, 'Your session expired. Enter your access code again.');
+    if (!session || !Number.isFinite(Date.parse(session.expiresAt)) || Date.parse(session.expiresAt) <= now().getTime()) fail(401, 'Your session expired. Enter your access code again.');
     const c = await store.get(`cases/${session.caseId}`, { type: 'json' });
-    if (!c?.accessEnabled || c.codeHash !== session.codeHash || Date.parse(c.accessExpiresAt) <= now().getTime()) fail(401, 'Your access code is unavailable. Contact GGS for a new code.');
+    if (!c?.accessEnabled || c.codeHash !== session.codeHash || !Number.isFinite(Date.parse(c.accessExpiresAt)) || Date.parse(c.accessExpiresAt) <= now().getTime()) fail(401, 'Your access code is unavailable. Contact GGS for a new code.');
     return c;
   }
   return async (req, context = {}) => {
@@ -82,7 +84,7 @@ export function createPermitHandler({ getStore, getStaff, now = () => new Date()
       const requireStaff = () => { if (!isStaff) fail(403, 'A Guardian Permits staff account is required.'); };
       const body = async () => {
         const s = await req.text(); if (s.length > 65_536) fail(413, 'Request is too large.');
-        try { return JSON.parse(s); } catch { fail(400, 'Request could not be read.'); }
+        try { const value = JSON.parse(s); if (!value || typeof value !== 'object' || Array.isArray(value)) fail(400, 'Request must be an object.'); return value; } catch { fail(400, 'Request could not be read.'); }
       };
       const audit = async (kind, caseId = '') => store.setJSON(`audit/${now().toISOString()}/${randomUUID()}`, { kind, caseId, actor: isStaff ? staff.id : 'client', at: now().toISOString() });
       const newCode = async c => {
@@ -92,18 +94,18 @@ export function createPermitHandler({ getStore, getStaff, now = () => new Date()
       };
       if (action === 'session' && req.method === 'GET') {
         if (isStaff) {
-          let ownCase = null; try { ownCase = publicCase(await client(store, req)); } catch { /* A staff session need not have a client grant. */ }
+          let ownCase = null; try { ownCase = publicCase(await client(store, req)); } catch (error) { if (!(error instanceof HttpError && error.status === 401)) throw error; }
           return response({ staff: { email: staff.email }, case: ownCase, statuses: STATUSES, counties: COUNTIES });
         }
         try { return response({ case: publicCase(await client(store, req)) }); }
-        catch { return response({ staff: null, case: null }); }
+        catch (error) { if (error instanceof HttpError && error.status === 401) return response({ staff: null, case: null }); throw error; }
       }
       if (action === 'login' && req.method === 'POST') {
         const { code } = await body(); const normalized = cleanCode(code);
         if (!/^[a-f0-9]{32}$/.test(normalized)) fail(401, 'Code unavailable. Check the code or contact GGS.');
         const lookup = await store.get(`codes/${hash(normalized)}`, { type: 'json' });
         const c = lookup && await store.get(`cases/${lookup.caseId}`, { type: 'json' });
-        if (!c?.accessEnabled || c.codeHash !== hash(normalized) || Date.parse(c.accessExpiresAt) <= now().getTime()) fail(401, 'Code unavailable. Check the code or contact GGS.');
+        if (!c?.accessEnabled || c.codeHash !== hash(normalized) || !Number.isFinite(Date.parse(c.accessExpiresAt)) || Date.parse(c.accessExpiresAt) <= now().getTime()) fail(401, 'Code unavailable. Check the code or contact GGS.');
         const raw = token(); const expiresAt = new Date(Math.min(now().getTime() + 8 * 3600_000, Date.parse(c.accessExpiresAt))).toISOString();
         await store.setJSON(`sessions/${hash(raw)}`, { caseId: c.id, codeHash: c.codeHash, expiresAt });
         await audit('client-sign-in', c.id);
@@ -131,7 +133,7 @@ export function createPermitHandler({ getStore, getStaff, now = () => new Date()
         if (req.method === 'POST') {
           const input = await body(); const j = await store.get(`jurisdictions/${text(input.jurisdictionId)}`, { type: 'json' });
           if (!j) fail(400, 'Select a jurisdiction profile first.');
-          const months = Number(input.months || 3); if (!Number.isInteger(months) || months < 1 || months > 12) fail(400, 'Choose access lasting 1–12 months.');
+          const months = Number(input.months ?? 3); if (!Number.isInteger(months) || months < 1 || months > 12) fail(400, 'Choose access lasting 1–12 months.');
           if (!text(input.clientName) || !text(input.address, 300)) fail(400, 'Client name and project address are required.');
           const c = { id: randomUUID(), reference: text(input.reference) || `GP-${now().getUTCFullYear()}-${randomBytes(3).toString('hex').toUpperCase()}`, clientName: text(input.clientName), clientEmail: text(input.clientEmail, 254), address: text(input.address, 300), jurisdictionId: j.id, jurisdiction: { name: j.name, county: j.county, municipality: j.municipality, authorityType: j.authorityType, portalUrl: j.portalUrl }, requirements: j.requirements.map(r => ({ ...r, review: 'Requested', staffNote: '' })), status: STATUSES[0], clientMessage: text(input.clientMessage, 1500), internalNotes: '', permitNumber: '', inspectionDate: '', accessEnabled: true, accessExpiresAt: addMonths(now(), months), createdAt: now().toISOString(), updatedAt: now().toISOString(), revision: 1 };
           const code = await newCode(c); c.codeHash = code.codeHash; await store.setJSON(`cases/${c.id}`, c); await audit('case-created', c.id);
@@ -155,8 +157,9 @@ export function createPermitHandler({ getStore, getStaff, now = () => new Date()
       }
       if (action === 'access' && req.method === 'POST') {
         requireStaff(); const input = await body(); let code;
-        if (input.enabled) { const months = Number(input.months || 3); if (!Number.isInteger(months) || months < 1 || months > 12) fail(400, 'Choose 1–12 months.'); code = await newCode(c); }
-        c = await mutate(store, `cases/${c.id}`, current => ({ ...current, accessEnabled: Boolean(input.enabled), ...(code ? { codeHash: code.codeHash, accessExpiresAt: addMonths(now(), Number(input.months || 3)) } : {}), revision: current.revision + 1, updatedAt: now().toISOString() }));
+        if (typeof input.enabled !== 'boolean') fail(400, 'Access enabled must be true or false.');
+        if (input.enabled) { const months = Number(input.months ?? 3); if (!Number.isInteger(months) || months < 1 || months > 12) fail(400, 'Choose 1–12 months.'); code = await newCode(c); }
+        c = await mutate(store, `cases/${c.id}`, current => ({ ...current, accessEnabled: input.enabled, ...(code ? { codeHash: code.codeHash, accessExpiresAt: addMonths(now(), Number(input.months ?? 3)) } : {}), revision: current.revision + 1, updatedAt: now().toISOString() }));
         await audit(code ? 'access-renewed' : 'access-revoked', c.id); return response({ case: publicCase(c), ...(code ? { code: code.code.match(/.{4}/g).join('-') } : {}) });
       }
       if (action === 'files' && req.method === 'GET') return response({ files: (await list(store, `files/${c.id}/`)).sort((a,b) => b.uploadedAt.localeCompare(a.uploadedAt)) });
@@ -171,6 +174,8 @@ export function createPermitHandler({ getStore, getStaff, now = () => new Date()
         const entry = { id, caseId: c.id, itemId, ...info, size: bytes.length, sha256: hash(bytes), uploadedAt: now().toISOString(), uploadedBy: isStaff ? 'GGS staff' : 'Client' };
         const existing = await store.list({ prefix: `files/${c.id}/` }); if (existing.blobs.length >= 100) fail(400, 'This case has reached its file limit. Contact GGS.');
         await store.set(fileKey, bytes); await store.setJSON(`files/${c.id}/${id}`, entry);
+        // Every replacement or additional document requires a fresh staff review.
+        await mutate(store, `cases/${c.id}`, current => ({ ...current, requirements: current.requirements.map(r => r.id === itemId ? { ...r, review: 'Received' } : r), revision: current.revision + 1, updatedAt: now().toISOString() }), 3);
         await audit('document-uploaded', c.id); return response({ file: entry }, 201);
       }
       if (action === 'download' && req.method === 'GET') {
@@ -185,6 +190,7 @@ export function createPermitHandler({ getStore, getStaff, now = () => new Date()
         requireStaff(); const input = await body();
         if (!['Requested', 'Received', 'Accepted', 'Needs correction'].includes(input.review)) fail(400, 'Choose a review status.');
         c = await mutate(store, `cases/${c.id}`, current => {
+          if (current.revision !== Number(input.revision)) fail(409, 'This case changed. Refresh before saving the document review.');
           if (!current.requirements.some(r=>r.id===input.itemId)) fail(400, 'Unknown document requirement.');
           return { ...current, requirements: current.requirements.map(r => r.id === input.itemId ? { ...r, review: input.review, staffNote: text(input.staffNote, 800) } : r), revision: current.revision + 1, updatedAt: now().toISOString() };
         }); await audit('document-reviewed', c.id); return response({ case: publicCase(c) });

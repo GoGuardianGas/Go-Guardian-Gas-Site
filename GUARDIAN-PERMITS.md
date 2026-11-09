@@ -29,10 +29,22 @@ Client sessions use random HttpOnly, Secure, SameSite=Strict cookies and last at
 
 Staff review labels are internal workflow choices, not approval by the authority having jurisdiction. A client upload does not submit a permit. Staff can record the external submission/reference and progress in the case. Requirements must be checked against each jurisdiction’s current instructions.
 
+## Testing hold — November 9, 2026
+
+Keep this work on `guardian-permits` and draft PR #8. Do not merge to `main`: it automatically publishes. The owner requested bug testing before launch.
+
 ## Validation
 
 `npm ci && npm test && npm run build`
 
+All 17 automated tests pass. Browser testing with synthetic local records verified jurisdiction and case creation, progress editing, and preservation of unsaved notes and review feedback. The browser file-chooser check stalled; the complete browser upload/download round trip remains unverified. Local browser testing uses mocked Identity and an in-memory store, so it does not certify Netlify authentication or private Blobs integration.
+
+Regression fixes include preserving unsaved form drafts during review refreshes, rejecting stale document reviews, returning accepted categories to Received on a new upload, rejecting zero-month terms and nonboolean access flags, treating null JSON as bad input, and reporting storage outages accurately.
+
 Tests cover staff authorization, cross-client isolation, expired/revoked/rotated codes and sessions, CSRF, private downloads, upload type spoofing, stale updates and calendar-month expiry, server-side logout, and jurisdiction snapshot isolation. Netlify Identity and Blobs still require a deployed end-to-end check after account activation.
 
 Use the current Netlify documentation for Identity, Functions and Blobs. No provider credentials or staff passwords belong in this repository.
+
+### Local synthetic browser harness
+
+Run `npm run build`, then use the managed Sites preview with `npm run dev` as its command. The harness in `tests/browser-server.mjs` serves `dist`, seeds disposable synthetic records, and mocks staff identity. It must never be deployed as the production handler. For a proxied preview, set its exact origin in ignored `tests/.browser-origin`. Its HTTP cookie adapter is local only; production retains Secure host-only cookies. `tests/fixtures/sample-permit.pdf` contains no client information.
