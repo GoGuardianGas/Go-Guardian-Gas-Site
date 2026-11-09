@@ -256,6 +256,18 @@
   </div>
 </footer>
 
+<script>
+(function(){const p=new URLSearchParams(location.search);if(p.get('source')!=='guardian-connection-check')return;
+const form=document.getElementById('quoteForm');if(!form)return;
+const fuel=p.get('fuel')==='Natural gas (NG)'?'Natural Gas':p.get('fuel')==='Propane (LP)'?'Propane (LP)':'Not Sure';
+const radio=Array.from(form.querySelectorAll('input[name="fuel_type"]')).find(x=>x.value===fuel);if(radio)radio.checked=true;
+const locationField=form.querySelector('#project_location');if(locationField&&p.get('zip'))locationField.value=p.get('zip');
+const install=Array.from(form.querySelectorAll('input[name="service_needed"]')).find(x=>x.value==='Installation');if(install&&p.get('assistance')!=='No, I have an installer')install.checked=true;
+const message=form.querySelector('#message');if(message)message.value=['Guardian Connection Check','Equipment: '+(p.get('equipment')||'Not specified'),'Existing gas connection: '+(p.get('connection')||'Not sure'),'Installation assistance: '+(p.get('assistance')||'Not specified'),'Installation ZIP: '+(p.get('zip')||'Not supplied'),'Project notes: '+(p.get('notes')||'None')].join('\n');
+const subject=form.querySelector('input[name="subject"]');if(subject)subject.value='Guardian Connection Check - Guardian Gas Solutions LLC';
+const heading=document.querySelector('.form-wrap h2');if(heading)heading.textContent='Complete Your Guardian Connection Check';
+})();
+</script>
 <script src="js/site.js?v=20261007a"></script>
 <script>
   // form submission via fetch, keeps user on page, shows success message
