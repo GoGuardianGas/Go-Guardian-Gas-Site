@@ -1,8 +1,10 @@
+import { isDemoCode, mountDemo } from './demo.js';
 const API = '/.netlify/functions/guardian-permits';
 const $ = id => document.getElementById(id);
 const esc = value => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const date = value => value ? new Date(value).toLocaleDateString('en-US', {month:'short',day:'numeric',year:'numeric',timeZone:'America/New_York'}) : 'Not set';
 const isStaffPage = document.body.dataset.page === 'staff';
+let demoOpen=false;
 let cases=[], jurisdictions=[], counties=[], statuses=[], activeCase=null, allFiles=[];
 const caseDrafts = new Map();
 function captureCaseDrafts(){
@@ -70,16 +72,21 @@ function wireDocuments(container,c,staff){
   }));
 }
 async function loadClient(){
-  const data=await api('session');if(!data.case){$('client-case').hidden=true;$('login-panel').hidden=false;$('welcome-steps').hidden=false;$('client-logout').hidden=true;document.body.classList.remove('is-authenticated');return;}
+  const data=await api('session');if(demoOpen)return;if(!data.case){$('client-case').hidden=true;$('login-panel').hidden=false;$('welcome-steps').hidden=false;$('client-logout').hidden=true;document.body.classList.remove('is-authenticated');return;}
   const c=data.case, {files}=await api('files');const accepted=c.requirements.filter(r=>r.review==='Accepted').length;
   $('login-panel').hidden=true;$('welcome-steps').hidden=true;$('client-logout').hidden=false;document.body.classList.add('is-authenticated');
   const container=$('client-case');container.hidden=false;
   container.innerHTML=`${heading(c)}<div class="requirements-summary"><strong>${accepted} of ${c.requirements.length} accepted</strong><div class="progress-track" role="progressbar" aria-label="Documents accepted by GGS" aria-valuemin="0" aria-valuemax="${c.requirements.length}" aria-valuenow="${accepted}"><span style="width:${c.requirements.length?accepted/c.requirements.length*100:0}%"></span></div><p class="fine">Files remain pending until reviewed by GGS.</p></div><div class="case-layout"><div class="documents">${c.requirements.map(r=>documentCard(c,r,files,false)).join('')}</div><aside class="sidebar"><section class="panel client-note"><h3>Your next step</h3><p>${esc(c.clientMessage||'Please upload the documents in your checklist. GGS will review them and let you know if anything needs attention.')}</p></section><section class="panel"><h3>Your access code</h3><p>Access ends on <strong>${date(c.accessExpiresAt)}</strong>. Contact GGS if you need more time.</p><p class="fine">Your documents remain in the GGS permit record after your code expires. Code expiration does not delete the record.</p></section><section class="panel"><h3>Need help with a document?</h3><p>Contact Guardian Gas Solutions LLC and include your case reference: <strong>${esc(c.reference)}</strong>.</p><a href="mailto:info@goguardiangas.com">Email the permit team</a></section></aside></div>`;
   wireDocuments(container,c,false);
 }
+function openDemo(){
+  demoOpen=true;$('access-code').value='';$('login-panel').hidden=true;$('welcome-steps').hidden=true;$('client-logout').hidden=false;$('client-logout').textContent='Exit demo';document.body.classList.add('is-authenticated');
+  const container=$('client-case');container.hidden=false;mountDemo(container);notify('Demo mode — sample case only. No client records are accessible and no documents are sent to GGS.');container.scrollIntoView({block:'start',behavior:'instant'});container.querySelector('h2').focus();
+}
 if(!isStaffPage){
-  $('code-form').addEventListener('submit',async e=>{e.preventDefault();const button=e.target.querySelector('button');button.disabled=true;notify('Checking your access code…');try{await api('login',{method:'POST',data:{code:$('access-code').value}});$('access-code').value='';await loadClient();notify('Your private permit case is open.');$('client-case').scrollIntoView({block:'start',behavior:'instant'});}catch(error){notify(error.message,true);}finally{button.disabled=false;}});
-  $('client-logout').onclick=async()=>{try{await api('logout',{method:'POST',data:{}});await loadClient();notify('You have signed out.');}catch(error){notify(error.message,true);}};
+  $('open-demo').onclick=openDemo;
+  $('code-form').addEventListener('submit',async e=>{e.preventDefault();if(isDemoCode($('access-code').value)){openDemo();return;}const button=e.target.querySelector('button');button.disabled=true;notify('Checking your access code…');try{await api('login',{method:'POST',data:{code:$('access-code').value}});$('access-code').value='';await loadClient();notify('Your private permit case is open.');$('client-case').scrollIntoView({block:'start',behavior:'instant'});}catch(error){notify(error.message,true);}finally{button.disabled=false;}});
+  $('client-logout').onclick=async()=>{if(demoOpen){demoOpen=false;$('client-case').replaceChildren();$('client-case').hidden=true;$('login-panel').hidden=false;$('welcome-steps').hidden=false;$('client-logout').hidden=true;$('client-logout').textContent='Sign out';document.body.classList.remove('is-authenticated');notify('You have left the demo. Enter your private code to open your actual case.');$('access-code').focus();return;}try{await api('logout',{method:'POST',data:{}});await loadClient();notify('You have signed out.');}catch(error){notify(error.message,true);}};
   loadClient().catch(error=>notify(error.message,true));
 } else {
   $('close-dialog').onclick=()=>$('editor-dialog').close();

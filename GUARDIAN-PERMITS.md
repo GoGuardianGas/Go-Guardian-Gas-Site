@@ -29,15 +29,15 @@ Client sessions use random HttpOnly, Secure, SameSite=Strict cookies and last at
 
 Staff review labels are internal workflow choices, not approval by the authority having jurisdiction. A client upload does not submit a permit. Staff can record the external submission/reference and progress in the case. Requirements must be checked against each jurisdiction’s current instructions.
 
-## Testing hold — November 9, 2026
+## Publication and public demo — November 9, 2026
 
-Keep this work on `guardian-permits` and draft PR #8. Do not merge to `main`: it automatically publishes. The owner requested bug testing before launch.
+The owner authorized live publication after adding a dummy access code. `GUARDIAN-DEMO` opens only a fictional browser-local walkthrough. It does not authenticate with the API, grant staff access, accept files, store data, or expose real cases. Sample submission resets on exit. Actual client codes still use server-side case authorization. Deployed staff sign-in and browser download verification remain outstanding before routine real-document use.
 
 ## Validation
 
 `npm ci && npm test && npm run build`
 
-All 17 automated tests pass. Browser testing with synthetic local records verified jurisdiction and case creation, progress editing, and preservation of unsaved notes and review feedback. The browser file-chooser check stalled; the complete browser upload/download round trip remains unverified. Local browser testing uses mocked Identity and an in-memory store, so it does not certify Netlify authentication or private Blobs integration.
+All 18 automated tests pass, including rejection of the public demo code by the private API. Browser testing with synthetic local records verified jurisdiction and case creation, progress editing, and preservation of unsaved notes and review feedback. The retried browser file chooser and both client/staff uploads passed, including acceptance reset on a subsequent upload. Browser download verification remains incomplete. The public demo code, sample action, exit and reset were verified in browser. The homepage shield entry uses a semantic link, a decorative sword with hover/focus motion, and a reduced-motion alternative. Local browser testing uses mocked Identity and an in-memory store, so it does not certify Netlify authentication or private Blobs integration.
 
 Regression fixes include preserving unsaved form drafts during review refreshes, rejecting stale document reviews, returning accepted categories to Received on a new upload, rejecting zero-month terms and nonboolean access flags, treating null JSON as bad input, and reporting storage outages accurately.
 
