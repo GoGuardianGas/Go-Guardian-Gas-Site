@@ -91,7 +91,10 @@ export function createPermitHandler({ getStore, getStaff, now = () => new Date()
         return { code, codeHash };
       };
       if (action === 'session' && req.method === 'GET') {
-        if (isStaff) return response({ staff: { email: staff.email }, statuses: STATUSES, counties: COUNTIES });
+        if (isStaff) {
+          let ownCase = null; try { ownCase = publicCase(await client(store, req)); } catch { /* A staff session need not have a client grant. */ }
+          return response({ staff: { email: staff.email }, case: ownCase, statuses: STATUSES, counties: COUNTIES });
+        }
         try { return response({ case: publicCase(await client(store, req)) }); }
         catch { return response({ staff: null, case: null }); }
       }
@@ -106,11 +109,21 @@ export function createPermitHandler({ getStore, getStaff, now = () => new Date()
         await audit('client-sign-in', c.id);
         return response({ case: publicCase(c) }, 200, { 'Set-Cookie': `__Host-ggs-permits=${raw}; Path=/; HttpOnly; Secure; SameSite=Strict; Max-Age=${Math.floor((Date.parse(expiresAt)-now().getTime())/1000)}` });
       }
-      if (action === 'logout' && req.method === 'POST') return response({ ok: true }, 200, { 'Set-Cookie': '__Host-ggs-permits=; Path=/; HttpOnly; Secure; SameSite=Strict; Max-Age=0' });
+      if (action === 'logout' && req.method === 'POST') {
+        const raw = (req.headers.get('cookie') || '').split(';').map(x=>x.trim()).find(x=>x.startsWith('__Host-ggs-permits='))?.slice('__Host-ggs-permits='.length);
+        if (raw && /^[a-f0-9]{48}$/.test(raw)) await store.setJSON(`sessions/${hash(raw)}`, { expiresAt: now().toISOString() });
+        return response({ ok: true }, 200, { 'Set-Cookie': '__Host-ggs-permits=; Path=/; HttpOnly; Secure; SameSite=Strict; Max-Age=0' });
+      }
       if (action === 'jurisdictions') {
         requireStaff();
         if (req.method === 'GET') return response({ jurisdictions: (await list(store, 'jurisdictions/')).sort((a,b) => a.county.localeCompare(b.county) || a.name.localeCompare(b.name)) });
         if (req.method === 'POST') { const input = await body(); const j = { ...validateJurisdiction(input), id: randomUUID(), createdAt: now().toISOString() }; await store.setJSON(`jurisdictions/${j.id}`, j); await audit('jurisdiction-created'); return response({ jurisdiction: j }, 201); }
+        if (req.method === 'PATCH') {
+          const input = await body(); if (!/^[a-f0-9-]{36}$/.test(input.id || '')) fail(400, 'Select a valid jurisdiction.');
+          const fields = validateJurisdiction(input);
+          const j = await mutate(store, `jurisdictions/${input.id}`, current=>({ ...current, ...fields, updatedAt: now().toISOString() }));
+          await audit('jurisdiction-updated'); return response({ jurisdiction: j });
+        }
       }
       if (action === 'cases') {
         requireStaff();
@@ -128,7 +141,7 @@ export function createPermitHandler({ getStore, getStaff, now = () => new Date()
       const caseId = url.searchParams.get('caseId');
       if (caseId && !/^[a-f0-9-]{36}$/.test(caseId)) fail(400, 'Invalid case reference.');
       let c;
-      if (isStaff) { c = caseId && await store.get(`cases/${caseId}`, { type: 'json' }); }
+      if (isStaff && caseId) { c = await store.get(`cases/${caseId}`, { type: 'json' }); }
       else c = await client(store, req);
       if (!c) fail(404, 'Permit case not found.');
       if (caseId && c.id !== caseId) fail(403, 'This case is not assigned to your access code.');

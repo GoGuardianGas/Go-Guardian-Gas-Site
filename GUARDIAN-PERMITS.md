@@ -33,6 +33,6 @@ Staff review labels are internal workflow choices, not approval by the authority
 
 `npm ci && npm test && npm run build`
 
-Tests cover staff authorization, cross-client isolation, expired/revoked/rotated codes and sessions, CSRF, private downloads, upload type spoofing, stale updates and calendar-month expiry. Netlify Identity and Blobs still require a deployed end-to-end check after account activation.
+Tests cover staff authorization, cross-client isolation, expired/revoked/rotated codes and sessions, CSRF, private downloads, upload type spoofing, stale updates and calendar-month expiry, server-side logout, and jurisdiction snapshot isolation. Netlify Identity and Blobs still require a deployed end-to-end check after account activation.
 
 Use the current Netlify documentation for Identity, Functions and Blobs. No provider credentials or staff passwords belong in this repository.

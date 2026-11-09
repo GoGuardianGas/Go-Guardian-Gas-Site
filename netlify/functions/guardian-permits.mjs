@@ -3,7 +3,7 @@ import { getUser } from '@netlify/identity';
 import { createPermitHandler } from '../lib/permit-core.mjs';
 
 export default createPermitHandler({
-  getStore: context => getStore({ name: process.env.CONTEXT === 'production' ? 'guardian-permits-v1' : `guardian-permits-preview-${context.deploy?.id || 'local'}`, consistency: 'strong' }),
+  getStore: context => getStore({ name: context.deploy?.context === 'production' ? 'guardian-permits-v1' : `guardian-permits-preview-${context.deploy?.id || 'local'}`, consistency: 'strong' }),
   getStaff: () => getUser()
 });
 
