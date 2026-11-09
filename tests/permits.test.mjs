@@ -1,0 +1,32 @@
+import { test, beforeEach } from 'node:test';
+import assert from 'node:assert/strict';
+import { createPermitHandler, addMonths } from '../netlify/lib/permit-core.mjs';
+const origin='https://ggs.example';
+let db, revision, staff, now, handler;
+beforeEach(()=>{
+  db=new Map();revision=0;staff=null;now=new Date('2026-11-09T18:00:00Z');
+  const store={
+    async get(key){return db.has(key)?structuredClone(db.get(key).data):null;},
+    async getWithMetadata(key){return db.has(key)?structuredClone(db.get(key)):null;},
+    async setJSON(key,data,options={}){if(options.onlyIfMatch&&db.get(key)?.etag!==options.onlyIfMatch)return {modified:false};db.set(key,{data:structuredClone(data),etag:String(++revision)});return {modified:true};},
+    async set(key,data){db.set(key,{data:structuredClone(data),etag:String(++revision)});},
+    async list({prefix}){return {blobs:[...db.keys()].filter(k=>k.startsWith(prefix)).map(key=>({key}))};}
+  };
+  handler=createPermitHandler({getStore:()=>store,getStaff:()=>staff,now:()=>now});
+});
+async function call(action,{method='GET',data,cookie,caseId,fileId,form,requestOrigin=origin}={}){
+ const url=new URL('/.netlify/functions/guardian-permits',origin);url.searchParams.set('action',action);if(caseId)url.searchParams.set('caseId',caseId);if(fileId)url.searchParams.set('fileId',fileId);
+ return handler(new Request(url,{method,headers:{...(method!=='GET'?{origin:requestOrigin}:{}),...(cookie?{cookie}:{}),...(data?{'content-type':'application/json'}:{})},body:form||(data?JSON.stringify(data):undefined)}));
+}
+const becomeStaff=()=>{staff={id:'staff1',email:'owner@example.com',confirmedAt:'2026-01-01',roles:['permits-staff']};};
+async function makeCase(){becomeStaff();const j=await (await call('jurisdictions',{method:'POST',data:{county:'Marion',authorityType:'county',requirements:[{name:'Site plan'}]}})).json();const response=await call('cases',{method:'POST',data:{jurisdictionId:j.jurisdiction.id,clientName:'Test owner',address:'Test address',months:3}});assert.equal(response.status,201);return response.json();}
+async function enter(code){staff=null;const res=await call('login',{method:'POST',data:{code}});assert.equal(res.status,200);return res.headers.get('set-cookie').split(';')[0];}
+test('staff records require a confirmed account with the staff role',async()=>{assert.equal((await call('cases')).status,403);staff={id:'fake',roles:['permits-staff']};assert.equal((await call('cases')).status,403);staff={id:'fake',confirmedAt:'2026-01-01',userMetadata:{roles:['permits-staff']},roles:[]};assert.equal((await call('cases')).status,403);});
+test('code is hashed, cookie is protected, and client response excludes staff notes',async()=>{const a=await makeCase();assert(!JSON.stringify([...db.values()]).includes(a.code.replaceAll('-','')));becomeStaff();await call('case',{method:'PATCH',caseId:a.case.id,data:{revision:1,status:'Submitted',internalNotes:'PRIVATE STAFF NOTE',clientMessage:'We are reviewing.'}});const cookie=await enter(a.code);const res=await call('session',{cookie});assert(!JSON.stringify(await res.json()).includes('PRIVATE STAFF NOTE'));staff=null;const login=await call('login',{method:'POST',data:{code:a.code}});assert.match(login.headers.get('set-cookie'),/HttpOnly; Secure; SameSite=Strict/);});
+test('client cannot read another case or list all cases',async()=>{const a=await makeCase(),b=await makeCase();const cookie=await enter(a.code);assert.equal((await call('files',{cookie,caseId:b.case.id})).status,403);assert.equal((await call('cases',{cookie})).status,403);assert.equal((await call('case',{method:'PATCH',cookie,caseId:a.case.id,data:{revision:1,status:'Complete'}})).status,403);});
+test('expired access denies existing sessions as well as new sign-ins',async()=>{const a=await makeCase(),cookie=await enter(a.code);now=new Date('2027-02-10');assert.equal((await call('files',{cookie})).status,401);assert.equal((await call('login',{method:'POST',data:{code:a.code}})).status,401);});
+test('revocation and replacement invalidate old sessions immediately',async()=>{const a=await makeCase(),cookie=await enter(a.code);becomeStaff();await call('access',{method:'POST',caseId:a.case.id,data:{enabled:false}});staff=null;assert.equal((await call('files',{cookie})).status,401);becomeStaff();const renewed=await (await call('access',{method:'POST',caseId:a.case.id,data:{enabled:true,months:1}})).json();staff=null;assert.equal((await call('login',{method:'POST',data:{code:a.code}})).status,401);assert.equal((await call('files',{cookie})).status,401);await enter(renewed.code);});
+test('rejects cross-origin mutations before reading or changing private data',async()=>{const a=await makeCase();assert.equal((await call('login',{method:'POST',requestOrigin:'https://attacker.example',data:{code:a.code}})).status,403);});
+test('file upload and download remain scoped; spoofed files are rejected',async()=>{const a=await makeCase(),b=await makeCase(),cookie=await enter(a.code);const form=new FormData();form.append('itemId',a.case.requirements[0].id);form.append('file',new File(['%PDF-1.4\nTest'], 'site-plan.pdf',{type:'application/pdf'}));const upload=await call('upload',{method:'POST',caseId:a.case.id,form,cookie});assert.equal(upload.status,201);const file=(await upload.json()).file;const download=await call('download',{caseId:a.case.id,fileId:file.id,cookie});assert.equal(download.status,200);assert.match(download.headers.get('content-disposition'),/^attachment/);assert.match(await download.text(),/%PDF/);const otherCookie=await enter(b.code);assert.equal((await call('download',{caseId:b.case.id,fileId:file.id,cookie:otherCookie})).status,404);const bad=new FormData();bad.append('itemId',a.case.requirements[0].id);bad.append('file',new File(['<script>bad</script>'],'fake.pdf',{type:'application/pdf'}));assert.equal((await call('upload',{method:'POST',caseId:a.case.id,form:bad,cookie})).status,400);});
+test('stale staff updates do not overwrite a newer edit',async()=>{const a=await makeCase();const data={revision:1,status:'Submitted'};assert.equal((await call('case',{method:'PATCH',caseId:a.case.id,data})).status,200);assert.equal((await call('case',{method:'PATCH',caseId:a.case.id,data})).status,409);});
+test('month expiry clamps to the last valid calendar day',()=>{assert.equal(addMonths('2026-01-31T12:00:00Z',1),'2026-02-28T12:00:00.000Z');});
