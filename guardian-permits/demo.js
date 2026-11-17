@@ -1,0 +1,15 @@
+// Public sample experience only. No authentication, network calls, file selection, or storage.
+export const isDemoCode = value => String(value).trim().toUpperCase() === 'GUARDIAN-DEMO';
+export function mountDemo(container) {
+  container.innerHTML = `<section class="notice"><strong>PUBLIC DEMO · SAMPLE INFORMATION</strong><p>This walkthrough uses fictional project details. Sample actions stay in this page and reset when you leave. For your actual project, use the private code provided by Guardian Gas Solutions LLC.</p></section>
+<div class="case-heading"><p class="eyebrow">DEMO-001</p><h2 tabindex="-1">Your sample permit project</h2><p>Fictional residential gas installation · No real client or property</p><div class="case-meta"><div><span>County</span>Marion County (example)</div><div><span>Permitting authority</span>County / unincorporated (example)</div><div><span>Access</span>Public demonstration only</div></div></div>
+<div class="case-layout"><div class="documents"><article class="document"><div class="document-heading"><h3>Owner authorization</h3><span class="tag good">Accepted · sample</span></div><p>Example of a document that GGS has reviewed. This is a demonstration, not an actual permit approval.</p></article>
+<article class="document"><div class="document-heading"><h3>Site plan / gas system layout</h3><span class="tag" id="demo-review">Requested · sample</span></div><p>Your actual checklist will reflect the requirements confirmed by GGS for your county or municipality. These examples are not a jurisdiction’s official requirements.</p><button class="secondary" id="demo-upload" type="button">Try a sample document submission</button><p id="demo-upload-result" class="fine" role="status" aria-live="polite">No file is needed. This button simulates receipt of a fictional document.</p></article></div>
+<aside class="sidebar"><section class="panel"><h3>Next step · example</h3><p>Provide the requested site plan. The GGS team checks the document and posts feedback here if corrections are needed.</p></section><section class="panel"><h3>How private access works</h3><p>GGS assigns a separate private code to each real case, with an expiration date. The public demo code cannot open a real case.</p><p>Uploading in a real case sends documents to GGS for review. It does not submit them to a government office.</p></section><section class="panel"><h3>Ready to start your project?</h3><a href="mailto:info@goguardiangas.com">Contact Guardian Gas Solutions LLC</a><p>Ask our team about your project and your permit portal access.</p></section></aside></div>`;
+  container.querySelector('#demo-upload').onclick = event => {
+    container.querySelector('#demo-review').textContent='Received · sample';
+    container.querySelector('#demo-upload-result').textContent='Sample document received — awaiting GGS review. This was a simulation; nothing was uploaded or saved.';
+    event.currentTarget.disabled=true;
+    event.currentTarget.textContent='Sample submission complete';
+  };
+}
